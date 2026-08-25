@@ -239,13 +239,6 @@ details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var
   font-size:.86rem;
   color:#5d4e00;
 }
-.hl-note{
-  margin-top:8px;
-  color:var(--m);
-  font-size:.84rem;
-  border-top:1px dashed var(--b);
-  padding-top:8px;
-}
 .num-sug{
   display:inline-block;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -337,12 +330,10 @@ details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var
   <h1>好命密碼 · 數字磁場</h1>
   <p class="sub">跟愛德華門派 · 先天／流年／後天分流</p>
 </header>
-
 <div class="tabs">
   <button type="button" class="tab active" data-sec="analyze">分析</button>
   <button type="button" class="tab" data-sec="wiki">八大磁場百科</button>
 </div>
-
 <section id="sec-analyze" class="section active">
   <div class="card">
     <div class="card-title">輸入數字</div>
@@ -371,37 +362,15 @@ details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var
     </div>
     <p class="muted" style="margin-top:12px">0＝隱性弱化（全部）；5＝只喺電話計。身份證字母 A=01…Z=26。</p>
   </div>
-
   <div id="results" style="display:none">
-    <div class="card">
-      <div class="card-title">呢次分析角色</div>
-      <div id="roleBox"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">故事解讀</div>
-      <div class="story" id="storyBox"></div>
-      <div class="star-bar" id="starBar"></div>
-    </div>
-    <div class="card" id="luckCard" style="display:none">
-      <div class="card-title">身份證流年走勢</div>
-      <p class="muted" style="margin-bottom:10px">第一組 0–13 歲，之後每 5 年一組。每格附上該星含義。</p>
-      <div class="luck-grid" id="luckGrid"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">磁場走勢</div>
-      <div id="pairFlow"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">詳細說明（撳開展開）</div>
-      <div id="details"></div>
-    </div>
-    <div class="card" id="fixCard" style="display:none">
-      <div class="card-title">化解／補足建議</div>
-      <div id="fixBox"></div>
-    </div>
+    <div class="card"><div class="card-title">呢次分析角色</div><div id="roleBox"></div></div>
+    <div class="card"><div class="card-title">故事解讀</div><div class="story" id="storyBox"></div><div class="star-bar" id="starBar"></div></div>
+    <div class="card" id="luckCard" style="display:none"><div class="card-title">身份證流年走勢</div><p class="muted" style="margin-bottom:10px">第一組 0–13 歲，之後每 5 年一組。每格附上該星含義。</p><div class="luck-grid" id="luckGrid"></div></div>
+    <div class="card"><div class="card-title">磁場走勢</div><div id="pairFlow"></div></div>
+    <div class="card"><div class="card-title">詳細說明（撳開展開）</div><div id="details"></div></div>
+    <div class="card" id="fixCard" style="display:none"><div class="card-title">化解／補足建議</div><div id="fixBox"></div></div>
   </div>
 </section>
-
 <section id="sec-wiki" class="section">
   <div class="card">
     <div class="card-title">八大磁場百科</div>
@@ -411,7 +380,7 @@ details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var
 </section>
 </div>
 <script>
-const FIELDS={tianyi:{name:'天醫',pol:'吉',rank:'大吉星',pairs:['13','31','68','86','49','94','27','72'], short:'有錢路同貴人幫一手，心胸開闊', pros:['聰明睿智','善解人意','心胸開闊','學習能力強','喜歡幫助人'], cons:['太善良單純','沒心機','沒主見','容易被騙'], job:'能成就一番大事業，成為老闆或老闆得力助手；任何行業都能做出不錯成績，帶來連續財富與業績。', wealth:'正財、偏財、橫財、八方財運都有，但唔會守財，花錢較大方。', love:'正桃花、正姻緣、婚姻美滿；女性旺夫。', health:'容易引發血壓、血液循環問題，以及眼耳鼻方面疾病。', friend:'易遇貴人，適合長期合作。', note:'大吉星。教材：天醫代表財富，但老年人唔宜天醫太多（富貴病、心腦血管風險）。'},shengqi:{name:'生氣',pol:'吉',rank:'大吉星',pairs:['14','41','67','76','39','93','28','82'], short:'貴人多、心情開朗、人緣好', pros:['貴人多','樂天派','思維活躍','看得開隨緣','溝通能力強','願意接受新事物'], cons:['企圖心不強','懶散拖延','沒主見','缺乏上進心','容易滿足','三分鐘熱度','易相信別人而受騙'], job:'特別適合公關、銷售業務及服務業；貴人多、逢凶化吉，但容易滿足、對事不強求，導致上進心不足。', wealth:'貴人來財、升官顯貴、意外之財（中彩、投資等）；不善理財，錢花在朋友身上。', love:'隨緣、不強求；若已婚，非常和諧，溝通協調，婚姻甜蜜。', health:'容易有眼耳鼻五官系統疾病或腸胃疾病，容易肥胖。', friend:'到處都有人願意幫，識人廣。', note:'大吉星。學生可用生氣+延年增人緣同學習。'},yannian:{name:'延年',pol:'吉',rank:'小吉星',pairs:['19','91','78','87','34','43','26','62'], short:'有主見、肯扛責任、專業穩定', pros:['領導領袖格局','責任心強','自主有分寸','懂守財','懂得經營運營'], cons:['自作主張不易聽勸','閒不住忙碌反抗','固執死板','不圓滑'], job:'工作能力強、專業能力強；專注，容易成為領導或自己開公司，忙碌奔波，也適合專業技術類工作。', wealth:'靠自己辛苦努力付出獲得；懂得理財、生財有道，喜歡精打細算，有「鐵公雞」稱號。', love:'善於處理關係，厚道、固執、專一；高期待高標準，對感情要求忠誠；一旦出軌，絕對沒有挽回餘地。', health:'積勞成疾，壓力大，容易引發肩頸腰病痛、睡眠不好、脫發掉發，或神經及心臟系統疾病。', friend:'真正夥伴會好耐。', note:'小吉星。⚠️教材特別警告：大延年（19/91）至陽至剛，女性一定不能使用！會克夫、影響感情、難找對象、易離婚等。'},fuwei:{name:'伏位',pol:'平',rank:'小吉星（依附）',pairs:['11','22','33','44','66','77','88','99'], short:'慢慢守住、延續上一段嘅勢（隨吉則吉，隨凶則凶）', pros:['謹慎有耐性','平和有潛能','毅力','擁有一般人所沒有的耐心'], cons:['保守被動','不會變通','固執','怕冒險','想法多','缺安全感'], job:'平緩上行、平順安穩，工作踏實，等待機會；適合按部就班、打工。', wealth:'穩定求財，按部就班，喜歡拿固定工資、獲得固定收入。', love:'缺乏安全感，保守固執，容易患得患失；顧家，家庭觀念很強，細水長流；被動平淡。', health:'心臟、腦部疾病及焦慮症；慢性隱性病，如糖尿病。', friend:'舊人多過新人，圈子穩定。', note:'依附隨從磁場：前面係吉星就延續吉，前面係凶星就延續凶。過程越曲折，前進越快。'},huohai:{name:'禍害',pol:'凶',rank:'小兇星',pairs:['17','71','89','98','46','64','23','32'], short:'多口舌是非、容易講錯嘢蝕底', pros:['口才好','能言善辯','反應快','有目標感有行動力','真誠善良','同情弱者','喜歡分享溝通'], cons:['脾氣差','愛抱怨愛生氣','愛面子','內心脆弱','口舌是非','嘴硬口直心快','容易招小人','易為小事口角吵架'], job:'以口為業：老師、業務員、服務業、娛樂、律師、講師、主播、主持人等。', wealth:'開口來財（培訓、演講、主持、收租等）；因先天不足，大富之人極少，且易因口舌破財。', love:'常說花言巧語，婚後易吵架，各執己見不肯認輸，易因吵架而離婚；容易抱怨、易生氣。', health:'先天不足，免疫力低，體弱多病，容易感冒咳嗽、呼吸道系統疾病；身體上易開刀開口，也容易發生意外。', friend:'小心讒言同誤會。', note:'小兇星。高能量禍害數字（17、89）容易同人爭吵。'},liusha:{name:'六煞',pol:'凶',rank:'小兇星',pairs:['16','61','47','74','38','83','29','92'], short:'因為感情同情緒而煩、易破財', pros:['八面玲瓏','交際能力強會變通','親和力十足','異性緣佳','善於溝通','愛打扮','思維細膩','對藝術和美有鑒賞能力'], cons:['想的多猶豫','情緒化矛盾','優柔寡斷','易憂鬱症為情所困','心思敏感愛幻想','耳根軟','多心多疑','易聽信謠言'], job:'善於外交，交際能力強；適合做外交、公關、服務業、中介，與女人和美相關的行業。', wealth:'靠人際關係生財，但不善理財，花錢快，把錢花在家庭、女人或公司上，守不住財富。', love:'感情豐富、偏桃花、婚外情、三角關係，為情所困；嚴重容易導致憂鬱。教材：流年遇鬼會離婚。', health:'體質上易有皮膚及腸胃相關疾病；憂鬱症、躁鬱症及精神、情緒方面疾病。', friend:'異性緣旺，但界線要清。', note:'小兇星。六煞+五鬼組合教材統計離婚率極高。'},wugui:{name:'五鬼',pol:'凶',rank:'大兇星',pairs:['18','81','79','97','36','63','24','42'], short:'起起落落、錢來得快去得快', pros:['才華橫溢','反應快鬼才','學習能力強','點子多創新','不斷求變','善於心計和謀略'], cons:['不穩定反復無常','幻想多不踏實','多疑城府深','對誰也不相信'], job:'適合做公司智囊團、金融、藝術廣告、策劃、互聯網、偏門行業、變動多的職業。', wealth:'靠精力來財，多是偏財、暗財，或來自不經意的鬼點子及創意；錢來得快去得也快，容易瞬間消失，引發負債。', love:'三角戀、不安分、易有外遇、反復無常、變化多，時常處在不安定狀態；離異、分居、異國戀，不利婚姻。教材：外遇離婚；流年遇煞會離婚。', health:'心臟、血液循環，易發生意外；五鬼磁場越大越易血光之災；女性婦科，男性心肺。高能量五鬼+絕命極易引發癌症。心臟病係五鬼代名詞。', friend:'人脈廣但流動大。', note:'大兇星。多鬼：教材統計95%婚姻不好。'},jueming:{name:'絕命',pol:'凶',rank:'大兇星',pairs:['12','21','69','96','48','84','37','73'], short:'捱得辛苦、大上大落、易衝動', pros:['頭腦反應快','有才華','毅力驚人','善良豪爽講義氣','善於謀略','拼命積極','超強企劃能力和判斷力'], cons:['衝動情緒難控','易暴躁','極端自我','性格偏激','容易被騙','賭性較強','容易有官司'], job:'策劃能力強，有軍師特質，敢冒險；適合自己創業或當企業老大，做投資、股票、金融理財等工作。', wealth:'愛投資、辦企業、開公司、買固定資產；賺錢不難，但也開銷大，來得快去得也快；易有固定資產但缺現金、易負債，不會守財、易破財。', love:'難有結果、易分手，家庭協調性差；愛恨分明、易離婚、容易一拍兩散；想法極端（閃婚閃離）；有時重視朋友甚於親人。', health:'容易出現肝腎膽問題、糖尿病、膀胱泌尿系統及生殖器官疾病；年輕人則視力不好，或性功能障礙。', friend:'對人要求高，易絕交。', note:'大兇星。激情、離婚。'}};
+const FIELDS={tianyi:{name:'天醫',pol:'吉',rank:'大吉星',pairs:['13','31','68','86','49','94','27','72'],short:'有錢路同貴人幫一手，心胸開闊',pros:['聰明睿智','善解人意','心胸開闊','學習能力強','喜歡幫助人'],cons:['太善良單純','沒心機','沒主見','容易被騙'],job:'能成就一番大事業，成為老闆或老闆得力助手；任何行業都能做出不錯成績，帶來連續財富與業績。',wealth:'正財、偏財、橫財、八方財運都有，但唔會守財，花錢較大方。',love:'正桃花、正姻緣、婚姻美滿；女性旺夫。',health:'容易引發血壓、血液循環問題，以及眼耳鼻方面疾病。',friend:'易遇貴人，適合長期合作。',note:'大吉星。教材：天醫代表財富，但老年人唔宜天醫太多（富貴病、心腦血管風險）。'},shengqi:{name:'生氣',pol:'吉',rank:'大吉星',pairs:['14','41','67','76','39','93','28','82'],short:'貴人多、心情開朗、人緣好',pros:['貴人多','樂天派','思維活躍','看得開隨緣','溝通能力強','願意接受新事物'],cons:['企圖心不強','懶散拖延','沒主見','缺乏上進心','容易滿足','三分鐘熱度','易相信別人而受騙'],job:'特別適合公關、銷售業務及服務業；貴人多、逢凶化吉，但容易滿足、對事不強求，導致上進心不足。',wealth:'貴人來財、升官顯貴、意外之財（中彩、投資等）；不善理財，錢花在朋友身上。',love:'隨緣、不強求；若已婚，非常和諧，溝通協調，婚姻甜蜜。',health:'容易有眼耳鼻五官系統疾病或腸胃疾病，容易肥胖。',friend:'到處都有人願意幫，識人廣。',note:'大吉星。學生可用生氣+延年增人緣同學習。'},yannian:{name:'延年',pol:'吉',rank:'小吉星',pairs:['19','91','78','87','34','43','26','62'],short:'有主見、肯扛責任、專業穩定',pros:['領導領袖格局','責任心強','自主有分寸','懂守財','懂得經營運營'],cons:['自作主張不易聽勸','閒不住忙碌反抗','固執死板','不圓滑'],job:'工作能力強、專業能力強；專注，容易成為領導或自己開公司，忙碌奔波，也適合專業技術類工作。',wealth:'靠自己辛苦努力付出獲得；懂得理財、生財有道，喜歡精打細算，有「鐵公雞」稱號。',love:'善於處理關係，厚道、固執、專一；高期待高標準，對感情要求忠誠；一旦出軌，絕對沒有挽回餘地。',health:'積勞成疾，壓力大，容易引發肩頸腰病痛、睡眠不好、脫發掉發，或神經及心臟系統疾病。',friend:'真正夥伴會好耐。',note:'小吉星。⚠️教材特別警告：大延年（19/91）至陽至剛，女性一定不能使用！會克夫、影響感情、難找對象、易離婚等。'},fuwei:{name:'伏位',pol:'平',rank:'小吉星（依附）',pairs:['11','22','33','44','66','77','88','99'],short:'慢慢守住、延續上一段嘅勢（隨吉則吉，隨凶則凶）',pros:['謹慎有耐性','平和有潛能','毅力','擁有一般人所沒有的耐心'],cons:['保守被動','不會變通','固執','怕冒險','想法多','缺安全感'],job:'平緩上行、平順安穩，工作踏實，等待機會；適合按部就班、打工。',wealth:'穩定求財，按部就班，喜歡拿固定工資、獲得固定收入。',love:'缺乏安全感，保守固執，容易患得患失；顧家，家庭觀念很強，細水長流；被動平淡。',health:'心臟、腦部疾病及焦慮症；慢性隱性病，如糖尿病。',friend:'舊人多過新人，圈子穩定。',note:'依附隨從磁場：前面係吉星就延續吉，前面係凶星就延續凶。過程越曲折，前進越快。'},huohai:{name:'禍害',pol:'凶',rank:'小兇星',pairs:['17','71','89','98','46','64','23','32'],short:'多口舌是非、容易講錯嘢蝕底',pros:['口才好','能言善辯','反應快','有目標感有行動力','真誠善良','同情弱者','喜歡分享溝通'],cons:['脾氣差','愛抱怨愛生氣','愛面子','內心脆弱','口舌是非','嘴硬口直心快','容易招小人','易為小事口角吵架'],job:'以口為業：老師、業務員、服務業、娛樂、律師、講師、主播、主持人等。',wealth:'開口來財（培訓、演講、主持、收租等）；因先天不足，大富之人極少，且易因口舌破財。',love:'常說花言巧語，婚後易吵架，各執己見不肯認輸，易因吵架而離婚；容易抱怨、易生氣。',health:'先天不足，免疫力低，體弱多病，容易感冒咳嗽、呼吸道系統疾病；身體上易開刀開口，也容易發生意外。',friend:'小心讒言同誤會。',note:'小兇星。高能量禍害數字（17、89）容易同人爭吵。'},liusha:{name:'六煞',pol:'凶',rank:'小兇星',pairs:['16','61','47','74','38','83','29','92'],short:'因為感情同情緒而煩、易破財',pros:['八面玲瓏','交際能力強會變通','親和力十足','異性緣佳','善於溝通','愛打扮','思維細膩','對藝術和美有鑒賞能力'],cons:['想的多猶豫','情緒化矛盾','優柔寡斷','易憂鬱症為情所困','心思敏感愛幻想','耳根軟','多心多疑','易聽信謠言'],job:'善於外交，交際能力強；適合做外交、公關、服務業、中介，與女人和美相關的行業。',wealth:'靠人際關係生財，但不善理財，花錢快，把錢花在家庭、女人或公司上，守不住財富。',love:'感情豐富、偏桃花、婚外情、三角關係，為情所困；嚴重容易導致憂鬱。教材：流年遇鬼會離婚。',health:'體質上易有皮膚及腸胃相關疾病；憂鬱症、躁鬱症及精神、情緒方面疾病。',friend:'異性緣旺，但界線要清。',note:'小兇星。六煞+五鬼組合教材統計離婚率極高。'},wugui:{name:'五鬼',pol:'凶',rank:'大兇星',pairs:['18','81','79','97','36','63','24','42'],short:'起起落落、錢來得快去得快',pros:['才華橫溢','反應快鬼才','學習能力強','點子多創新','不斷求變','善於心計和謀略'],cons:['不穩定反復無常','幻想多不踏實','多疑城府深','對誰也不相信'],job:'適合做公司智囊團、金融、藝術廣告、策劃、互聯網、偏門行業、變動多的職業。',wealth:'靠精力來財，多是偏財、暗財，或來自不經意的鬼點子及創意；錢來得快去得也快，容易瞬間消失，引發負債。',love:'三角戀、不安分、易有外遇、反復無常、變化多，時常處在不安定狀態；離異、分居、異國戀，不利婚姻。教材：外遇離婚；流年遇煞會離婚。',health:'心臟、血液循環，易發生意外；五鬼磁場越大越易血光之災；女性婦科，男性心肺。高能量五鬼+絕命極易引發癌症。心臟病係五鬼代名詞。',friend:'人脈廣但流動大。',note:'大兇星。多鬼：教材統計95%婚姻不好。'},jueming:{name:'絕命',pol:'凶',rank:'大兇星',pairs:['12','21','69','96','48','84','37','73'],short:'捱得辛苦、大上大落、易衝動',pros:['頭腦反應快','有才華','毅力驚人','善良豪爽講義氣','善於謀略','拼命積極','超強企劃能力和判斷力'],cons:['衝動情緒難控','易暴躁','極端自我','性格偏激','容易被騙','賭性較強','容易有官司'],job:'策劃能力強，有軍師特質，敢冒險；適合自己創業或當企業老大，做投資、股票、金融理財等工作。',wealth:'愛投資、辦企業、開公司、買固定資產；賺錢不難，但也開銷大，來得快去得也快；易有固定資產但缺現金、易負債，不會守財、易破財。',love:'難有結果、易分手，家庭協調性差；愛恨分明、易離婚、容易一拍兩散；想法極端（閃婚閃離）；有時重視朋友甚於親人。',health:'容易出現肝腎膽問題、糖尿病、膀胱泌尿系統及生殖器官疾病；年輕人則視力不好，或性功能障礙。',friend:'對人要求高，易絕交。',note:'大兇星。激情、離婚。'}};
 const PAIR_MAP={};Object.keys(FIELDS).forEach(function(k){FIELDS[k].pairs.forEach(function(p){PAIR_MAP[p]=k;});});
 const KIND_INFO={phone:{tag:'後天分身',text:'長時間貼身使用，可更新嘅後天能量。'},id:{tag:'流年運程',text:'身份證化成數字後係一世流年走勢表。'},birth:{tag:'先天命格',text:'出生年月日組成嘅先天數，一世唔會變。'},plate:{tag:'後天磁場',text:'車牌主要影響開車同交通安全。'},address:{tag:'後天磁場',text:'門牌影響家宅同健康。'},account:{tag:'後天磁場',text:'帳號影響財富進出同守財。'},other:{tag:'後天磁場',text:'日常數字屬後天磁場。'}};let currentKind='phone';
 function bindUI(){
@@ -442,30 +411,19 @@ function birthCode(iso){
 }
 function idLuckPeriods(pairs){return pairs.map(function(p,i){var from=i===0?0:13+(i-1)*5;var to=i===0?13:from+5;return {from:from,to:to,pair:p.display,field:p.field,name:FIELDS[p.field].name,pol:FIELDS[p.field].pol};});}
 function buildPairs(digits,kind){
-  // 先天命格：每兩個相鄰數字一組（滑動），未知／帶0 → 伏位並延續前星
   if(kind==='birth'){
     var out=[];
     for(var i=0;i<digits.length-1;i++){
       var pair=digits.charAt(i)+digits.charAt(i+1);
       var key=PAIR_MAP[pair];
       var field, note='';
-      if(key){
-        field=key;
-      }else{
-        // 不在八大組合內，或含0，一律當伏位
-        field='fuwei';
-        if(pair.indexOf('0')>=0) note='含0當伏位';
-        else note='非標準組合當伏位';
-      }
-      if(field==='fuwei'&&out.length){
-        field=out[out.length-1].field;
-        note=(note?note+'；':'')+'伏位延續「'+FIELDS[field].name+'」';
-      }
+      if(key){field=key;}
+      else{field='fuwei';if(pair.indexOf('0')>=0) note='含0當伏位';else note='非標準組合當伏位';}
+      if(field==='fuwei'&&out.length){field=out[out.length-1].field;note=(note?note+'；':'')+'伏位延續「'+FIELDS[field].name+'」';}
       out.push({pair:pair,display:pair,field:field,connector:null,factor:1,note:note});
     }
     return out;
   }
-  // 其他類型（電話／身份證等）：原有邏輯
   var source=kind==='phone'?digits:digits.replace(/5/g,'');
   var core=[], pending='';
   for(var i=0;i<source.length;i++){
@@ -485,10 +443,7 @@ function buildPairs(digits,kind){
     var field=key, note='';
     if(connector==='5') note='夾5顯性';
     if(connector==='0') note='夾0隱性弱化';
-    if(key==='fuwei'&&out.length){
-      field=out[out.length-1].field;
-      note+=(note?'；':'')+'伏位延續「'+FIELDS[field].name+'」';
-    }
+    if(key==='fuwei'&&out.length){field=out[out.length-1].field;note+=(note?'；':'')+'伏位延續「'+FIELDS[field].name+'」';}
     out.push({pair:pair,display:a+bridge+b,field:field,connector:connector,factor:factor,note:note});
   }
   if(out.length&&trailing){
@@ -520,7 +475,19 @@ function buildStory(pairs,kind){
  parts.push('最後落喺「'+last.name+'」，'+(last.pol==='吉'?'收尾有得交代。':'最尾階段宜守。'));
  return parts.join('');
 }
-function suggestNumbers(missing){var pool=(missing&&missing.length)?missing:['tianyi','yannian','shengqi'];var presets={tianyi:['1349','3149','6849','9427'],yannian:['1978','9178','3443','2662'],shengqi:['1467','4139','6728','8293'],mixed:['1341','1949','9176','3143']};var out=[];pool.forEach(function(k){(presets[k]||[]).forEach(function(n){if(out.length<4&&out.indexOf(n)<0)out.push(n);});});if(out.length<4)presets.mixed.forEach(function(n){if(out.length<4&&out.indexOf(n)<0)out.push(n);});return out;}
+function suggestNumbers(missing){
+  var pool=(missing&&missing.length)?missing:['tianyi','yannian','shengqi'];
+  var presets4={tianyi:['1349','3149','6849','9427'],yannian:['1978','9178','3443','2662'],shengqi:['1467','4139','6728','8293'],mixed:['1341','1949','9176','3143']};
+  var presets6={tianyi:['134927','314972','684913','942768'],yannian:['197834','917826','344319','266278'],shengqi:['146719','413978','672813','829341'],mixed:['134178','194913','917634','314267','146934','413872']};
+  var out4=[], out6=[];
+  pool.forEach(function(k){
+    (presets4[k]||[]).forEach(function(n){if(out4.length<4&&out4.indexOf(n)<0)out4.push(n);});
+    (presets6[k]||[]).forEach(function(n){if(out6.length<4&&out6.indexOf(n)<0)out6.push(n);});
+  });
+  if(out4.length<4) presets4.mixed.forEach(function(n){if(out4.length<4&&out4.indexOf(n)<0)out4.push(n);});
+  if(out6.length<4) presets6.mixed.forEach(function(n){if(out6.length<4&&out6.indexOf(n)<0)out6.push(n);});
+  return {four:out4, six:out6};
+}
 function analyze(){
  try{
   var digits='',birthMeta=null,preparedNote='';
@@ -546,8 +513,8 @@ function analyze(){
   var excess=Object.keys(counts).filter(function(k){return FIELDS[k].pol==='凶'&&counts[k]>=2;});
   var lastField=pairs[pairs.length-1].field;var lastBad=FIELDS[lastField].pol==='凶';
   var fixCard=document.getElementById('fixCard');var fixBox=document.getElementById('fixBox');
-  if(currentKind==='birth'){fixCard.style.display='block';var bh='<p>先天命格<strong>唔用嚟改號</strong>。弱項用電話／密碼補吉星。</p>';if(missing.length){bh+='<p>先天缺：<strong>'+missing.map(function(k){return FIELDS[k].name;}).join('、')+'</strong></p><p>'+suggestNumbers(missing).map(function(n){return '<span class="num-sug">'+n+'</span>';}).join('')+'</p>';}else bh+='<p>先天吉星結構已唔錯。</p>';fixBox.innerHTML=bh;}
-  else if(missing.length||excess.length||lastBad){fixCard.style.display='block';var html='';if(missing.length){html+='<p><strong>點解要補：</strong>完全冇'+missing.map(function(k){return FIELDS[k].name;}).join('、')+'。</p><p><strong>建議組合：</strong>'+missing.map(function(k){return FIELDS[k].name+'（'+FIELDS[k].pairs.slice(0,4).join('、')+'）';}).join('； ')+'</p>';}if(excess.length)html+='<p><strong>過重要減：</strong>'+excess.map(function(k){return FIELDS[k].name+'×'+counts[k];}).join('、')+'。</p>';if(lastBad)html+='<p><strong>末組凶星「'+FIELDS[lastField].name+'」：</strong>優先換尾兩位做吉星。</p>';if(currentKind==='phone')html+='<p class="muted">電話屬後天分身，最適合補先天。</p>';if(currentKind==='id')html+='<p class="muted">流年唔能改證件，可用電話喺凶年保護。</p>';html+='<p style="margin-top:8px"><strong>推薦尾號／密碼：</strong><br>'+suggestNumbers(missing).map(function(n){return '<span class="num-sug">'+n+'</span>';}).join('')+'</p>';fixBox.innerHTML=html;}
+  if(currentKind==='birth'){fixCard.style.display='block';var bh='<p>先天命格<strong>唔用嚟改號</strong>。弱項用電話／密碼補吉星。</p>';if(missing.length){var sug=suggestNumbers(missing);bh+='<p>先天缺：<strong>'+missing.map(function(k){return FIELDS[k].name;}).join('、')+'</strong></p><p><strong>4位推薦：</strong><br>'+sug.four.map(function(n){return '<span class="num-sug">'+n+'</span>';}).join('')+'</p><p style="margin-top:6px"><strong>6位推薦：</strong><br>'+sug.six.map(function(n){return '<span class="num-sug">'+n+'</span>';}).join('')+'</p>';}else bh+='<p>先天吉星結構已唔錯。</p>';fixBox.innerHTML=bh;}
+  else if(missing.length||excess.length||lastBad){fixCard.style.display='block';var html='';if(missing.length){html+='<p><strong>點解要補：</strong>完全冇'+missing.map(function(k){return FIELDS[k].name;}).join('、')+'。</p><p><strong>建議組合：</strong>'+missing.map(function(k){return FIELDS[k].name+'（'+FIELDS[k].pairs.slice(0,4).join('、')+'）';}).join('； ')+'</p>';}if(excess.length)html+='<p><strong>過重要減：</strong>'+excess.map(function(k){return FIELDS[k].name+'×'+counts[k];}).join('、')+'。</p>';if(lastBad)html+='<p><strong>末組凶星「'+FIELDS[lastField].name+'」：</strong>優先換尾兩位做吉星。</p>';if(currentKind==='phone')html+='<p class="muted">電話屬後天分身，最適合補先天。</p>';if(currentKind==='id')html+='<p class="muted">流年唔能改證件，可用電話喺凶年保護。</p>';var sug=suggestNumbers(missing);html+='<p style="margin-top:8px"><strong>4位推薦：</strong><br>'+sug.four.map(function(n){return '<span class="num-sug">'+n+'</span>';}).join('')+'</p><p style="margin-top:6px"><strong>6位推薦：</strong><br>'+sug.six.map(function(n){return '<span class="num-sug">'+n+'</span>';}).join('')+'</p>';fixBox.innerHTML=html;}
   else fixCard.style.display='none';
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
  }catch(err){console.error(err);alert('解讀出錯：'+err.message);}
