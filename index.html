@@ -97,17 +97,38 @@ header .sub{color:var(--m);font-size:.88rem;margin-top:6px}
 label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px;color:var(--t)}
 input[type=text],input[type=date]{
   width:100%;
+  max-width:100%;
   padding:12px 14px;
   border:1.5px solid var(--b);
   border-radius:8px;
   font-size:1rem;
   background:#fff;
   transition:border-color .15s;
+  box-sizing:border-box;
+  -webkit-appearance:none;
+  appearance:none;
 }
 input[type=text]:focus,input[type=date]:focus{
   outline:none;
   border-color:var(--p2);
   box-shadow:0 0 0 3px rgba(45,107,85,.12);
+}
+/* iOS date input 特別處理，防止凸出 */
+input[type=date]{
+  min-height:48px;
+  line-height:1.4;
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#inputBirth{
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+}
+#inputBirth input[type=date]{
+  width:100%;
+  max-width:100%;
 }
 .pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
 .pill{
@@ -313,11 +334,17 @@ details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var
   header h1{font-size:1.3rem}
   header{padding:16px 0 12px}
   .pill{padding:6px 10px;font-size:.74rem}
-  .card{padding:14px}
+  .card{padding:14px;overflow:hidden}
   .grid2{grid-template-columns:1fr}
   .tab{padding:7px 14px;font-size:.84rem}
   .luck-grid{grid-template-columns:1fr 1fr}
   .story{padding:12px;font-size:.9rem}
+  input[type=date]{
+    font-size:16px;
+    min-height:44px;
+    padding:10px 12px;
+  }
+  #inputBirth{overflow:hidden;width:100%}
 }
 @media(max-width:380px){
   .luck-grid{grid-template-columns:1fr}
