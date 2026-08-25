@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>好命密碼 · 數字磁場分析</title>
+<style>
+:root{--p:#1e4d3d;--pl:#2d6b55;--a:#b8860b;--bg:#f5f2eb;--c:#fff;--t:#222;--m:#666;--b:#ddd5c3;--d:#a32d2d;--s:#1a6b45;--sh:0 3px 16px rgba(0,0,0,.07);--r:10px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--t);line-height:1.65;min-height:100vh}
+.container{max-width:880px;margin:0 auto;padding:16px 14px 50px}header{text-align:center;padding:22px 0 16px;border-bottom:1px solid var(--b);margin-bottom:22px}header h1{font-size:1.55rem;color:var(--p);font-weight:700}header .sub{color:var(--m);font-size:.88rem;margin-top:4px}
+.card{background:var(--c);border-radius:var(--r);box-shadow:var(--sh);padding:18px;margin-bottom:16px;border:1px solid var(--b)}.card-title{font-size:1.05rem;font-weight:700;color:var(--p);margin-bottom:12px}
+.form-group{margin-bottom:14px}label{display:block;font-size:.88rem;font-weight:600;margin-bottom:5px}
+input[type=text],select{width:100%;padding:11px 12px;border:1.5px solid var(--b);border-radius:7px;font-size:1rem;background:#fff}input:focus,select:focus{outline:none;border-color:var(--p)}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.pill{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:6px 14px;font-size:.82rem;cursor:pointer;color:var(--m)}.pill.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}button{cursor:pointer;border:none;border-radius:7px;padding:11px 18px;font-size:.92rem;font-weight:600}.btn-primary{background:var(--p);color:#fff}.btn-primary:hover{background:var(--pl)}.btn-secondary{background:#e8efe9;color:var(--p)}.btn-outline{background:transparent;border:1.5px solid var(--b);color:var(--t)}
+#results{display:none}.story{background:#f0f5f1;border-left:4px solid var(--p);padding:14px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.95rem;line-height:1.8}.star-tag{font-weight:700;color:var(--a)}
+.star-bar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}.star-chip{padding:5px 11px;border-radius:16px;font-size:.82rem;font-weight:600;color:#fff}.star-chip.吉{background:#3d8b40}.star-chip.凶{background:#c62828}.star-chip.平{background:#607d8b}
+.detail-block{border:1px solid var(--b);border-radius:8px;padding:12px;margin-bottom:10px}.detail-block h4{font-size:.92rem;margin-bottom:6px;color:var(--p)}.good{color:var(--s)}.bad{color:var(--d)}.muted{color:var(--m);font-size:.85rem}
+.pair-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}.pair-box{background:#f7f5f0;border:1px solid var(--b);border-radius:6px;padding:6px 10px;font-family:ui-monospace,monospace;font-size:.9rem}
+hint{display:block;font-size:.8rem;color:var(--m);margin-top:4px}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>好命密碼 · 數字磁場</h1>
+<p class="sub">跟愛德華門派 · 上傳教材邏輯 · 口語故事解讀</p>
+</header>
+
+<div class="card">
+<div class="card-title">輸入數字</div>
+<div class="pills" id="kindPills">
+<button type="button" class="pill active" data-kind="phone">手機號碼</button>
+<button type="button" class="pill" data-kind="id">身份證</button>
+<button type="button" class="pill" data-kind="birth">出生年月日</button>
+<button type="button" class="pill" data-kind="plate">車牌</button>
+<button type="button" class="pill" data-kind="address">門牌</button>
+<button type="button" class="pill" data-kind="account">銀行帳號</button>
+<button type="button" class="pill" data-kind="other">其他數字</button>
+</div>
+<p class="muted" id="kindHint">後天分身：長時間貼身使用，可更新嘅後天能量，影響現階段運勢。</p>
+<div class="form-group">
+<label for="numInput">數字</label>
+<input type="text" id="numInput" placeholder="例如 91234567 或 A123456(7)" maxlength="40"/>
+</div>
+<div class="btn-group">
+<button class="btn-primary" id="analyzeBtn">解讀</button>
+<button class="btn-outline" id="clearBtn">清除</button>
+</div>
+<p class="muted" style="margin-top:10px">規則：0＝隱性／弱化（所有類型）；5＝只喺電話計（其他類型跳過）。字母 A=01…Z=26。</p>
+</div>
+
+<div id="results">
+<div class="card">
+<div class="card-title">故事解讀</div>
+<div class="story" id="storyBox"></div>
+<div class="star-bar" id="starBar"></div>
+</div>
+<div class="card">
+<div class="card-title">磁場走勢</div>
+<div id="pairFlow"></div>
+</div>
+<div class="card">
+<div class="card-title">詳細說明（可展開）</div>
+<div id="details"></div>
+</div>
+<div class="card" id="fixCard" style="display:none">
+<div class="card-title">化解／補足建議</div>
+<div id="fixBox"></div>
+</div>
+</div>
+</div>
+
+<script>
+const FIELDS = {
+  tianyi:{name:'天醫',pol:'吉',pairs:['13','31','68','86','49','94','27','72'],pros:'聰明、財運、貴人',cons:'太善良、易被騙',
+    story:'有錢路同貴人幫一手，心胸開闊'},
+  shengqi:{name:'生氣',pol:'吉',pairs:['14','41','67','76','39','93','28','82'],pros:'人緣、逢凶化吉',cons:'懶散、三分鐘熱度',
+    story:'遇到好多貴人、心情開朗、人緣好'},
+  yannian:{name:'延年',pol:'吉',pairs:['19','91','78','87','34','43','26','62'],pros:'領導、專業、守財',cons:'固執、唔圓滑',
+    story:'有主見、肯扛責任、專業穩定'},
+  fuwei:{name:'伏位',pol:'平',pairs:['11','22','33','44','66','77','88','99'],pros:'耐性、穩定',cons:'被動、保守',
+    story:'慢慢守住、延續上一段嘅勢'},
+  huohai:{name:'禍害',pol:'凶',pairs:['17','71','89','98','46','64','23','32'],pros:'口才好',cons:'口舌是非、招小人',
+    story:'多口舌是非、容易講錯嘢蝕底'},
+  liusha:{name:'六煞',pol:'凶',pairs:['16','61','47','74','38','83','29','92'],pros:'交際、異性緣',cons:'情緒化、偏桃花',
+    story:'因為感情同情緒而煩、易破財'},
+  wugui:{name:'五鬼',pol:'凶',pairs:['18','81','79','97','36','63','24','42'],pros:'鬼才、點子多',cons:'反覆、錢去得快',
+    story:'起起落落、錢來得快去得快'},
+  jueming:{name:'絕命',pol:'凶',pairs:['12','21','69','96','48','84','37','73'],pros:'毅力、敢拼',cons:'衝動、大上大落',
+    story:'捱得辛苦、大上大落、易衝動'}
+};
+const PAIR_MAP = {};
+Object.keys(FIELDS).forEach(k => FIELDS[k].pairs.forEach(p => PAIR_MAP[p]=k));
+
+const KIND_INFO = {
+  phone:{tag:'後天分身',text:'長時間貼身使用，可更新嘅後天能量，影響現階段運勢。'},
+  id:{tag:'流年運程',text:'身份證化成數字後係一世流年走勢表，每組對應一段歲數。'},
+  birth:{tag:'先天命格',text:'出生年月日（農曆換算）係先天命格，一世唔會變，代表底子同本質。'},
+  plate:{tag:'後天磁場',text:'車牌主要影響開車運勢同交通安全。'},
+  address:{tag:'後天磁場',text:'門牌影響居住期間嘅家宅同健康。'},
+  account:{tag:'後天磁場',text:'銀行帳號／密碼影響財富進出同守財。'},
+  other:{tag:'後天磁場',text:'任何日常數字都屬後天磁場，用得越多影響越大。'}
+};
+
+let currentKind = 'phone';
+
+document.querySelectorAll('#kindPills .pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#kindPills .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentKind = btn.dataset.kind;
+    document.getElementById('kindHint').textContent = KIND_INFO[currentKind].tag + '：' + KIND_INFO[currentKind].text;
+  });
+});
+
+function expandLetters(s){
+  return s.replace(/[A-Za-z]/g, ch => String(ch.toUpperCase().charCodeAt(0)-64).padStart(2,'0'));
+}
+function extractDigits(s){ return (s.match(/\d/g)||[]).join(''); }
+
+/** 0=弱化橋樑（所有類型）；5=只喺電話計 */
+function buildPairs(digits, kind){
+  const source = kind==='phone' ? digits : digits.replace(/5/g,'');
+  const core=[]; let pending='';
+  for(const ch of source){
+    if(ch==='0' || (kind==='phone' && ch==='5')) pending+=ch;
+    else { core.push({d:ch, bridge:pending}); pending=''; }
+  }
+  const trailing = pending;
+  const out=[];
+  for(let i=1;i<core.length;i++){
+    const a=core[i-1].d, b=core[i].d, bridge=core[i].bridge;
+    const pair=a+b;
+    const key=PAIR_MAP[pair];
+    if(!key) continue;
+    let connector=null;
+    if(kind==='phone' && bridge.includes('5')) connector='5';
+    else if(bridge.includes('0')) connector='0';
+    let factor = connector==='5'?1.3 : connector==='0'?0.6 : 1;
+    let field=key;
+    let note='';
+    if(connector==='5') note=`夾5顯性：${FIELDS[key].name}更凸顯`;
+    if(connector==='0') note=`夾0隱性：${FIELDS[key].name}被弱化`;
+    if(key==='fuwei' && out.length){
+      field=out[out.length-1].field;
+      note += (note?'；':'') + `伏位延續前組「${FIELDS[field].name}」`;
+    }
+    out.push({pair, display:a+bridge+b, field, baseField:key, connector, factor, note});
+  }
+  if(out.length && trailing){
+    const last=out[out.length-1];
+    if(trailing.includes('0')){ last.factor*=1.5; last.display+=trailing; last.note=(last.note||'')+'；尾0放大能量'; }
+    else if(kind==='phone' && trailing.includes('5')){ last.factor*=1.2; last.display+=trailing; last.note=(last.note||'')+'；尾5凸顯'; }
+  }
+  return out;
+}
+
+function buildStory(pairs){
+  if(!pairs.length) return '';
+  const clauses=[];
+  const seen=new Set();
+  pairs.forEach((p,i)=>{
+    const f=FIELDS[p.field];
+    const tag=`（${f.name}）`;
+    let clause=f.story + tag;
+    if(p.connector==='0') clause = '有啲隱性、時有時冇咁' + clause;
+    if(p.connector==='5') clause = '特別明顯咁' + clause;
+    if(i===0) clauses.push('一開頭' + clause);
+    else if(i===pairs.length-1) clauses.push('去到最後' + clause);
+    else clauses.push('跟住' + clause);
+  });
+  const last=FIELDS[pairs[pairs.length-1].field];
+  const end = last.pol==='吉' ? '所以整體嚟講，前面可以衝，收尾都有交代。' : '所以整體嚟講，前面可以做，但收尾要特別小心守。';
+  return clauses.join('，') + '。' + end;
+}
+
+function analyze(){
+  let raw = document.getElementById('numInput').value.trim();
+  if(!raw){ alert('請輸入數字'); return; }
+  if(currentKind==='id') raw = expandLetters(raw);
+  const digits = extractDigits(raw);
+  const pairs = buildPairs(digits, currentKind);
+  if(!pairs.length){ alert('有效位數唔夠組成磁場'); return; }
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('storyBox').textContent = buildStory(pairs);
+
+  const bar=document.getElementById('starBar');
+  bar.innerHTML='';
+  const counts={};
+  pairs.forEach(p=>{ counts[p.field]=(counts[p.field]||0)+1; });
+  Object.keys(counts).sort((a,b)=>counts[b]-counts[a]).forEach(k=>{
+    const f=FIELDS[k];
+    const chip=document.createElement('span');
+    chip.className='star-chip '+(f.pol==='吉'?'吉':f.pol==='凶'?'凶':'平');
+    chip.textContent=f.name+' ×'+counts[k];
+    bar.appendChild(chip);
+  });
+
+  const flow=document.getElementById('pairFlow');
+  flow.innerHTML=pairs.map((p,i)=>{
+    const f=FIELDS[p.field];
+    return `<div class="pair-row"><span class="pair-box">${p.display}</span> → <strong>${f.name}</strong> <span class="muted">${f.pol}</span> ${p.note?`<span class="muted">（${p.note}）</span>`:''}${i<pairs.length-1?' <span class="muted">→</span>':''}</div>`;
+  }).join('');
+
+  const details=document.getElementById('details');
+  const uniq=[]; const seen=new Set();
+  pairs.forEach(p=>{ if(!seen.has(p.field)){ seen.add(p.field); uniq.push(p.field);} });
+  details.innerHTML=uniq.map(k=>{
+    const f=FIELDS[k];
+    return `<div class="detail-block"><h4>${f.name}（${f.pol}）</h4>
+      <p><span class="good">優點：</span>${f.pros}</p>
+      <p><span class="bad">缺點：</span>${f.cons}</p></div>`;
+  }).join('');
+
+  // 化解建議
+  const missing=['tianyi','yannian','shengqi'].filter(k=>!counts[k]);
+  const excess=Object.keys(counts).filter(k=>FIELDS[k].pol==='凶' && counts[k]>=2);
+  const fixCard=document.getElementById('fixCard');
+  const fixBox=document.getElementById('fixBox');
+  if(missing.length || excess.length || (pairs.length && FIELDS[pairs[pairs.length-1].field].pol==='凶')){
+    fixCard.style.display='block';
+    let html='';
+    if(missing.length){
+      html+='<p><strong>缺少嘅吉星：</strong>'+missing.map(k=>FIELDS[k].name).join('、')+'</p>';
+      html+='<p class="muted">可以用電話尾號／密碼加入呢啲組合去補：'+missing.map(k=>FIELDS[k].pairs.slice(0,4).join('、')).join('； ')+'</p>';
+    }
+    if(excess.length){
+      html+='<p><strong>過重嘅凶星：</strong>'+excess.map(k=>FIELDS[k].name).join('、')+'</p>';
+    }
+    const last=FIELDS[pairs[pairs.length-1].field];
+    if(last.pol==='凶'){
+      html+='<p>末組係凶星「'+last.name+'」，最優先換尾兩位做吉星（天醫／延年／生氣）。</p>';
+    }
+    if(currentKind==='phone' && missing.length){
+      html+='<p class="muted">電話當後天分身：先天如果缺以上吉星，可以用尾號補返。</p>';
+    }
+    fixBox.innerHTML=html;
+  } else {
+    fixCard.style.display='none';
+  }
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('analyzeBtn').addEventListener('click', analyze);
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  document.getElementById('numInput').value='';
+  document.getElementById('results').style.display='none';
+});
+document.getElementById('numInput').addEventListener('keydown', e=>{ if(e.key==='Enter') analyze(); });
+</script>
+</body>
+</html>
