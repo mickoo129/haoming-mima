@@ -363,7 +363,7 @@ details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var
     <div id="inputBirth" style="display:none">
       <label for="birthInput">出生新曆日期</label>
       <input type="date" id="birthInput"/>
-      <p class="muted" style="margin-top:8px">輸入新曆，系統自動轉<strong>農曆月日</strong>再組成先天數（≤2000：年−1911；≥2001：年−1971 + 農曆月日）。</p>
+      <p class="muted" style="margin-top:8px">輸入新曆，系統自動轉<strong>農曆月日</strong>再組成先天數（≤2000：年−1911；≥2001：年−1971）。月份單位數唔加0，日子單位數要加0（例如農曆7月初二 → 702）。</p>
     </div>
     <div class="btn-group">
       <button type="button" class="btn-primary" id="analyzeBtn">解讀</button>
@@ -436,8 +436,8 @@ function birthCode(iso){
   }
   if(fn){var L=fn(y,m,d);if(L&&(L.lMonth||L.month)){lm=L.lMonth||L.month;ld=L.lDay||L.day;leap=!!(L.isLeap||L.isLeapMonth);usedLunar=true;lunarText='農曆'+(leap?'閏':'')+lm+'月'+ld+'日';}}
  }catch(e){console.warn(e);}
- var code=String(yearNum)+String(lm).padStart(2,'0')+String(ld).padStart(2,'0');
- var text=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0')+'（新曆）→ '+(usedLunar?lunarText:'未能轉農曆，暫用新曆月日')+'；'+y+'−'+base+'='+yearNum+' + '+(usedLunar?'農曆':'月日')+String(lm).padStart(2,'0')+String(ld).padStart(2,'0')+' → 先天數 '+code;
+ var code=String(yearNum)+String(lm)+String(ld).padStart(2,'0');
+ var text=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0')+'（新曆）→ '+(usedLunar?lunarText:'未能轉農曆，暫用新曆月日')+'；'+y+'−'+base+'='+yearNum+' + '+(usedLunar?'農曆':'月日')+lm+String(ld).padStart(2,'0')+' → 先天數 '+code;
  return {code:code,yearNum:yearNum,base:base,lm:lm,ld:ld,leap:leap,text:text,usedLunar:usedLunar};
 }
 function idLuckPeriods(pairs){return pairs.map(function(p,i){var from=i===0?0:13+(i-1)*5;var to=i===0?13:from+5;return {from:from,to:to,pair:p.display,field:p.field,name:FIELDS[p.field].name,pol:FIELDS[p.field].pol};});}
