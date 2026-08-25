@@ -1,92 +1,419 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>好命密碼 · 數字磁場</title><script src="https://cdn.jsdelivr.net/npm/solarlunar@3.1.0/dist/solarlunar.min.js"></script><style>
-:root{--p:#1e4d3d;--bg:#f5f2eb;--c:#fff;--t:#222;--m:#666;--b:#ddd5c3;--r:10px}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--t);line-height:1.65;min-height:100vh;overflow-x:hidden}
-.container{max-width:920px;margin:0 auto;padding:16px 12px 50px;overflow-x:hidden}
-header{text-align:center;padding:18px 0 12px;border-bottom:1px solid var(--b);margin-bottom:14px}
-header h1{font-size:1.4rem;color:var(--p)}header .sub{color:var(--m);font-size:.85rem;margin-top:4px}
-.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.tab{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:7px 14px;font-size:.84rem;cursor:pointer;color:var(--m)}
-.tab.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
-.card{background:var(--c);border-radius:var(--r);box-shadow:0 3px 14px rgba(0,0,0,.07);padding:14px;margin-bottom:12px;border:1px solid var(--b)}
-.card-title{font-size:1rem;font-weight:700;color:var(--p);margin-bottom:10px}
-label{display:block;font-size:.86rem;font-weight:600;margin-bottom:4px}
-input[type=text],input[type=date]{width:100%;max-width:100%;padding:10px 12px;border:1.5px solid var(--b);border-radius:7px;font-size:1rem;display:block;box-sizing:border-box}
-.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.pill{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:6px 11px;font-size:.75rem;cursor:pointer;color:var(--m)}
-.pill.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
-.btn-group{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-button{cursor:pointer;border:none;border-radius:7px;padding:10px 16px;font-size:.9rem;font-weight:600}
-.btn-primary{background:var(--p);color:#fff}.btn-outline{background:transparent;border:1.5px solid var(--b);color:var(--t)}
-.muted{color:var(--m);font-size:.84rem}.tag{display:inline-block;border:1px solid var(--p);color:var(--p);border-radius:12px;padding:2px 8px;font-size:.72rem;margin-right:6px}
-.story{background:#f0f5f1;border-left:4px solid var(--p);padding:12px 14px;border-radius:0 8px 8px 0;margin:8px 0;line-height:1.85;overflow-wrap:anywhere}
-.star-bar{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.star-chip{padding:4px 10px;border-radius:14px;font-size:.78rem;font-weight:600;color:#fff}
-.star-chip.吉{background:#3d8b40}.star-chip.凶{background:#c62828}.star-chip.平{background:#607d8b}
-.pair-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:5px 0;overflow-wrap:anywhere}
-.pair-box{background:#f7f5f0;border:1px solid var(--b);border-radius:6px;padding:4px 8px;font-family:ui-monospace,monospace;font-size:.84rem}
-details.star-detail{border:1px solid var(--b);border-radius:8px;margin-bottom:6px;background:#fafaf8}
-details.star-detail summary{padding:10px 12px;cursor:pointer;font-weight:600;color:var(--p);list-style:none;display:flex;justify-content:space-between}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>好命密碼 · 數字磁場</title>
+<script src="https://cdn.jsdelivr.net/npm/solarlunar@3.1.0/dist/solarlunar.min.js"></script>
+<style>
+:root{
+  --p:#1a4a3a;
+  --p2:#2d6b55;
+  --accent:#c9a227;
+  --bg:#f7f4ee;
+  --card:#ffffff;
+  --t:#1c1c1c;
+  --m:#5a5a5a;
+  --b:#e0d8c8;
+  --good:#2e7d32;
+  --bad:#c62828;
+  --neutral:#546e7a;
+  --warn-bg:#fff8e6;
+  --warn-bd:#e6c35c;
+  --good-bg:#e8f5e9;
+  --bad-bg:#fce4ec;
+  --r:12px;
+  --shadow:0 4px 18px rgba(26,74,58,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--t);
+  line-height:1.7;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.container{max-width:880px;margin:0 auto;padding:20px 16px 60px}
+header{
+  text-align:center;
+  padding:22px 0 16px;
+  border-bottom:2px solid var(--b);
+  margin-bottom:18px;
+}
+header h1{
+  font-size:1.55rem;
+  color:var(--p);
+  font-weight:700;
+  letter-spacing:.02em;
+}
+header .sub{color:var(--m);font-size:.88rem;margin-top:6px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{
+  border:1.5px solid var(--b);
+  background:#fff;
+  border-radius:24px;
+  padding:8px 18px;
+  font-size:.88rem;
+  cursor:pointer;
+  color:var(--m);
+  transition:all .15s ease;
+}
+.tab:hover{border-color:var(--p2);color:var(--p)}
+.tab.active{
+  border-color:var(--p);
+  background:var(--p);
+  color:#fff;
+  font-weight:600;
+  box-shadow:0 2px 8px rgba(26,74,58,.25);
+}
+.card{
+  background:var(--card);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  padding:18px;
+  margin-bottom:16px;
+  border:1px solid var(--b);
+}
+.card-title{
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--p);
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--b);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.card-title::before{
+  content:"";
+  width:4px;height:18px;
+  background:var(--p);
+  border-radius:2px;
+  flex-shrink:0;
+}
+label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px;color:var(--t)}
+input[type=text],input[type=date]{
+  width:100%;
+  padding:12px 14px;
+  border:1.5px solid var(--b);
+  border-radius:8px;
+  font-size:1rem;
+  background:#fff;
+  transition:border-color .15s;
+}
+input[type=text]:focus,input[type=date]:focus{
+  outline:none;
+  border-color:var(--p2);
+  box-shadow:0 0 0 3px rgba(45,107,85,.12);
+}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.pill{
+  border:1.5px solid var(--b);
+  background:#fff;
+  border-radius:20px;
+  padding:7px 13px;
+  font-size:.78rem;
+  cursor:pointer;
+  color:var(--m);
+  transition:all .12s;
+}
+.pill:hover{border-color:var(--p2)}
+.pill.active{
+  border-color:var(--p);
+  background:#e8f0ec;
+  color:var(--p);
+  font-weight:600;
+}
+.btn-group{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+button{cursor:pointer;border:none;border-radius:8px;padding:11px 20px;font-size:.92rem;font-weight:600;transition:all .15s}
+.btn-primary{background:var(--p);color:#fff}
+.btn-primary:hover{background:var(--p2);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1.5px solid var(--b);color:var(--t)}
+.btn-outline:hover{border-color:var(--p);color:var(--p)}
+.muted{color:var(--m);font-size:.84rem}
+.tag{
+  display:inline-block;
+  background:var(--p);
+  color:#fff;
+  border-radius:6px;
+  padding:2px 9px;
+  font-size:.72rem;
+  font-weight:600;
+  margin-right:6px;
+  vertical-align:middle;
+}
+.nature{
+  background:linear-gradient(135deg,#e8f0ec 0%,#f0f5f1 100%);
+  border:1px solid #c5d9ce;
+  border-radius:10px;
+  padding:12px 14px;
+  margin-bottom:12px;
+  font-size:.9rem;
+  line-height:1.6;
+}
+.story{
+  background:linear-gradient(135deg,#f0f5f1 0%,#e8f0ec 100%);
+  border-left:5px solid var(--p);
+  padding:14px 16px;
+  border-radius:0 10px 10px 0;
+  margin:10px 0;
+  line-height:1.9;
+  font-size:.95rem;
+  overflow-wrap:anywhere;
+}
+.star-bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.star-chip{
+  padding:5px 12px;
+  border-radius:16px;
+  font-size:.8rem;
+  font-weight:600;
+  color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+.star-chip.吉{background:var(--good)}
+.star-chip.凶{background:var(--bad)}
+.star-chip.平{background:var(--neutral)}
+.pair-row{
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  margin:6px 0;padding:6px 0;
+  border-bottom:1px dashed #eee;
+  overflow-wrap:anywhere;
+}
+.pair-row:last-child{border-bottom:none}
+.pair-box{
+  background:#f7f5f0;
+  border:1px solid var(--b);
+  border-radius:6px;
+  padding:4px 10px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.86rem;
+  font-weight:600;
+}
+details.star-detail{
+  border:1px solid var(--b);
+  border-radius:10px;
+  margin-bottom:8px;
+  background:#fafaf8;
+  overflow:hidden;
+}
+details.star-detail summary{
+  padding:12px 14px;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--p);
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  user-select:none;
+}
 details.star-detail summary::-webkit-details-marker{display:none}
-details.star-detail summary::after{content:"▼";font-size:.7rem;color:var(--m)}
-details.star-detail[open] summary::after{content:"▲"}
-.star-body{padding:0 12px 12px;font-size:.88rem;line-height:1.7}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
-.box{border-radius:6px;padding:8px;font-size:.84rem}.box.g{background:#e8f5e9;border:1px solid #c8e6c9}.box.b{background:#fceaea;border:1px solid #ffcdd2}
-.num-sug{display:inline-block;font-family:ui-monospace,monospace;font-size:1rem;letter-spacing:.1em;background:#e8f0ec;border:1px solid var(--p);color:var(--p);padding:5px 10px;border-radius:6px;margin:3px 5px 3px 0}
-.luck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
-.luck-item{border:1px solid var(--b);border-radius:8px;padding:8px 10px;background:#fafaf8;font-size:.84rem}
-.luck-item .age{color:var(--m);font-size:.75rem}.luck-item .pair{font-family:ui-monospace,monospace;font-weight:700}
-.luck-item .mean{font-size:.78rem;color:#444;margin-top:4px;line-height:1.5}
-.luck-item.吉{border-color:#a5d6a7;background:#f1f8e9}.luck-item.凶{border-color:#ef9a9a;background:#fce4ec}
-.wiki-grid{display:grid;gap:10px}.wiki-card{border:1px solid var(--b);border-radius:8px;padding:12px;background:#fafaf8}
-.wiki-card h3{color:var(--p);font-size:.95rem;margin-bottom:4px}
-.wiki-card .ptag{display:inline-block;font-size:.7rem;padding:1px 7px;border-radius:10px;color:#fff;margin-right:4px}
-.wiki-card .ptag.吉{background:#3d8b40}.wiki-card .ptag.凶{background:#c62828}.wiki-card .ptag.平{background:#607d8b}
-.section{display:none}.section.active{display:block}
-.nature{background:#e8f0ec;border:1px solid #c5d9ce;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:.88rem}
-#inputText,#inputBirth{margin-top:8px}
-@media(max-width:560px){.container{padding:12px 10px 50px}header h1{font-size:1.2rem}.pill{padding:5px 9px;font-size:.72rem}.card{padding:12px}.grid2{grid-template-columns:1fr}}
-</style></head><body>
+details.star-detail summary::after{content:"▼";font-size:.7rem;color:var(--m);transition:transform .2s}
+details.star-detail[open] summary::after{transform:rotate(180deg)}
+details.star-detail[open] summary{background:#f0f5f1;border-bottom:1px solid var(--b)}
+.star-body{padding:12px 14px 14px;font-size:.9rem;line-height:1.75}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.box{border-radius:8px;padding:10px 12px;font-size:.86rem}
+.box.g{background:var(--good-bg);border:1px solid #c8e6c9}
+.box.b{background:var(--bad-bg);border:1px solid #ffcdd2}
+.box strong{display:block;margin-bottom:4px;font-size:.8rem}
+.hl-resolve{
+  margin-top:10px;
+  background:var(--good-bg);
+  border:1px solid #a5d6a7;
+  border-left:4px solid var(--good);
+  border-radius:8px;
+  padding:10px 12px;
+  font-size:.88rem;
+}
+.hl-warn{
+  margin-top:10px;
+  background:var(--warn-bg);
+  border:1px solid var(--warn-bd);
+  border-left:4px solid #e6a817;
+  border-radius:8px;
+  padding:10px 12px;
+  font-size:.86rem;
+  color:#5d4e00;
+}
+.hl-note{
+  margin-top:8px;
+  color:var(--m);
+  font-size:.84rem;
+  border-top:1px dashed var(--b);
+  padding-top:8px;
+}
+.num-sug{
+  display:inline-block;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:1.05rem;
+  letter-spacing:.12em;
+  background:#e8f0ec;
+  border:1.5px solid var(--p);
+  color:var(--p);
+  padding:6px 12px;
+  border-radius:8px;
+  margin:4px 6px 4px 0;
+  font-weight:600;
+}
+.luck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.luck-item{
+  border:1.5px solid var(--b);
+  border-radius:10px;
+  padding:10px 12px;
+  background:#fafaf8;
+  font-size:.86rem;
+  transition:transform .12s;
+}
+.luck-item:hover{transform:translateY(-2px)}
+.luck-item .age{color:var(--m);font-size:.75rem;font-weight:500}
+.luck-item .pair{font-family:ui-monospace,monospace;font-weight:700;margin:4px 0;font-size:.92rem}
+.luck-item .mean{font-size:.8rem;color:#444;margin-top:4px;line-height:1.5}
+.luck-item.吉{border-color:#81c784;background:#f1f8e9}
+.luck-item.凶{border-color:#e57373;background:#fce4ec}
+.luck-item.平{border-color:#90a4ae;background:#eceff1}
+.wiki-grid{display:grid;gap:14px}
+.wiki-card{
+  border:1px solid var(--b);
+  border-radius:12px;
+  padding:16px;
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.wiki-card h3{
+  color:var(--p);
+  font-size:1.05rem;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.wiki-card .ptag{
+  display:inline-block;
+  font-size:.7rem;
+  padding:3px 9px;
+  border-radius:12px;
+  color:#fff;
+  font-weight:600;
+}
+.wiki-card .ptag.吉{background:var(--good)}
+.wiki-card .ptag.凶{background:var(--bad)}
+.wiki-card .ptag.平{background:var(--neutral)}
+.wiki-card p{margin:6px 0;font-size:.88rem;line-height:1.65}
+.wiki-card .muted{font-size:.82rem}
+.wiki-card .section-label{
+  font-weight:700;
+  color:var(--p);
+  font-size:.82rem;
+  margin-top:8px;
+  margin-bottom:2px;
+}
+.section{display:none}
+.section.active{display:block}
+#inputText,#inputBirth{margin-top:10px}
+@media(max-width:560px){
+  .container{padding:14px 12px 50px}
+  header h1{font-size:1.3rem}
+  header{padding:16px 0 12px}
+  .pill{padding:6px 10px;font-size:.74rem}
+  .card{padding:14px}
+  .grid2{grid-template-columns:1fr}
+  .tab{padding:7px 14px;font-size:.84rem}
+  .luck-grid{grid-template-columns:1fr 1fr}
+  .story{padding:12px;font-size:.9rem}
+}
+@media(max-width:380px){
+  .luck-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
 <div class="container">
-<header><h1>好命密碼 · 數字磁場</h1><p class="sub">跟愛德華門派 · 先天／流年／後天分流</p></header>
+<header>
+  <h1>好命密碼 · 數字磁場</h1>
+  <p class="sub">跟愛德華門派 · 先天／流年／後天分流</p>
+</header>
+
 <div class="tabs">
-<button type="button" class="tab active" data-sec="analyze">分析</button>
-<button type="button" class="tab" data-sec="wiki">八大磁場百科</button>
+  <button type="button" class="tab active" data-sec="analyze">分析</button>
+  <button type="button" class="tab" data-sec="wiki">八大磁場百科</button>
 </div>
+
 <section id="sec-analyze" class="section active">
-<div class="card">
-<div class="card-title">輸入數字</div>
-<div class="pills" id="kindPills">
-<button type="button" class="pill active" data-kind="phone">手機號碼</button>
-<button type="button" class="pill" data-kind="id">身份證</button>
-<button type="button" class="pill" data-kind="birth">出生年月日</button>
-<button type="button" class="pill" data-kind="plate">車牌</button>
-<button type="button" class="pill" data-kind="address">門牌</button>
-<button type="button" class="pill" data-kind="account">銀行帳號</button>
-<button type="button" class="pill" data-kind="other">其他數字</button>
-</div>
-<div class="nature" id="kindHint"><span class="tag">後天分身</span>長時間貼身使用，可更新嘅後天能量，影響現階段運勢。</div>
-<div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 97302181 或 A123456(7)" maxlength="40"/></div>
-<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><input type="date" id="birthInput"/><p class="muted" style="margin-top:6px">輸入新曆，系統自動轉<strong>農曆月日</strong>再組成先天數（≤2000：年−1911；≥2001：年−1971 + 農曆月日）。</p></div>
-<div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn">解讀</button><button type="button" class="btn-outline" id="clearBtn">清除</button></div>
-<p class="muted" style="margin-top:10px">0＝隱性弱化（全部）；5＝只喺電話計。身份證字母 A=01…Z=26。</p>
-</div>
-<div id="results" style="display:none">
-<div class="card"><div class="card-title">呢次分析角色</div><div id="roleBox"></div></div>
-<div class="card"><div class="card-title">故事解讀</div><div class="story" id="storyBox"></div><div class="star-bar" id="starBar"></div></div>
-<div class="card" id="luckCard" style="display:none"><div class="card-title">身份證流年走勢</div><p class="muted" style="margin-bottom:8px">第一組 0–13 歲，之後每 5 年一組。每格附上該星含義。</p><div class="luck-grid" id="luckGrid"></div></div>
-<div class="card"><div class="card-title">磁場走勢</div><div id="pairFlow"></div></div>
-<div class="card"><div class="card-title">詳細說明（撳開展開）</div><div id="details"></div></div>
-<div class="card" id="fixCard" style="display:none"><div class="card-title">化解／補足建議</div><div id="fixBox"></div></div>
-</div>
+  <div class="card">
+    <div class="card-title">輸入數字</div>
+    <div class="pills" id="kindPills">
+      <button type="button" class="pill active" data-kind="phone">手機號碼</button>
+      <button type="button" class="pill" data-kind="id">身份證</button>
+      <button type="button" class="pill" data-kind="birth">出生年月日</button>
+      <button type="button" class="pill" data-kind="plate">車牌</button>
+      <button type="button" class="pill" data-kind="address">門牌</button>
+      <button type="button" class="pill" data-kind="account">銀行帳號</button>
+      <button type="button" class="pill" data-kind="other">其他數字</button>
+    </div>
+    <div class="nature" id="kindHint"><span class="tag">後天分身</span>長時間貼身使用，可更新嘅後天能量，影響現階段運勢。</div>
+    <div id="inputText">
+      <label for="numInput">數字</label>
+      <input type="text" id="numInput" placeholder="例如 97302181 或 A123456(7)" maxlength="40"/>
+    </div>
+    <div id="inputBirth" style="display:none">
+      <label for="birthInput">出生新曆日期</label>
+      <input type="date" id="birthInput"/>
+      <p class="muted" style="margin-top:8px">輸入新曆，系統自動轉<strong>農曆月日</strong>再組成先天數（≤2000：年−1911；≥2001：年−1971 + 農曆月日）。</p>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn-primary" id="analyzeBtn">解讀</button>
+      <button type="button" class="btn-outline" id="clearBtn">清除</button>
+    </div>
+    <p class="muted" style="margin-top:12px">0＝隱性弱化（全部）；5＝只喺電話計。身份證字母 A=01…Z=26。</p>
+  </div>
+
+  <div id="results" style="display:none">
+    <div class="card">
+      <div class="card-title">呢次分析角色</div>
+      <div id="roleBox"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">故事解讀</div>
+      <div class="story" id="storyBox"></div>
+      <div class="star-bar" id="starBar"></div>
+    </div>
+    <div class="card" id="luckCard" style="display:none">
+      <div class="card-title">身份證流年走勢</div>
+      <p class="muted" style="margin-bottom:10px">第一組 0–13 歲，之後每 5 年一組。每格附上該星含義。</p>
+      <div class="luck-grid" id="luckGrid"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">磁場走勢</div>
+      <div id="pairFlow"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">詳細說明（撳開展開）</div>
+      <div id="details"></div>
+    </div>
+    <div class="card" id="fixCard" style="display:none">
+      <div class="card-title">化解／補足建議</div>
+      <div id="fixBox"></div>
+    </div>
+  </div>
 </section>
-<section id="sec-wiki" class="section"><div class="card"><div class="card-title">八大磁場百科</div><div class="wiki-grid" id="wikiGrid"></div></div></section>
+
+<section id="sec-wiki" class="section">
+  <div class="card">
+    <div class="card-title">八大磁場百科</div>
+    <p class="muted" style="margin-bottom:12px">跟愛德華門派教材整理。吉星綠色、兇星紅色標示，黃色框為重要警告。</p>
+    <div class="wiki-grid" id="wikiGrid"></div>
+  </div>
+</section>
 </div>
 <script>
 const FIELDS={tianyi:{name:'天醫',pol:'吉',rank:'大吉星',pairs:['13','31','68','86','49','94','27','72'], short:'有錢路同貴人幫一手，心胸開闊', pros:['聰明睿智','善解人意','心胸開闊','學習能力強','喜歡幫助人'], cons:['太善良單純','沒心機','沒主見','容易被騙'], job:'能成就一番大事業，成為老闆或老闆得力助手；任何行業都能做出不錯成績，帶來連續財富與業績。', wealth:'正財、偏財、橫財、八方財運都有，但唔會守財，花錢較大方。', love:'正桃花、正姻緣、婚姻美滿；女性旺夫。', health:'容易引發血壓、血液循環問題，以及眼耳鼻方面疾病。', friend:'易遇貴人，適合長期合作。', note:'大吉星。教材：天醫代表財富，但老年人唔宜天醫太多（富貴病、心腦血管風險）。'},shengqi:{name:'生氣',pol:'吉',rank:'大吉星',pairs:['14','41','67','76','39','93','28','82'], short:'貴人多、心情開朗、人緣好', pros:['貴人多','樂天派','思維活躍','看得開隨緣','溝通能力強','願意接受新事物'], cons:['企圖心不強','懶散拖延','沒主見','缺乏上進心','容易滿足','三分鐘熱度','易相信別人而受騙'], job:'特別適合公關、銷售業務及服務業；貴人多、逢凶化吉，但容易滿足、對事不強求，導致上進心不足。', wealth:'貴人來財、升官顯貴、意外之財（中彩、投資等）；不善理財，錢花在朋友身上。', love:'隨緣、不強求；若已婚，非常和諧，溝通協調，婚姻甜蜜。', health:'容易有眼耳鼻五官系統疾病或腸胃疾病，容易肥胖。', friend:'到處都有人願意幫，識人廣。', note:'大吉星。學生可用生氣+延年增人緣同學習。'},yannian:{name:'延年',pol:'吉',rank:'小吉星',pairs:['19','91','78','87','34','43','26','62'], short:'有主見、肯扛責任、專業穩定', pros:['領導領袖格局','責任心強','自主有分寸','懂守財','懂得經營運營'], cons:['自作主張不易聽勸','閒不住忙碌反抗','固執死板','不圓滑'], job:'工作能力強、專業能力強；專注，容易成為領導或自己開公司，忙碌奔波，也適合專業技術類工作。', wealth:'靠自己辛苦努力付出獲得；懂得理財、生財有道，喜歡精打細算，有「鐵公雞」稱號。', love:'善於處理關係，厚道、固執、專一；高期待高標準，對感情要求忠誠；一旦出軌，絕對沒有挽回餘地。', health:'積勞成疾，壓力大，容易引發肩頸腰病痛、睡眠不好、脫發掉發，或神經及心臟系統疾病。', friend:'真正夥伴會好耐。', note:'小吉星。⚠️教材特別警告：大延年（19/91）至陽至剛，女性一定不能使用！會克夫、影響感情、難找對象、易離婚等。'},fuwei:{name:'伏位',pol:'平',rank:'小吉星（依附）',pairs:['11','22','33','44','66','77','88','99'], short:'慢慢守住、延續上一段嘅勢（隨吉則吉，隨凶則凶）', pros:['謹慎有耐性','平和有潛能','毅力','擁有一般人所沒有的耐心'], cons:['保守被動','不會變通','固執','怕冒險','想法多','缺安全感'], job:'平緩上行、平順安穩，工作踏實，等待機會；適合按部就班、打工。', wealth:'穩定求財，按部就班，喜歡拿固定工資、獲得固定收入。', love:'缺乏安全感，保守固執，容易患得患失；顧家，家庭觀念很強，細水長流；被動平淡。', health:'心臟、腦部疾病及焦慮症；慢性隱性病，如糖尿病。', friend:'舊人多過新人，圈子穩定。', note:'依附隨從磁場：前面係吉星就延續吉，前面係凶星就延續凶。過程越曲折，前進越快。'},huohai:{name:'禍害',pol:'凶',rank:'小兇星',pairs:['17','71','89','98','46','64','23','32'], short:'多口舌是非、容易講錯嘢蝕底', pros:['口才好','能言善辯','反應快','有目標感有行動力','真誠善良','同情弱者','喜歡分享溝通'], cons:['脾氣差','愛抱怨愛生氣','愛面子','內心脆弱','口舌是非','嘴硬口直心快','容易招小人','易為小事口角吵架'], job:'以口為業：老師、業務員、服務業、娛樂、律師、講師、主播、主持人等。', wealth:'開口來財（培訓、演講、主持、收租等）；因先天不足，大富之人極少，且易因口舌破財。', love:'常說花言巧語，婚後易吵架，各執己見不肯認輸，易因吵架而離婚；容易抱怨、易生氣。', health:'先天不足，免疫力低，體弱多病，容易感冒咳嗽、呼吸道系統疾病；身體上易開刀開口，也容易發生意外。', friend:'小心讒言同誤會。', note:'小兇星。高能量禍害數字（17、89）容易同人爭吵。'},liusha:{name:'六煞',pol:'凶',rank:'小兇星',pairs:['16','61','47','74','38','83','29','92'], short:'因為感情同情緒而煩、易破財', pros:['八面玲瓏','交際能力強會變通','親和力十足','異性緣佳','善於溝通','愛打扮','思維細膩','對藝術和美有鑒賞能力'], cons:['想的多猶豫','情緒化矛盾','優柔寡斷','易憂鬱症為情所困','心思敏感愛幻想','耳根軟','多心多疑','易聽信謠言'], job:'善於外交，交際能力強；適合做外交、公關、服務業、中介，與女人和美相關的行業。', wealth:'靠人際關係生財，但不善理財，花錢快，把錢花在家庭、女人或公司上，守不住財富。', love:'感情豐富、偏桃花、婚外情、三角關係，為情所困；嚴重容易導致憂鬱。教材：流年遇鬼會離婚。', health:'體質上易有皮膚及腸胃相關疾病；憂鬱症、躁鬱症及精神、情緒方面疾病。', friend:'異性緣旺，但界線要清。', note:'小兇星。六煞+五鬼組合教材統計離婚率極高。'},wugui:{name:'五鬼',pol:'凶',rank:'大兇星',pairs:['18','81','79','97','36','63','24','42'], short:'起起落落、錢來得快去得快', pros:['才華橫溢','反應快鬼才','學習能力強','點子多創新','不斷求變','善於心計和謀略'], cons:['不穩定反復無常','幻想多不踏實','多疑城府深','對誰也不相信'], job:'適合做公司智囊團、金融、藝術廣告、策劃、互聯網、偏門行業、變動多的職業。', wealth:'靠精力來財，多是偏財、暗財，或來自不經意的鬼點子及創意；錢來得快去得也快，容易瞬間消失，引發負債。', love:'三角戀、不安分、易有外遇、反復無常、變化多，時常處在不安定狀態；離異、分居、異國戀，不利婚姻。教材：外遇離婚；流年遇煞會離婚。', health:'心臟、血液循環，易發生意外；五鬼磁場越大越易血光之災；女性婦科，男性心肺。高能量五鬼+絕命極易引發癌症。心臟病係五鬼代名詞。', friend:'人脈廣但流動大。', note:'大兇星。多鬼：教材統計95%婚姻不好。'},jueming:{name:'絕命',pol:'凶',rank:'大兇星',pairs:['12','21','69','96','48','84','37','73'], short:'捱得辛苦、大上大落、易衝動', pros:['頭腦反應快','有才華','毅力驚人','善良豪爽講義氣','善於謀略','拼命積極','超強企劃能力和判斷力'], cons:['衝動情緒難控','易暴躁','極端自我','性格偏激','容易被騙','賭性較強','容易有官司'], job:'策劃能力強，有軍師特質，敢冒險；適合自己創業或當企業老大，做投資、股票、金融理財等工作。', wealth:'愛投資、辦企業、開公司、買固定資產；賺錢不難，但也開銷大，來得快去得也快；易有固定資產但缺現金、易負債，不會守財、易破財。', love:'難有結果、易分手，家庭協調性差；愛恨分明、易離婚、容易一拍兩散；想法極端（閃婚閃離）；有時重視朋友甚於親人。', health:'容易出現肝腎膽問題、糖尿病、膀胱泌尿系統及生殖器官疾病；年輕人則視力不好，或性功能障礙。', friend:'對人要求高，易絕交。', note:'大兇星。激情、離婚。'}};
 const PAIR_MAP={};Object.keys(FIELDS).forEach(function(k){FIELDS[k].pairs.forEach(function(p){PAIR_MAP[p]=k;});});
-const KIND_INFO={phone:{tag:'後天分身',text:'長時間貼身使用，可更新嘅後天能量。'},id:{tag:'流年運程',text:'身份證化成數字後係一世流年走勢表。'},birth:{tag:'先天命格',text:'出生年月日組成嘅先天數，一世唔會變。'},plate:{tag:'後天磁場',text:'車牌主要影響開車同交通安全。'},address:{tag:'後天磁場',text:'門牌影響家宅同健康。'},account:{tag:'後天磁場',text:'帳號影響財富進出同守財。'},other:{tag:'後天磁場',text:'日常數字屬後天磁場。'}};
-let currentKind='phone';
+const KIND_INFO={phone:{tag:'後天分身',text:'長時間貼身使用，可更新嘅後天能量。'},id:{tag:'流年運程',text:'身份證化成數字後係一世流年走勢表。'},birth:{tag:'先天命格',text:'出生年月日組成嘅先天數，一世唔會變。'},plate:{tag:'後天磁場',text:'車牌主要影響開車同交通安全。'},address:{tag:'後天磁場',text:'門牌影響家宅同健康。'},account:{tag:'後天磁場',text:'帳號影響財富進出同守財。'},other:{tag:'後天磁場',text:'日常數字屬後天磁場。'}};let currentKind='phone';
 function bindUI(){
  document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});t.classList.add('active');document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});document.getElementById('sec-'+t.getAttribute('data-sec')).classList.add('active');});});
  document.querySelectorAll('#kindPills .pill').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('#kindPills .pill').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');currentKind=btn.getAttribute('data-kind');document.getElementById('kindHint').innerHTML='<span class="tag">'+KIND_INFO[currentKind].tag+'</span>'+KIND_INFO[currentKind].text;document.getElementById('inputText').style.display=currentKind==='birth'?'none':'block';document.getElementById('inputBirth').style.display=currentKind==='birth'?'block':'none';});});
@@ -172,7 +499,7 @@ function analyze(){
   else luckCard.style.display='none';
   document.getElementById('pairFlow').innerHTML=pairs.map(function(p,i){var f=FIELDS[p.field];return '<div class="pair-row"><span class="pair-box">'+p.display+'</span> → <strong>'+f.name+'</strong> <span class="muted">'+f.pol+'</span> '+(p.note?'<span class="muted">（'+p.note+'）</span>':'')+(i<pairs.length-1?' <span class="muted">→</span>':'')+'</div>';}).join('');
   var uniq=[];var seen={};pairs.forEach(function(p){if(!seen[p.field]){seen[p.field]=1;uniq.push(p.field);}});
-  document.getElementById('details').innerHTML=uniq.map(function(k){var f=FIELDS[k];var n=counts[k]||1;return '<details class="star-detail"><summary>'+f.name+'（'+f.pol+(n>1?' · '+n+'次':'')+'）</summary><div class="star-body"><p>'+f.short+'</p><div class="grid2"><div class="box g"><strong>優點</strong><br>'+f.pros.join('、')+'</div><div class="box b"><strong>缺點</strong><br>'+f.cons.join('、')+'</div></div><p style="margin-top:6px"><strong>事業：</strong>'+f.job+'</p><p><strong>財運：</strong>'+f.wealth+'</p><p><strong>感情：</strong>'+f.love+'</p><p><strong>健康：</strong>'+f.health+'</p><p><strong>識人：</strong>'+f.friend+'</p><p class="muted">組合：'+f.pairs.join('、')+'</p>'+(f.note?'<p class="muted" style="margin-top:6px">教材：'+f.note+'</p>':'')+'</div></details>';}).join('');
+  document.getElementById('details').innerHTML=uniq.map(function(k){var f=FIELDS[k];var n=counts[k]||1;var polClass=f.pol==='吉'?'吉':(f.pol==='凶'?'凶':'平');return '<details class="star-detail"><summary><span><span class="ptag '+polClass+'" style="margin-right:6px">'+f.pol+'</span>'+f.name+(n>1?' · '+n+'次':'')+'</span></summary><div class="star-body"><p style="font-size:.95rem;margin-bottom:8px"><strong>'+f.short+'</strong></p><div class="grid2"><div class="box g"><strong>✓ 優點</strong><br>'+f.pros.join('、')+'</div><div class="box b"><strong>✗ 缺點</strong><br>'+f.cons.join('、')+'</div></div><p style="margin-top:8px"><strong>事業：</strong>'+f.job+'</p><p><strong>財運：</strong>'+f.wealth+'</p><p><strong>感情：</strong>'+f.love+'</p><p><strong>健康：</strong>'+f.health+'</p><p><strong>識人：</strong>'+f.friend+'</p>'+(f.resolve?'<div class="hl-resolve"><strong>化解建議</strong><br>'+f.resolve+'</div>':'')+'<p class="muted" style="margin-top:8px">組合：'+f.pairs.join('、')+'</p>'+(f.note?'<div class="hl-warn">'+f.note+'</div>':'')+'</div></details>';}).join('');
   var missing=['tianyi','yannian','shengqi'].filter(function(k){return !counts[k];});
   var excess=Object.keys(counts).filter(function(k){return FIELDS[k].pol==='凶'&&counts[k]>=2;});
   var lastField=pairs[pairs.length-1].field;var lastBad=FIELDS[lastField].pol==='凶';
@@ -183,6 +510,8 @@ function analyze(){
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
  }catch(err){console.error(err);alert('解讀出錯：'+err.message);}
 }
-document.getElementById('wikiGrid').innerHTML=Object.keys(FIELDS).map(function(k){var f=FIELDS[k];return '<div class="wiki-card"><h3><span class="ptag '+f.pol+'">'+(f.rank||f.pol)+'</span> '+f.name+'</h3><p class="muted">組合：'+f.pairs.join('、')+'</p><p><strong>一句：</strong>'+f.short+'</p><p><strong>優點：</strong>'+f.pros.join('、')+'</p><p><strong>缺點：</strong>'+f.cons.join('、')+'</p><p><strong>事業：</strong>'+f.job+'</p><p><strong>財運：</strong>'+f.wealth+'</p><p><strong>感情：</strong>'+f.love+'</p><p><strong>健康：</strong>'+f.health+'</p><p><strong>識人／交際：</strong>'+f.friend+'</p>'+(f.note?'<p class="muted" style="margin-top:6px;border-top:1px dashed #ddd;padding-top:6px">教材備註：'+f.note+'</p>':'')+'</div>';}).join('');
+document.getElementById('wikiGrid').innerHTML=Object.keys(FIELDS).map(function(k){var f=FIELDS[k];return '<div class="wiki-card"><h3><span class="ptag '+f.pol+'">'+(f.rank||f.pol)+'</span> '+f.name+'</h3><p class="muted">組合：'+f.pairs.join('、')+'</p><p style="font-size:.95rem;margin:8px 0"><strong>'+f.short+'</strong></p><p class="section-label">✓ 優點</p><p>'+f.pros.join('、')+'</p><p class="section-label">✗ 缺點</p><p>'+f.cons.join('、')+'</p><p class="section-label">事業</p><p>'+f.job+'</p><p class="section-label">財運</p><p>'+f.wealth+'</p><p class="section-label">感情</p><p>'+f.love+'</p><p class="section-label">健康</p><p>'+f.health+'</p><p class="section-label">識人／交際</p><p>'+f.friend+'</p>'+(f.resolve?'<div class="hl-resolve"><strong>化解建議</strong><br>'+f.resolve+'</div>':'')+(f.note?'<div class="hl-warn">'+f.note+'</div>':'')+'</div>';}).join('');
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',bindUI);}else{bindUI();}
-</script></body></html>
+</script>
+</body>
+</html>
