@@ -16,16 +16,15 @@ header h1{font-size:1.55rem;color:var(--p);font-weight:700}header .sub{color:var
 .card{background:var(--c);border-radius:var(--r);box-shadow:var(--sh);padding:18px;margin-bottom:14px;border:1px solid var(--b)}
 .card-title{font-size:1.05rem;font-weight:700;color:var(--p);margin-bottom:12px}
 .form-group{margin-bottom:12px}label{display:block;font-size:.88rem;font-weight:600;margin-bottom:5px}
-input[type=text],select{width:100%;padding:11px 12px;border:1.5px solid var(--b);border-radius:7px;font-size:1rem;background:#fff}
-input:focus,select:focus{outline:none;border-color:var(--p)}
+input[type=text]{width:100%;padding:11px 12px;border:1.5px solid var(--b);border-radius:7px;font-size:1rem;background:#fff}
+input:focus{outline:none;border-color:var(--p)}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .pill{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:6px 12px;font-size:.8rem;cursor:pointer;color:var(--m)}
 .pill.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
 .btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 button{cursor:pointer;border:none;border-radius:7px;padding:11px 18px;font-size:.92rem;font-weight:600}
-.btn-primary{background:var(--p);color:#fff}.btn-primary:hover{background:var(--pl)}
-.btn-outline{background:transparent;border:1.5px solid var(--b);color:var(--t)}
-.muted{color:var(--m);font-size:.85rem}.good{color:var(--s)}.bad{color:var(--d)}
+.btn-primary{background:var(--p);color:#fff}.btn-outline{background:transparent;border:1.5px solid var(--b);color:var(--t)}
+.muted{color:var(--m);font-size:.85rem}
 .story{background:#f0f5f1;border-left:4px solid var(--p);padding:14px 16px;border-radius:0 8px 8px 0;margin:10px 0;font-size:.95rem;line-height:1.85}
 .star-bar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 .star-chip{padding:5px 11px;border-radius:16px;font-size:.8rem;font-weight:600;color:#fff}
@@ -56,12 +55,10 @@ details.star-detail[open] summary::after{content:"▲"}
 <h1>好命密碼 · 數字磁場</h1>
 <p class="sub">跟愛德華門派 · 上傳教材邏輯 · 口語故事解讀</p>
 </header>
-
 <div class="tabs">
 <button class="tab active" data-sec="analyze">分析</button>
 <button class="tab" data-sec="wiki">八大磁場百科</button>
 </div>
-
 <section id="sec-analyze" class="section active">
 <div class="card">
 <div class="card-title">輸入數字</div>
@@ -85,132 +82,38 @@ details.star-detail[open] summary::after{content:"▲"}
 </div>
 <p class="muted" style="margin-top:10px">規則：0＝隱性／弱化（所有類型）；5＝只喺電話計（其他跳過）。字母 A=01…Z=26。</p>
 </div>
-
 <div id="results" style="display:none">
-<div class="card">
-<div class="card-title">故事解讀</div>
-<div class="story" id="storyBox"></div>
-<div class="star-bar" id="starBar"></div>
-</div>
-<div class="card">
-<div class="card-title">磁場走勢</div>
-<div id="pairFlow"></div>
-</div>
-<div class="card">
-<div class="card-title">詳細說明（撳開展開）</div>
-<div id="details"></div>
-</div>
-<div class="card" id="fixCard" style="display:none">
-<div class="card-title">化解／補足建議</div>
-<div id="fixBox"></div>
-</div>
+<div class="card"><div class="card-title">故事解讀</div><div class="story" id="storyBox"></div><div class="star-bar" id="starBar"></div></div>
+<div class="card"><div class="card-title">磁場走勢</div><div id="pairFlow"></div></div>
+<div class="card"><div class="card-title">詳細說明（撳開展開）</div><div id="details"></div></div>
+<div class="card" id="fixCard" style="display:none"><div class="card-title">化解／補足建議</div><div id="fixBox"></div></div>
 </div>
 </section>
-
 <section id="sec-wiki" class="section">
 <div class="card">
 <div class="card-title">八大磁場百科</div>
-<p class="muted" style="margin-bottom:12px">每粒星喺事業、財運、感情、健康、識人嘅含義（跟教材整理）。</p>
+<p class="muted" style="margin-bottom:12px">每粒星喺事業、財運、感情、健康、識人嘅含義。</p>
 <div class="wiki-grid" id="wikiGrid"></div>
 </div>
 </section>
 </div>
-
 <script>
-const FIELDS = {
-  tianyi:{name:'天醫',pol:'吉',pairs:['13','31','68','86','49','94','27','72'],
-    short:'有錢路同貴人幫一手，心胸開闊',
-    pros:['聰明','財運佳','有貴人','善良'],cons:['太善良易被騙','主見不足'],
-    job:'適合專業、醫療、顧問、幕僚；有成為老闆或得力助手嘅資質。',
-    wealth:'正財明顯，易有人帶財路；投資宜穩，唔好太衝動。',
-    love:'正桃花、單純；但易冇主見，要小心畀人牽住。',
-    health:'整體偏健康，留意過勞同睡眠。',
-    friend:'易遇到貴人，適合長期合作。'},
-  shengqi:{name:'生氣',pol:'吉',pairs:['14','41','67','76','39','93','28','82'],
-    short:'遇到好多貴人、心情開朗、人緣好',
-    pros:['人緣好','逢凶化吉','開心'],cons:['懶散','三分鐘熱度'],
-    job:'人際、銷售、公關、服務業特別有利。',
-    wealth:'貴人帶財，機會多；但要自己跟進，唔好只靠運氣。',
-    love:'人緣旺，易有桃花；感情較輕鬆愉快。',
-    health:'精神好，但要避免過度交際影響作息。',
-    friend:'到處都有人願意幫，識人廣。'},
-  yannian:{name:'延年',pol:'吉',pairs:['19','91','78','87','34','43','26','62'],
-    short:'有主見、肯扛責任、專業穩定',
-    pros:['領導力','專業','守財','穩定'],cons:['固執','唔夠圓滑'],
-    job:'適合管理、技術、長線事業；扛得起責任。',
-    wealth:'守財力強，適合慢慢累積；唔適合暴利投機。',
-    love:'重視承諾同責任，感情較穩；但有時太嚴肅。',
-    health:'體質相對穩，留意壓力同肩頸。',
-    friend:'交淺唔交深以外，真正夥伴會好耐。'},
-  fuwei:{name:'伏位',pol:'平',pairs:['11','22','33','44','66','77','88','99'],
-    short:'慢慢守住、延續上一段嘅勢',
-    pros:['耐性','穩定','延續'],cons:['被動','保守','進展慢'],
-    job:'適合重複性、行政、後勤；進步慢但穩。',
-    wealth:'守多過攻，適合儲蓄；大機會要靠其他星帶。',
-    love:'平淡穩定，唔多波折；要主動先有進展。',
-    health:'平穩，留意長期積勞。',
-    friend:'舊人多過新人，圈子穩定。'},
-  huohai:{name:'禍害',pol:'凶',pairs:['17','71','89','98','46','64','23','32'],
-    short:'多口舌是非、容易講錯嘢蝕底',
-    pros:['口才好','反應快'],cons:['口舌是非','招小人','講錯蝕底'],
-    job:'口才相關可以轉化；但團隊易有爭拗。',
-    wealth:'易因說話、合約、口角破財；簽署要小心。',
-    love:'易吵、易有第三者閒言；溝通要克制。',
-    health:'留意口腔、咽喉、頭痛。',
-    friend:'小心讒言同誤會。'},
-  liusha:{name:'六煞',pol:'凶',pairs:['16','61','47','74','38','83','29','92'],
-    short:'因為感情同情緒而煩、易破財',
-    pros:['交際','異性緣'],cons:['情緒化','偏桃花','感情破財'],
-    job:'公關、娛樂有發揮；但情緒影響決策。',
-    wealth:'易因感情、應酬、人情破財。',
-    love:'桃花多但糾纏多；聚少離多、情緒拉扯。',
-    health:'留意泌尿、腎、情緒病、皮膚。',
-    friend:'異性緣旺，但界線要清。'},
-  wugui:{name:'五鬼',pol:'凶',pairs:['18','81','79','97','36','63','24','42'],
-    short:'起起落落、錢來得快去得快',
-    pros:['鬼才','點子多','變化快'],cons:['反覆','錢去得快','心散'],
-    job:'創意、變陣、短期項目可以；長線難穩。',
-    wealth:'來得快去得快；投機易大起大落。',
-    love:'感情多變、難捉摸；易分分合合。',
-    health:'精神緊張、睡眠、意外要小心。',
-    friend:'人脈廣但流動大。'},
-  jueming:{name:'絕命',pol:'凶',pairs:['12','21','69','96','48','84','37','73'],
-    short:'捱得辛苦、大上大落、易衝動',
-    pros:['毅力','敢拼'],cons:['衝動','大上大落','消耗大'],
-    job:'高壓、挑戰型工作可能發揮；但易燒乾。',
-    wealth:'大上大落，忌槓桿同賭博式投資。',
-    love:'愛恨分明，易極端；分手都可能好決絕。',
-    health:'意外、手術、血壓、過勞風險較高。',
-    friend:'對人要求高，易絕交。'}
+const FIELDS={
+tianyi:{name:'天醫',pol:'吉',pairs:['13','31','68','86','49','94','27','72'],short:'有錢路同貴人幫一手，心胸開闊',pros:['聰明','財運佳','有貴人','善良'],cons:['太善良易被騙','主見不足'],job:'適合專業、醫療、顧問、幕僚；有成為老闆或得力助手嘅資質。',wealth:'正財明顯，易有人帶財路；投資宜穩。',love:'正桃花、單純；但易冇主見。',health:'整體偏健康，留意過勞同睡眠。',friend:'易遇到貴人，適合長期合作。'},
+shengqi:{name:'生氣',pol:'吉',pairs:['14','41','67','76','39','93','28','82'],short:'遇到好多貴人、心情開朗、人緣好',pros:['人緣好','逢凶化吉','開心'],cons:['懶散','三分鐘熱度'],job:'人際、銷售、公關、服務業特別有利。',wealth:'貴人帶財，機會多；但要自己跟進。',love:'人緣旺，易有桃花；感情較輕鬆。',health:'精神好，避免過度交際影響作息。',friend:'到處都有人願意幫，識人廣。'},
+yannian:{name:'延年',pol:'吉',pairs:['19','91','78','87','34','43','26','62'],short:'有主見、肯扛責任、專業穩定',pros:['領導力','專業','守財','穩定'],cons:['固執','唔夠圓滑'],job:'適合管理、技術、長線事業。',wealth:'守財力強，適合慢慢累積。',love:'重視承諾同責任，感情較穩。',health:'體質相對穩，留意壓力同肩頸。',friend:'真正夥伴會好耐。'},
+fuwei:{name:'伏位',pol:'平',pairs:['11','22','33','44','66','77','88','99'],short:'慢慢守住、延續上一段嘅勢',pros:['耐性','穩定','延續'],cons:['被動','保守','進展慢'],job:'適合行政、後勤；進步慢但穩。',wealth:'守多過攻，適合儲蓄。',love:'平淡穩定；要主動先有進展。',health:'平穩，留意長期積勞。',friend:'舊人多過新人。'},
+huohai:{name:'禍害',pol:'凶',pairs:['17','71','89','98','46','64','23','32'],short:'多口舌是非、容易講錯嘢蝕底',pros:['口才好','反應快'],cons:['口舌是非','招小人','講錯蝕底'],job:'口才相關可以轉化；團隊易有爭拗。',wealth:'易因說話、合約破財。',love:'易吵、易有閒言。',health:'留意口腔、咽喉、頭痛。',friend:'小心讒言同誤會。'},
+liusha:{name:'六煞',pol:'凶',pairs:['16','61','47','74','38','83','29','92'],short:'因為感情同情緒而煩、易破財',pros:['交際','異性緣'],cons:['情緒化','偏桃花','感情破財'],job:'公關、娛樂有發揮；情緒影響決策。',wealth:'易因感情、應酬破財。',love:'桃花多但糾纏多。',health:'留意泌尿、腎、情緒、皮膚。',friend:'異性緣旺，界線要清。'},
+wugui:{name:'五鬼',pol:'凶',pairs:['18','81','79','97','36','63','24','42'],short:'起起落落、錢來得快去得快',pros:['鬼才','點子多','變化快'],cons:['反覆','錢去得快','心散'],job:'創意、短期項目可以；長線難穩。',wealth:'來得快去得快；投機易大起大落。',love:'感情多變；易分分合合。',health:'精神緊張、睡眠、意外要小心。',friend:'人脈廣但流動大。'},
+jueming:{name:'絕命',pol:'凶',pairs:['12','21','69','96','48','84','37','73'],short:'捱得辛苦、大上大落、易衝動',pros:['毅力','敢拼'],cons:['衝動','大上大落','消耗大'],job:'高壓挑戰型可能發揮；易燒乾。',wealth:'大上大落，忌槓桿同賭式投資。',love:'愛恨分明，易極端。',health:'意外、手術、血壓、過勞風險較高。',friend:'對人要求高，易絕交。'}
 };
 const PAIR_MAP={};Object.keys(FIELDS).forEach(k=>FIELDS[k].pairs.forEach(p=>PAIR_MAP[p]=k));
-const KIND_INFO={
-  phone:{tag:'後天分身',text:'長時間貼身使用，可更新嘅後天能量，影響現階段運勢。'},
-  id:{tag:'流年運程',text:'身份證化成數字後係一世流年走勢表，每組對應一段歲數。'},
-  birth:{tag:'先天命格',text:'出生年月日係先天命格，一世唔會變，代表底子同本質。'},
-  plate:{tag:'後天磁場',text:'車牌主要影響開車運勢同交通安全。'},
-  address:{tag:'後天磁場',text:'門牌影響居住期間嘅家宅同健康。'},
-  account:{tag:'後天磁場',text:'銀行帳號／密碼影響財富進出同守財。'},
-  other:{tag:'後天磁場',text:'任何日常數字都屬後天磁場，用得越多影響越大。'}
-};
+const KIND_INFO={phone:{tag:'後天分身',text:'長時間貼身使用，可更新嘅後天能量，影響現階段運勢。'},id:{tag:'流年運程',text:'身份證化成數字後係一世流年走勢表。'},birth:{tag:'先天命格',text:'出生年月日係先天命格，一世唔會變。'},plate:{tag:'後天磁場',text:'車牌主要影響開車運勢同交通安全。'},address:{tag:'後天磁場',text:'門牌影響居住期間嘅家宅同健康。'},account:{tag:'後天磁場',text:'銀行帳號／密碼影響財富進出同守財。'},other:{tag:'後天磁場',text:'任何日常數字都屬後天磁場。'}};
 let currentKind='phone';
 
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-    document.getElementById('sec-'+t.dataset.sec).classList.add('active');
-  });
-});
-document.querySelectorAll('#kindPills .pill').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('#kindPills .pill').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentKind=btn.dataset.kind;
-    document.getElementById('kindHint').textContent=KIND_INFO[currentKind].tag+'：'+KIND_INFO[currentKind].text;
-  });
-});
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById('sec-'+t.dataset.sec).classList.add('active');});});
+document.querySelectorAll('#kindPills .pill').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('#kindPills .pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentKind=btn.dataset.kind;document.getElementById('kindHint').textContent=KIND_INFO[currentKind].tag+'：'+KIND_INFO[currentKind].text;});});
 
 function expandLetters(s){return s.replace(/[A-Za-z]/g,ch=>String(ch.toUpperCase().charCodeAt(0)-64).padStart(2,'0'));}
 function extractDigits(s){return (s.match(/\d/g)||[]).join('');}
@@ -218,21 +121,18 @@ function extractDigits(s){return (s.match(/\d/g)||[]).join('');}
 function buildPairs(digits,kind){
   const source=kind==='phone'?digits:digits.replace(/5/g,'');
   const core=[];let pending='';
-  for(const ch of source){
-    if(ch==='0'||(kind==='phone'&&ch==='5')) pending+=ch;
-    else{core.push({d:ch,bridge:pending});pending='';}
-  }
+  for(const ch of source){if(ch==='0'||(kind==='phone'&&ch==='5'))pending+=ch;else{core.push({d:ch,bridge:pending});pending='';}}
   const trailing=pending;const out=[];
   for(let i=1;i<core.length;i++){
     const a=core[i-1].d,b=core[i].d,bridge=core[i].bridge;
     const pair=a+b;const key=PAIR_MAP[pair];if(!key)continue;
     let connector=null;
-    if(kind==='phone'&&bridge.includes('5')) connector='5';
-    else if(bridge.includes('0')) connector='0';
+    if(kind==='phone'&&bridge.includes('5'))connector='5';
+    else if(bridge.includes('0'))connector='0';
     let factor=connector==='5'?1.3:connector==='0'?0.6:1;
     let field=key;let note='';
-    if(connector==='5') note='夾5顯性，特質更外露';
-    if(connector==='0') note='夾0隱性，能量被弱化、時有時冇';
+    if(connector==='5')note='夾5顯性，特質更外露';
+    if(connector==='0')note='夾0隱性，能量被弱化、時有時冇';
     if(key==='fuwei'&&out.length){field=out[out.length-1].field;note+=(note?'；':'')+'伏位延續前組「'+FIELDS[field].name+'」';}
     out.push({pair,display:a+bridge+b,field,baseField:key,connector,factor,note});
   }
@@ -245,65 +145,63 @@ function buildPairs(digits,kind){
 }
 
 function buildStory(pairs,kind){
-  if(!pairs.length) return '';
+  if(!pairs.length)return '';
   const counts={};pairs.forEach(p=>{counts[p.field]=(counts[p.field]||0)+1;});
+  const ranked=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+  let domKeys=ranked.filter(k=>counts[k]>=2);
+  if(!domKeys.length){
+    domKeys=ranked.filter(k=>{
+      const hits=pairs.filter(p=>p.field===k);
+      return !hits.every(p=>p.connector==='0');
+    }).slice(0,2);
+    if(!domKeys.length)domKeys=ranked.slice(0,1);
+  }
   const good=pairs.filter(p=>FIELDS[p.field].pol==='吉').length;
   const bad=pairs.filter(p=>FIELDS[p.field].pol==='凶').length;
   const last=FIELDS[pairs[pairs.length-1].field];
-  const top=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+  const parts=[];
 
-  let lines=[];
-  if(bad===0) lines.push('呢組數字整體偏順，吉星撐住，做起嘢嚟阻力相對細。');
-  else if(good===0) lines.push('呢組數字整體偏消耗：'+top.filter(k=>FIELDS[k].pol==='凶').map(k=>FIELDS[k].name+(counts[k]>1?'（'+counts[k]+'次）':'')).join('、')+'佔主導，變化同壓力會比較明顯。');
-  else lines.push('呢組數字吉凶參半：有'+good+'組吉星、'+bad+'組凶星，好壞拉鋸，要睇邊段出現。');
+  if(bad===0){
+    parts.push('呢組數字用起上嚟整體偏順，吉星撐住，阻力相對細。');
+  }else if(good===0){
+    const domDesc=domKeys.map(k=>FIELDS[k].name+(counts[k]>1?'（'+counts[k]+'次）':'')).join('同');
+    const feel=domKeys.map(k=>FIELDS[k].short).join('，又');
+    parts.push('呢組數字用起上嚟會覺得變化大、消耗大，主要係'+domDesc+'喺度主導——'+feel+'。');
+  }else{
+    parts.push('呢組數字吉凶參半，有'+good+'組吉、'+bad+'組凶，好壞拉鋸。');
+    parts.push('比較明顯嘅係'+domKeys.map(k=>FIELDS[k].name+(counts[k]>1?'出咗'+counts[k]+'次':'')+'（'+FIELDS[k].short+'）').join('，同')+'。');
+  }
 
-  const main=top.slice(0,2).map(k=>{
-    const f=FIELDS[k];const n=counts[k];
-    return f.name+(n>1?'出咗'+n+'次':'')+'——'+f.short;
-  });
-  lines.push('主導感覺係：'+main.join('；')+'。');
-
-  const bridged=pairs.filter(p=>p.connector);
-  if(bridged.length){
-    lines.push(bridged.map(p=>{
-      const f=FIELDS[p.field];
-      return p.connector==='0'?(p.display+'呢組「'+f.name+'」被0弱化，影響變隱性'):(p.display+'夾5，「'+f.name+'」更外露');
-    }).join('；')+'。');
+  const weak=pairs.filter(p=>p.connector==='0');
+  if(weak.length){
+    parts.push(weak.map(p=>'中段'+p.display+'「'+FIELDS[p.field].name+'」被0弱化，呢方面影響變隱性、唔會太明顯').join('；')+'。');
   }
 
   if(kind==='phone'&&pairs.length>=2){
     const tail=pairs.slice(-Math.min(3,pairs.length));
-    const tailNames=tail.map(p=>FIELDS[p.field].name).join('、');
+    const uniqTail=[...new Set(tail.map(p=>FIELDS[p.field].name))];
     const tailBad=tail.every(p=>FIELDS[p.field].pol!=='吉');
-    lines.push('手機越尾影響力越大，你尾段係'+tailNames+(tailBad?'——收尾偏消耗，現階段宜守、少大擴張。':'——尾段有吉星撐，用起來會順啲。'));
+    parts.push('手機越尾越緊要，你尾段主要係'+uniqTail.join('、')+(tailBad?'，收尾偏消耗，現階段宜守、少大擴張。':'，尾段有吉星，用起來會順啲。'));
   }
 
-  lines.push('最後定調係「'+last.name+'」，所以'+(last.pol==='吉'?'整體收尾有得交代，可以積極啲。':'收尾要特別小心守，唔好喺最尾階段硬衝。'));
-  return lines.join('');
+  parts.push('最後落喺「'+last.name+'」，'+(last.pol==='吉'?'收尾有得交代，可以積極啲。':'所以最尾階段唔好硬衝，宜守。'));
+  return parts.join('');
 }
 
 function suggestNumbers(missing){
-  const pool=missing.length?missing:['tianyi','yannian','shengqi'];
-  const out=[];const used=new Set();
-  for(let t=0;t<8&&out.length<4;t++){
-    const keys=pool.slice(0,Math.min(2,pool.length));
-    let s='';let last=null;
-    for(let i=0;i<4;i++){
-      const k=keys[i%keys.length];
-      const ps=FIELDS[k].pairs.filter(p=>!last||p[0]===last);
-      const pick=(ps.length?ps:FIELDS[k].pairs)[t%FIELDS[k].pairs.length];
-      if(!s) s=pick; else s+=pick[1];
-      last=s[s.length-1];
-    }
-    if(!used.has(s)&&s.length>=4){used.add(s);out.push(s);}
-  }
+  const pool=(missing&&missing.length)?missing:['tianyi','yannian','shengqi'];
+  const presets={tianyi:['1349','3149','6849','9427'],yannian:['1978','9178','3443','2662'],shengqi:['1467','4139','6728','8293'],mixed:['1341','1949','9176','3143']};
+  const out=[];
+  pool.forEach(k=>{(presets[k]||[]).forEach(n=>{if(out.length<4&&out.indexOf(n)<0)out.push(n);});});
+  if(out.length<4)presets.mixed.forEach(n=>{if(out.length<4&&out.indexOf(n)<0)out.push(n);});
   return out;
 }
 
 function analyze(){
+  try{
   let raw=document.getElementById('numInput').value.trim();
   if(!raw){alert('請輸入數字');return;}
-  if(currentKind==='id') raw=expandLetters(raw);
+  if(currentKind==='id')raw=expandLetters(raw);
   const digits=extractDigits(raw);
   const pairs=buildPairs(digits,currentKind);
   if(!pairs.length){alert('有效位數唔夠組成磁場');return;}
@@ -364,15 +262,19 @@ function analyze(){
     if(currentKind==='phone'){
       html+='<p class="muted">電話屬後天分身：先天如果缺以上吉星，用尾號補返最直接。</p>';
     }
-    const nums=suggestNumbers(missing.length?missing:['tianyi','yannian']);
-    html+='<p style="margin-top:10px"><strong>推薦可試嘅尾號／密碼（約 4–5 位）：</strong><br>';
+    const nums=suggestNumbers(missing);
+    html+='<p style="margin-top:10px"><strong>推薦可試嘅尾號／密碼（約 4 位）：</strong><br>';
     nums.forEach(n=>{html+='<span class="num-sug">'+n+'</span>';});
     html+='</p><p class="muted">可以加喺原號碼後面，或者用作新尾數／密碼參考。實際申請以電訊商可選號碼為準。</p>';
     fixBox.innerHTML=html;
-  } else {
+  }else{
     fixCard.style.display='none';
   }
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(err){
+    console.error(err);
+    alert('解讀時出錯：'+err.message);
+  }
 }
 
 document.getElementById('wikiGrid').innerHTML=Object.keys(FIELDS).map(k=>{
@@ -388,10 +290,7 @@ document.getElementById('wikiGrid').innerHTML=Object.keys(FIELDS).map(k=>{
 }).join('');
 
 document.getElementById('analyzeBtn').addEventListener('click',analyze);
-document.getElementById('clearBtn').addEventListener('click',()=>{
-  document.getElementById('numInput').value='';
-  document.getElementById('results').style.display='none';
-});
+document.getElementById('clearBtn').addEventListener('click',()=>{document.getElementById('numInput').value='';document.getElementById('results').style.display='none';});
 document.getElementById('numInput').addEventListener('keydown',e=>{if(e.key==='Enter')analyze();});
 </script>
 </body>
