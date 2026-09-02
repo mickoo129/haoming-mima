@@ -40,7 +40,7 @@ details.star-detail{border:1px solid var(--b);border-radius:10px;margin-bottom:8
 <div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 98764321" maxlength="40"/></div>
 <div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><input type="date" id="birthInput"/><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
 <div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn">解讀</button><button type="button" class="btn-outline" id="clearBtn">清除</button></div>
-<p class="muted" style="margin-top:12px">0＝電話隱性弱化；車牌號碼入面嘅0唔計。5＝只喺電話計。字母 A=01…Z=26。</p>
+<p class="muted" style="margin-top:12px">0＝電話隱性弱化；車牌號碼入面嘅0唔計。5＝只喺電話計。字母 A=01…Z=26（身份證、門牌、其他數字、車牌都會計）。</p>
 </div>
 <div id="results" style="display:none">
 <div class="card"><div class="card-title">呢次分析角色</div><div id="roleBox"></div></div>
@@ -65,7 +65,7 @@ wugui:{name:'五鬼',pol:'凶',rank:'大兇星',pairs:['18','81','79','97','36',
 jueming:{name:'絕命',pol:'凶',rank:'大兇星',pairs:['12','21','69','96','48','84','37','73'],short:'大上大落、易衝動',detail:'大兇星。主大上大落、衝動、開銷大、易絕交分手。毅力驚人，適合要拼嘅階段，但日常宜守不宜攻。車牌絕命，出行簽約開刀都要慢半拍。',pros:['毅力驚人'],cons:['衝動極端'],job:'創業投資。',wealth:'開銷大易負債。',love:'易分手離婚。',health:'肝腎膽泌尿。',friend:'易絕交。',note:'車牌見絕命，出行宜穩陣。',fix:'宜守不宜攻。後天尾段改延年（女性唔用19/91）或生氣。出行簽約開刀慢半拍。唔好同五鬼一齊出現喺後天數字。'}
 };
 const PAIR_MAP={};Object.keys(FIELDS).forEach(function(k){FIELDS[k].pairs.forEach(function(p){PAIR_MAP[p]=k;});});
-const KIND_INFO={phone:{tag:'後天分身',text:'影響而家運勢。重點睇尾段、後五位0、絕對定律。',ph:'例如 98764321'},id:{tag:'流年運程',text:'證件數字循環重複：第一段0–13歲，之後每5年一段，星序行完再由頭再行，直至98歲。證件本身唔能改。',ph:'例如 A123456(7)'},birth:{tag:'先天命格',text:'出世就定，只講底子，唔用嚟改號。',ph:''},plate:{tag:'交通磁場',text:'教材用車牌睇開車、出行同路上安危，唔係睇事業財運。英文字母一齊計（A=01…Z=26）。車牌唔計0。',ph:'例如 AB1234'},address:{tag:'家宅磁場',text:'門牌睇家宅、家人健康、居住氣場。字母同樣轉換。',ph:'例如 8A'},account:{tag:'財運磁場',text:'帳號睇財富進出同守財。',ph:'例如 0123456789'},other:{tag:'後天磁場',text:'日常數字影響使用場景。',ph:'輸入數字'}};
+const KIND_INFO={phone:{tag:'後天分身',text:'影響而家運勢。重點睇尾段、後五位0、絕對定律。',ph:'例如 98764321'},id:{tag:'流年運程',text:'證件數字循環重複：第一段0–13歲，之後每5年一段，星序行完再由頭再行，直至98歲。證件本身唔能改。',ph:'例如 A123456(7)'},birth:{tag:'先天命格',text:'出世就定，只講底子，唔用嚟改號。',ph:''},plate:{tag:'交通磁場',text:'教材用車牌睇開車、出行同路上安危，唔係睇事業財運。英文字母一齊計（A=01…Z=26）。車牌唔計0。',ph:'例如 AB1234'},address:{tag:'家宅磁場',text:'門牌睇家宅、家人健康、居住氣場。字母同樣轉換。',ph:'例如 8A'},account:{tag:'財運磁場',text:'帳號睇財富進出同守財。',ph:'例如 0123456789'},other:{tag:'後天磁場',text:'輸入咩就計咩。英文字母一齊計（A=01…Z=26），數字原樣保留。',ph:'例如 AB88 或 VIP123'}};
 let currentKind='phone';
 function bindUI(){
  document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});t.classList.add('active');document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});document.getElementById('sec-'+t.getAttribute('data-sec')).classList.add('active');});});
@@ -93,7 +93,7 @@ else if(kind==='birth')html+='<p><strong>分析重點：</strong>先天命格，
 else if(kind==='plate'){html+='<p><strong>分析重點：</strong>車牌睇開車出行安危。字母A=01…Z=26，號碼0跳過。</p>';if(has('wugui'))html+='<p>有五鬼：行車起伏。</p>';if(has('jueming'))html+='<p>有絕命：出行宜穩。</p>';if(has('huohai'))html+='<p>有禍害：小心交通意外。</p>';}
 else if(kind==='address')html+='<p><strong>分析重點：</strong>家宅、家人健康。</p>';
 else if(kind==='account')html+='<p><strong>分析重點：</strong>財富進出同守財。</p>';
-else html+='<p>後天磁場。</p>';
+else html+='<p><strong>分析重點：</strong>輸入咩就計咩。字母 A=01…Z=26，數字原樣保留。</p>';
 return html;}
 function idCycles(pairs){var n=pairs.length,out=[];out.push({from:0,to:13,pair:pairs[0]});var age=13,i=1;while(age<98){var from=age,to=Math.min(age+5,98);out.push({from:from,to:to,pair:pairs[i%n]});age=to;i++;}return out;}
 function stageName(from,to){var mid=(from+to)/2;if(mid<13)return '童年／少年';if(mid<23)return '求學／初入世';if(mid<33)return '立業／成家';if(mid<43)return '事業爬升';if(mid<53)return '中年守成';if(mid<63)return '熟年轉折';if(mid<73)return '準備退休／傳承';return '晚年頤養';}
@@ -103,6 +103,7 @@ if(kind==='id')html+='<p>身份證係流年，星序不斷重複。第一段0–
 else if(kind==='birth')html+='<p>先天命格出世就定，缺星用手機車牌補。</p>';
 else if(kind==='phone')html+='<p>手機係後天分身。尾段「'+last.name+'」。最後4位唔可以有0同凶星。</p>';
 else if(kind==='plate')html+='<p>車牌係交通磁場。尾段「'+last.name+'」。</p>';
+else if(kind==='other')html+='<p>其他數字：輸入咩就計咩。字母已轉成 A=01…Z=26。尾段「'+last.name+'」。</p>';
 else html+='<p>尾段「'+last.name+'」：'+last.short+'。</p>';
 html+='<p>吉 '+good+' 組、凶 '+bad+' 組。</p>';return html;}
 function wikiCard(f){return '<div class="wiki-card"><h3><span class="ptag '+f.pol+'">'+f.rank+'</span> '+f.name+'</h3><p class="muted">組合：'+f.pairs.join('、')+'</p><p><strong>'+f.short+'</strong></p><p>'+(f.detail||'')+'</p><div class="grid2"><div class="box g">優點：'+f.pros.join('、')+'</div><div class="box b">缺點：'+f.cons.join('、')+'</div></div><p><strong>事業</strong>：'+f.job+'</p><p><strong>財運</strong>：'+f.wealth+'</p><p><strong>感情</strong>：'+f.love+'</p><p><strong>健康</strong>：'+f.health+'</p><p><strong>人際</strong>：'+f.friend+'</p>'+(f.note?'<div class="hl-warn"><strong>注意：</strong>'+f.note+'</div>':'')+(f.fix?'<div class="hl-resolve"><strong>化解：</strong>'+f.fix+'</div>':'')+'</div>';}
@@ -110,7 +111,7 @@ function analyze(){try{var digits='',birthMeta=null,preparedNote='';
 if(currentKind==='birth'){var iso=document.getElementById('birthInput').value;if(!iso){alert('請揀出生日期');return;}birthMeta=birthCode(iso);digits=birthMeta.code;preparedNote=birthMeta.text;}
 else{var raw=document.getElementById('numInput').value.trim();if(!raw){alert('請輸入數字');return;}
 if(currentKind==='plate'){digits=plateToDigits(raw);preparedNote='車牌字母A=01…Z=26，號碼0已跳過 → '+digits;}
-else {if(currentKind==='id'||currentKind==='address'){var exp=expandLetters(raw);if(exp!==raw)preparedNote='字母轉換後：'+extractDigits(exp);raw=exp;}digits=extractDigits(raw);}}
+else {if(currentKind==='id'||currentKind==='address'||currentKind==='other'){var exp=expandLetters(raw);if(exp!==raw)preparedNote='字母已轉換（A=01…Z=26）→ '+extractDigits(exp);raw=exp;}digits=extractDigits(raw);}}
 var pairs=buildPairs(digits,currentKind);if(!pairs.length){alert('有效位數唔夠');return;}
 document.getElementById('results').style.display='block';
 var roleHtml='<p><span class="tag">'+KIND_INFO[currentKind].tag+'</span>'+KIND_INFO[currentKind].text+'</p>';
