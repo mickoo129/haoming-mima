@@ -1,1 +1,217 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>好命密碼 · 數字磁場</title><script src="https://cdn.jsdelivr.net/npm/solarlunar@3.1.0/dist/solarlunar.min.js"></script><style>
+:root{--p:#1a4a3a;--bg:#f7f4ee;--t:#1c1c1c;--m:#5a5a5a;--b:#e0d8c8;--good:#2e7d32;--bad:#c62828;--neutral:#546e7a;--warn-bg:#fff8e6;--good-bg:#e8f5e9;--bad-bg:#fce4ec;--shadow:0 4px 18px rgba(26,74,58,.08)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.75;min-height:100vh}
+.container{max-width:880px;margin:0 auto;padding:20px 16px 60px}header{text-align:center;padding:22px 0 16px;border-bottom:2px solid var(--b);margin-bottom:18px}header h1{font-size:1.55rem;color:var(--p)}header .sub{color:var(--m);font-size:.88rem;margin-top:6px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}.tab{border:1.5px solid var(--b);background:#fff;border-radius:24px;padding:8px 18px;font-size:.88rem;cursor:pointer;color:var(--m)}.tab.active{border-color:var(--p);background:var(--p);color:#fff;font-weight:600}
+.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:18px;margin-bottom:16px;border:1px solid var(--b)}.card-title{font-size:1.05rem;font-weight:700;color:var(--p);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b)}
+label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}input[type=text],input[type=date]{width:100%;padding:12px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:1rem}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}.pill{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:7px 13px;font-size:.78rem;cursor:pointer;color:var(--m)}.pill.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
+.btn-group{display:flex;gap:10px;margin-top:14px}button{cursor:pointer;border:none;border-radius:8px;padding:11px 20px;font-size:.92rem;font-weight:600}.btn-primary{background:var(--p);color:#fff}.btn-outline{background:transparent;border:1.5px solid var(--b)}
+.muted{color:var(--m);font-size:.84rem}.tag{display:inline-block;background:var(--p);color:#fff;border-radius:6px;padding:2px 9px;font-size:.72rem;font-weight:600;margin-right:6px}
+.nature{background:#e8f0ec;border:1px solid #c5d9ce;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+.story{background:#f0f5f1;border-left:5px solid var(--p);padding:14px 16px;border-radius:0 10px 10px 0;margin:10px 0;line-height:1.9}
+.star-bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.star-chip{padding:5px 12px;border-radius:16px;font-size:.8rem;font-weight:600;color:#fff}.star-chip.吉{background:var(--good)}.star-chip.凶{background:var(--bad)}.star-chip.平{background:var(--neutral)}
+.pair-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0;padding:6px 0;border-bottom:1px dashed #eee}.pair-box{background:#f7f5f0;border:1px solid var(--b);border-radius:6px;padding:4px 10px;font-family:ui-monospace,monospace;font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.box{border-radius:8px;padding:10px 12px;font-size:.86rem}.box.g{background:var(--good-bg)}.box.b{background:var(--bad-bg)}
+.hl-resolve{margin-top:10px;background:var(--good-bg);border-left:4px solid var(--good);border-radius:8px;padding:10px 12px}.hl-warn{margin-top:10px;background:var(--warn-bg);border-left:4px solid #e6a817;border-radius:8px;padding:10px 12px}
+.num-sug{display:inline-block;font-family:ui-monospace,monospace;letter-spacing:.12em;background:#e8f0ec;border:1.5px solid var(--p);color:var(--p);padding:6px 12px;border-radius:8px;margin:4px 6px 4px 0;font-weight:600}
+.luck-grid{display:grid;gap:10px}.luck-item{border:1.5px solid var(--b);border-radius:10px;padding:10px 12px}.luck-item.吉{border-color:#81c784;background:#f1f8e9}.luck-item.凶{border-color:#e57373;background:#fce4ec}
+.wiki-card{border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:16px;background:#fff}.wiki-card h3{margin-bottom:8px;color:var(--p)}.wiki-card .ptag{display:inline-block;font-size:.7rem;padding:3px 9px;border-radius:12px;color:#fff;margin-right:6px}.ptag.吉{background:var(--good)}.ptag.凶{background:var(--bad)}.ptag.平{background:var(--neutral)}
+.section{display:none}.section.active{display:block}ul.tight{margin:6px 0 6px 18px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}input[type=date]{font-size:16px}}
+</style></head><body>
+<div class="container">
+<header><h1>好命密碼 · 數字磁場</h1><p class="sub">跟愛德華教材／筆記 · 先天／流年／後天分流</p></header>
+<div class="tabs"><button type="button" class="tab active" data-sec="analyze">分析</button><button type="button" class="tab" data-sec="wiki">八大磁場百科</button></div>
+<section id="sec-analyze" class="section active">
+<div class="card"><div class="card-title">輸入數字</div>
+<div class="pills" id="kindPills">
+<button type="button" class="pill active" data-kind="phone">手機號碼</button>
+<button type="button" class="pill" data-kind="id">身份證</button>
+<button type="button" class="pill" data-kind="birth">出生年月日</button>
+<button type="button" class="pill" data-kind="plate">車牌</button>
+<button type="button" class="pill" data-kind="address">門牌</button>
+<button type="button" class="pill" data-kind="account">銀行帳號</button>
+<button type="button" class="pill" data-kind="other">其他數字</button>
+</div>
+<p class="muted" style="margin-bottom:6px">身份（教材分老年人／女性／學生／男性）</p>
+<div class="pills" id="profilePills">
+<button type="button" class="pill" data-profile="male">男性</button>
+<button type="button" class="pill" data-profile="female">女性</button>
+<button type="button" class="pill" data-profile="student">學生</button>
+<button type="button" class="pill" data-profile="elder">老年人</button>
+</div>
+<div class="nature" id="kindHint"><span class="tag">後天分身</span>影響而家運勢。重點睇尾段、後五位0、絕對定律。</div>
+<div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 98764321" maxlength="40"/></div>
+<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><input type="date" id="birthInput"/><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
+<div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn">解讀</button><button type="button" class="btn-outline" id="clearBtn">清除</button></div>
+<p class="muted" style="margin-top:12px">0＝電話隱性弱化；車牌號碼入面嘅0唔計。5＝只喺電話計。字母 A=01…Z=26（身份證、門牌、其他數字、車牌）。</p>
+</div>
+<div id="results" style="display:none">
+<div class="card"><div class="card-title">呢次分析角色</div><div id="roleBox"></div></div>
+<div class="card"><div class="card-title">故事解讀</div><div class="story" id="storyBox"></div><div class="star-bar" id="starBar"></div></div>
+<div class="card" id="luckCard" style="display:none"><div class="card-title">身份證流年走勢</div><div class="luck-grid" id="luckGrid"></div></div>
+<div class="card"><div class="card-title">磁場走勢</div><div id="pairFlow"></div></div>
+<div class="card"><div class="card-title">詳細說明</div><div id="details"></div></div>
+<div class="card" id="fixCard" style="display:none"><div class="card-title">化解／補足建議</div><div id="fixBox"></div></div>
+</div>
+</section>
+<section id="sec-wiki" class="section"><div class="card"><div class="card-title">八大磁場百科</div><div id="wikiGrid"></div></div></section>
+</div>
+<script>
+const FIELDS={
+tianyi:{name:'天醫',pol:'吉',rank:'大吉星',pairs:['13','31','68','86','49','94','27','72'],short:'正財路、貴人、正桃花',detail:'教材：聰明睿智、善解人意、心胸開闊、學習能力強、喜歡幫助人。事業能成就一番大事業。錢財正偏橫財都有但不會守財。感情正桃花正姻緣，女性旺夫。健康血壓血液循環腦皮膚眼耳鼻。老年人唔宜天醫太多。',pros:['聰明睿智','善解人意','心胸開闊','學習能力強'],cons:['善良單純','沒心機','沒主見','容易被騙'],job:'能成就一番大事業，成為老闆或得力助手。',wealth:'正財偏財橫財都有，但不會守財。',love:'正桃花、正姻緣、婚姻美滿；女性旺夫。',health:'血壓、血液循環、腦、皮膚、眼耳鼻。',note:'教材：天醫太多容易引發心臟、血管問題。'},
+shengqi:{name:'生氣',pol:'吉',rank:'大吉星',pairs:['14','41','67','76','39','93','28','82'],short:'貴人多、人緣好、逢凶化吉',detail:'教材：貴人多、樂天、溝通強。適合公關銷售服務業。貴人來財、意外之財，不善理財，錢花在朋友身上。已婚和諧。眼耳鼻或腸胃，容易肥胖。手機尾號生氣容易受騙。',pros:['貴人多','樂天派','溝通強'],cons:['企圖心不強','懶散','三分鐘熱度','容易相信別人而受騙'],job:'適合公關、銷售及服務業。',wealth:'貴人來財、意外之財；不善理財。',love:'隨緣；已婚則和諧甜蜜。',health:'眼耳鼻或腸胃，容易肥胖。',note:'教材：手機尾號有生氣，容易受騙。'},
+yannian:{name:'延年',pol:'吉',rank:'小吉星',pairs:['19','91','78','87','34','43','26','62'],short:'領導、守財、專一',detail:'教材：領袖格局、懂守財。易成領導或自己開公司。有鐵公雞之稱。專一高標準。肩頸腰睡眠心臟。大延年19／91女性一定不能使用。不是延年結尾就花得快。',pros:['領導格局','責任心強','懂守財'],cons:['自作主張','固執死板','不圓滑'],job:'易成領導或自己開公司。',wealth:'靠自己辛苦；識理財。',love:'專一主導、高標準。',health:'心臟、肩頸、關節、失眠、脫髮。',note:'教材：大延年19／91女性絕對不能使用。'},
+fuwei:{name:'伏位',pol:'平',rank:'依附',pairs:['11','22','33','44','66','77','88','99'],short:'跟前面嗰粒星，隨吉則吉隨凶則凶',detail:'教材：永遠跟前面一粒星。健康心臟腦部慢性病失眠。感情被動平淡。',pros:['謹慎有耐性'],cons:['被動平淡'],job:'按部就班，跟前面嗰粒星。',wealth:'跟前面嗰粒星。',love:'被動、平淡。',health:'心臟、腦部、慢性病、失眠。',note:'伏位跟前面嗰粒星。'},
+huohai:{name:'禍害',pol:'凶',rank:'小兇星',pairs:['17','71','89','98','46','64','23','32'],short:'口舌是非、開刀意外',detail:'教材：高能量禍害17、89主口舌爭執。感情吵架離婚。健康氣管呼吸口腔淋巴。車牌見禍害小心交通意外。',pros:['口才好'],cons:['脾氣差','口舌是非'],job:'以口為業。',wealth:'開口來財，亦易破財。',love:'吵架、離婚。',health:'氣管、呼吸、口腔、淋巴。',note:'教材：車牌見禍害要小心交通意外。'},
+liusha:{name:'六煞',pol:'凶',rank:'小兇星',pairs:['16','61','47','74','38','83','29','92'],short:'偏桃花、情緒、破財',detail:'教材：偏桃花外遇。流年遇五鬼會離婚。五鬼+六煞會離婚單身。健康腸胃皮膚精神。',pros:['交際強'],cons:['情緒化','為情所困'],job:'公關中介服務。',wealth:'人際來財，唔守財。',love:'偏桃花、外遇。',health:'腸胃、皮膚、精神病。',note:'教材：六煞+五鬼離婚率極高。'},
+wugui:{name:'五鬼',pol:'凶',rank:'大兇星',pairs:['18','81','79','97','36','63','24','42'],short:'起落快、血光、婚姻差',detail:'教材：心臟病係五鬼代名詞。血光突發隱疾。高能量五鬼+絕命極易癌症。外遇離婚。車牌五鬼出行大忌。',pros:['鬼才','變化快'],cons:['反復無常','不利婚姻'],job:'變動多的行業。',wealth:'偏財來去快。',love:'外遇、離婚。',health:'心臟、血光、突發隱疾。',note:'教材：五鬼+絕命容易身體差、絕症。'},
+jueming:{name:'絕命',pol:'凶',rank:'大兇星',pairs:['12','21','69','96','48','84','37','73'],short:'大上大落、易負債',detail:'教材：投資易虧本易負債。敢創業。來得快去得快。激情離婚。肝腎膽糖尿病泌尿。絕命連號官司牢獄。',pros:['反應快','毅力驚人'],cons:['衝動極端','賭性較強'],job:'創業、投資、金融。',wealth:'開銷大、易負債、不會守財。',love:'激情、離婚。',health:'肝膽腎、糖尿病、泌尿。',note:'教材：絕命夾0如609、102屬腎結石組合。'}
+};
+const PAIR_MAP={};Object.keys(FIELDS).forEach(function(k){FIELDS[k].pairs.forEach(function(p){PAIR_MAP[p]=k;});});
+const KIND_INFO={phone:{tag:'後天分身',text:'影響而家運勢。重點睇尾段、後五位0、絕對定律。',ph:'例如 98764321'},id:{tag:'流年運程',text:'第一段0–13歲，之後每5年一段，星序行完再由頭再行，直至98歲。證件本身唔能改。',ph:'例如 A123456(7)'},birth:{tag:'先天命格',text:'出世就定，只講底子，唔用嚟改號。',ph:''},plate:{tag:'交通磁場',text:'車牌睇開車出行安危。字母A=01…Z=26。車牌唔計0。',ph:'例如 AB1234'},address:{tag:'家宅磁場',text:'門牌睇家宅、家人健康。字母同樣轉換。',ph:'例如 8A'},account:{tag:'財運磁場',text:'帳號睇財富進出。不是延年結尾就花得快；四大凶星太多出錢更厲害；尾數0留不住錢。',ph:'例如 0123456789'},other:{tag:'後天磁場',text:'輸入咩就計咩。字母A=01…Z=26。',ph:'例如 AB88 或 VIP123'}};
+const FEMALE_BAN=['19','91','109','159','901','951','911','191','87','78','857','758','877','887','1559','9551','8557','7558'];
+let currentKind='phone',currentProfile='';
+function bindUI(){
+ document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});t.classList.add('active');document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});document.getElementById('sec-'+t.getAttribute('data-sec')).classList.add('active');});});
+ document.querySelectorAll('#kindPills .pill').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('#kindPills .pill').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');currentKind=btn.getAttribute('data-kind');document.getElementById('kindHint').innerHTML='<span class="tag">'+KIND_INFO[currentKind].tag+'</span>'+KIND_INFO[currentKind].text;document.getElementById('inputText').style.display=currentKind==='birth'?'none':'block';document.getElementById('inputBirth').style.display=currentKind==='birth'?'block':'none';if(KIND_INFO[currentKind].ph)document.getElementById('numInput').placeholder=KIND_INFO[currentKind].ph;});});
+ document.querySelectorAll('#profilePills .pill').forEach(function(btn){btn.addEventListener('click',function(){var on=btn.classList.contains('active');document.querySelectorAll('#profilePills .pill').forEach(function(b){b.classList.remove('active');});if(on){currentProfile='';}else{btn.classList.add('active');currentProfile=btn.getAttribute('data-profile');}});});
+ document.getElementById('analyzeBtn').addEventListener('click',analyze);
+ document.getElementById('clearBtn').addEventListener('click',function(){document.getElementById('numInput').value='';document.getElementById('birthInput').value='';document.getElementById('results').style.display='none';});
+ document.getElementById('numInput').addEventListener('keydown',function(e){if(e.key==='Enter')analyze();});
+}
+function expandLetters(s){return s.replace(/[A-Za-z]/g,function(ch){return String(ch.toUpperCase().charCodeAt(0)-64).padStart(2,'0');});}
+function plateToDigits(s){var out='';for(var i=0;i<s.length;i++){var ch=s.charAt(i);if(/[A-Za-z]/.test(ch))out+=String(ch.toUpperCase().charCodeAt(0)-64).padStart(2,'0');else if(/[1-9]/.test(ch))out+=ch;}return out;}
+function extractDigits(s){return (s.match(/\d/g)||[]).join('');}
+function birthCode(iso){if(!iso)return null;var p=iso.split('-');var y=+p[0],m=+p[1],d=+p[2];var base=y<=2000?1911:1971;var yearNum=y-base;var lm=m,ld=d,usedLunar=false,lunarText='';try{var fn=solarLunar&&(solarLunar.solar2lunar||(solarLunar.default&&solarLunar.default.solar2lunar));if(fn){var L=fn(y,m,d);if(L&&(L.lMonth||L.month)){lm=L.lMonth||L.month;ld=L.lDay||L.day;usedLunar=true;lunarText='農曆'+(L.isLeap||L.isLeapMonth?'閏':'')+lm+'月'+ld+'日';}}}catch(e){}
+var code=String(yearNum)+String(lm)+String(ld).padStart(2,'0');
+return {code:code,text:y+'年'+m+'月'+d+'日（新曆）→ '+(usedLunar?lunarText:'暫用新曆月日')+'；'+y+'−'+base+'='+yearNum+' + '+lm+String(ld).padStart(2,'0')+' → '+code};}
+function buildPairs(digits,kind){if(kind==='birth'||kind==='plate'){var out=[];for(var i=0;i<digits.length-1;i++){var pair=digits.charAt(i)+digits.charAt(i+1);var key=PAIR_MAP[pair];var field=key||'fuwei';var note=key?'':(pair.indexOf('0')>=0?'含0當伏位':'非標準當伏位');if(field==='fuwei'&&out.length){field=out[out.length-1].field;note+=(note?'；':'')+'伏位延續「'+FIELDS[field].name+'」';}out.push({pair:pair,display:pair,field:field,note:note});}return out;}
+var source=digits,core=[],pending='';
+for(var i=0;i<source.length;i++){var ch=source.charAt(i);if(ch==='0'||(kind==='phone'&&ch==='5'))pending+=ch;else{core.push({d:ch,bridge:pending});pending='';}}
+var trailing=pending,out=[];
+for(var j=1;j<core.length;j++){var a=core[j-1].d,b=core[j].d,bridge=core[j].bridge;var pair=a+b,key=PAIR_MAP[pair];if(!key)continue;var note='';if(kind==='phone'&&bridge.indexOf('5')>=0)note='夾5顯性';if(bridge.indexOf('0')>=0)note+=(note?'；':'')+'夾0隱性弱化';if(key==='fuwei'&&out.length){key=out[out.length-1].field;note+=(note?'；':'')+'伏位延續「'+FIELDS[key].name+'」';}out.push({pair:pair,display:a+bridge+b,field:key,note:note});}
+if(out.length&&trailing&&trailing.indexOf('0')>=0){out[out.length-1].display+=trailing;out[out.length-1].note=(out[out.length-1].note||'')+'；尾0放大';}
+return out;}
+var BODY_POS=['腿腳','腰腹','腸胃','胸腔','腦袋'];
+var PALACE_POS=[{name:'子女宮',effect:'下屬或孩子不聽話，或孩子身體差'},{name:'夫妻宮',effect:'夫妻宮空：感情不好、兩地分離，或對方身體不好'},{name:'自己宮',effect:'自己付出多都沒有收穫'},{name:'兄弟朋友宮',effect:'人際不佳，遇事外力無助'},{name:'父母宮',effect:'與父母感情不好，或父母身體欠佳／離世'}];
+function checkPhoneZeros(digits){var last5=digits.slice(-5),hits=[];for(var i=0;i<last5.length;i++){if(last5.charAt(i)==='0'){var fromEnd=last5.length-1-i;if(fromEnd<5)hits.push({pos:fromEnd+1,body:BODY_POS[fromEnd],palace:PALACE_POS[fromEnd].name,effect:PALACE_POS[fromEnd].effect});}}return hits;}
+function hasSeq(digits,list){return list.filter(function(x){return digits.indexOf(x)>=0;});}
+function adjacentHas(pairs,a,b){for(var i=1;i<pairs.length;i++){if((pairs[i-1].field===a&&pairs[i].field===b)||(pairs[i-1].field===b&&pairs[i].field===a))return true;}return false;}
+function phoneTextbook(digits,pairs){
+ var warns=[],last4=digits.slice(-4),last5=digits.slice(-5),last=pairs.length?pairs[pairs.length-1]:null;
+ var counts={};pairs.forEach(function(p){counts[p.field]=(counts[p.field]||0)+1;});
+ if(last5.indexOf('0')>=0)warns.push({lv:'bad',t:'教材：手機號碼後面五位絕對不能有0'});
+ if(last4.indexOf('0')>=0)warns.push({lv:'bad',t:'絕對定律：最後4個位不可以為0'});
+ for(var i=0;i<last4.length-1;i++){var pp=last4.charAt(i)+last4.charAt(i+1);var fk=PAIR_MAP[pp];if(fk&&FIELDS[fk].pol==='凶'){warns.push({lv:'bad',t:'絕對定律：最後4個位絕對不可以是兇星（'+pp+' '+FIELDS[fk].name+'）'});break;}}
+ if(digits.indexOf('00')>=0)warns.push({lv:'warn',t:'絕對定律：多個兩個0，成為別人踏腳石'});
+ if(!counts.tianyi)warns.push({lv:'warn',t:'號碼沒有天醫：財運不理想，賺錢辛苦，婚姻不和諧'});
+ if(!counts.shengqi||!counts.tianyi)warns.push({lv:'warn',t:'沒有生氣和天醫：缺乏貴人運，凡事靠自己'});
+ if(counts.tianyi>=3)warns.push({lv:'bad',t:'絕對定律：天醫太多，容易引發心臟、血管問題'});
+ if((counts.wugui&&counts.jueming)||hasSeq(digits,['218','812']).length)warns.push({lv:'bad',t:'五鬼+絕命（如218、812）：容易身體差、絕症'});
+ if(digits.slice(-1)==='0')warns.push({lv:'warn',t:'教材：尾數是0的密碼，留不住錢財'});
+ if(last&&last.field!=='yannian')warns.push({lv:'warn',t:'教材：凡不是以延年結尾，都花錢太快、存不住錢'});
+ var badN=(counts.huohai||0)+(counts.liusha||0)+(counts.wugui||0)+(counts.jueming||0);
+ if(badN>=2)warns.push({lv:'warn',t:'教材：四大凶星太多，出錢更厲害'});
+ if(last&&last.field==='shengqi')warns.push({lv:'warn',t:'教材：手機尾號有生氣，容易受騙'});
+ if(last&&last.field==='wugui')warns.push({lv:'bad',t:'教材大兇：五鬼在尾'});
+ if(adjacentHas(pairs,'tianyi','wugui'))warns.push({lv:'bad',t:'教材大兇：天醫+五鬼'});
+ if(adjacentHas(pairs,'wugui','jueming'))warns.push({lv:'bad',t:'教材大兇：五鬼+絕命'});
+ if(adjacentHas(pairs,'yannian','liusha'))warns.push({lv:'bad',t:'教材次兇：延年+六煞'});
+ if(adjacentHas(pairs,'yannian','wugui'))warns.push({lv:'bad',t:'教材次兇：延年+五鬼'});
+ if(adjacentHas(pairs,'tianyi','liusha'))warns.push({lv:'bad',t:'教材次兇：天醫+六煞'});
+ if(adjacentHas(pairs,'wugui','liusha'))warns.push({lv:'bad',t:'教材：五鬼+六煞（離婚、單身）'});
+ var hit=hasSeq(digits,['103','301']);if(hit.length)warns.push({lv:'warn',t:'教材：'+hit.join('、')+' 可能有地下情，資金被套住'});
+ if(currentProfile==='female'){
+  var bans=FEMALE_BAN.filter(function(x){return digits.indexOf(x)>=0;});
+  if(bans.length)warns.push({lv:'bad',t:'教材女性絕對不能用：'+bans.join('、')});
+  hit=hasSeq(digits,['2108','1082','8102','2018']);if(hit.length)warns.push({lv:'bad',t:'教材女性：五鬼+絕命 '+hit.join('、')});
+  hit=hasSeq(digits,['817','971']);if(hit.length)warns.push({lv:'bad',t:'教材女性：五鬼+禍害 '+hit.join('、')});
+  hit=hasSeq(digits,['871','917']);if(hit.length)warns.push({lv:'warn',t:'教材女性：延年+禍害 '+hit.join('、')});
+  if(digits.indexOf('612')>=0)warns.push({lv:'warn',t:'教材女性：六煞+絕命 612'});
+  if(digits.indexOf('691')>=0)warns.push({lv:'warn',t:'教材女性：絕命+延年 691'});
+  if(digits.indexOf('4058')>=0)warns.push({lv:'warn',t:'教材女性：4058'});
+ }
+ if(currentProfile==='elder'){
+  if(counts.tianyi>=2)warns.push({lv:'bad',t:'教材老年人：不適用天醫太多的號碼'});
+  warns.push({lv:'warn',t:'教材老年人：適用生氣+延年，二至三級磁場最佳'});
+  if(digits.indexOf('819')>=0||adjacentHas(pairs,'wugui','yannian'))warns.push({lv:'bad',t:'教材老年人：五鬼+延年（如819）容易突發腦梗'});
+ }
+ if(currentProfile==='student'){
+  hit=hasSeq(digits,['341914','678','934','826']);if(hit.length)warns.push({lv:'ok',t:'教材學生可用生氣+延年：'+hit.join('、')});
+  if(counts.tianyi>=2||counts.liusha||counts.jueming)warns.push({lv:'warn',t:'教材學生：大天醫、六煞、絕命不利學業'});
+ }
+ if(currentProfile==='male'){
+  hit=hasSeq(digits,['912','917']);if(hit.length)warns.push({lv:'warn',t:'教材男性：延年+絕命／延年+禍害 '+hit.join('、')});
+  if(digits.indexOf('199')>=0)warns.push({lv:'warn',t:'教材男性：199 大延年'});
+  if(digits.indexOf('298')>=0)warns.push({lv:'warn',t:'教材男性：六煞+禍害 298'});
+  hit=hasSeq(digits,['609','102']);if(hit.length)warns.push({lv:'warn',t:'教材男性：絕命夾0 '+hit.join('、')});
+ }
+ return warns;
+}
+function kindFocus(kind,pairs){var html='',counts={};pairs.forEach(function(p){counts[p.field]=(counts[p.field]||0)+1;});
+if(kind==='phone')html+='<p><strong>分析重點：</strong>後天分身。尾段最緊要。後五位唔可以有0。</p>';
+else if(kind==='id')html+='<p><strong>分析重點：</strong>流年。0–13歲第一段，之後每5年至98歲。</p>';
+else if(kind==='birth')html+='<p><strong>分析重點：</strong>先天命格。缺星用電話補。</p>';
+else if(kind==='plate'){html+='<p><strong>分析重點：</strong>車牌睇出行安危。字母A=01…Z=26，號碼0跳過。</p>';if(counts.wugui)html+='<p>有五鬼：行車起伏。</p>';if(counts.jueming)html+='<p>有絕命：出行宜穩。</p>';if(counts.huohai)html+='<p>有禍害：小心交通意外。</p>';}
+else if(kind==='address')html+='<p><strong>分析重點：</strong>家宅、家人健康。</p>';
+else if(kind==='account')html+='<p><strong>分析重點：</strong>不是延年收尾就花得快；凶星太多出錢更厲害；尾0留不住錢。</p>';
+else html+='<p><strong>分析重點：</strong>輸入咩就計咩。字母 A=01…Z=26。</p>';
+return html;}
+function idCycles(pairs){var n=pairs.length,out=[];out.push({from:0,to:13,pair:pairs[0]});var age=13,i=1;while(age<98){var from=age,to=Math.min(age+5,98);out.push({from:from,to:to,pair:pairs[i%n]});age=to;i++;}return out;}
+function richStory(kind,pairs){var html='',good=pairs.filter(function(p){return FIELDS[p.field].pol==='吉';}).length,bad=pairs.filter(function(p){return FIELDS[p.field].pol==='凶';}).length,last=FIELDS[pairs[pairs.length-1].field];
+if(kind==='id')html+='<p>身份證係流年。0–13歲之後每5年至98歲，星序重複。證件改唔到，用電話補。</p>';
+else if(kind==='birth')html+='<p>先天命格出世就定，缺星用手機補。</p>';
+else if(kind==='phone')html+='<p>手機係後天分身。尾段「'+last.name+'」。最後4位唔可以有0同凶星；後面五位絕對不能有0。</p>';
+else if(kind==='plate')html+='<p>車牌係交通磁場。尾段「'+last.name+'」。</p>';
+else if(kind==='other')html+='<p>其他數字：輸入咩就計咩。尾段「'+last.name+'」。</p>';
+else html+='<p>尾段「'+last.name+'」：'+last.short+'。</p>';
+html+='<p>吉 '+good+' 組、凶 '+bad+' 組。</p>';return html;}
+function wikiCard(f){return '<div class="wiki-card"><h3><span class="ptag '+f.pol+'">'+f.rank+'</span> '+f.name+'</h3><p class="muted">組合：'+f.pairs.join('、')+'</p><p><strong>'+f.short+'</strong></p><p>'+(f.detail||'')+'</p><div class="grid2"><div class="box g">優點：'+f.pros.join('、')+'</div><div class="box b">缺點：'+f.cons.join('、')+'</div></div><p><strong>事業</strong>：'+f.job+'</p><p><strong>財運</strong>：'+f.wealth+'</p><p><strong>感情</strong>：'+f.love+'</p><p><strong>健康</strong>：'+f.health+'</p>'+(f.note?'<div class="hl-warn"><strong>教材注意：</strong>'+f.note+'</div>':'')+'</div>';}
+function analyze(){try{var digits='',birthMeta=null,preparedNote='';
+if(currentKind==='birth'){var iso=document.getElementById('birthInput').value;if(!iso){alert('請揀出生日期');return;}birthMeta=birthCode(iso);digits=birthMeta.code;preparedNote=birthMeta.text;}
+else{var raw=document.getElementById('numInput').value.trim();if(!raw){alert('請輸入數字');return;}
+if(currentKind==='plate'){digits=plateToDigits(raw);preparedNote='車牌字母A=01…Z=26，號碼0已跳過 → '+digits;}
+else {if(currentKind==='id'||currentKind==='address'||currentKind==='other'){var exp=expandLetters(raw);if(exp!==raw)preparedNote='字母已轉換（A=01…Z=26）→ '+extractDigits(exp);raw=exp;}digits=extractDigits(raw);}}
+var pairs=buildPairs(digits,currentKind);if(!pairs.length){alert('有效位數唔夠');return;}
+document.getElementById('results').style.display='block';
+var roleHtml='<p><span class="tag">'+KIND_INFO[currentKind].tag+'</span>'+KIND_INFO[currentKind].text+'</p>';
+if(currentProfile){var pn={male:'男性',female:'女性',student:'學生',elder:'老年人'};roleHtml+='<p>身份：<strong>'+pn[currentProfile]+'</strong></p>';}
+if(preparedNote)roleHtml+='<p class="muted">'+preparedNote+'</p>';
+if(birthMeta)roleHtml+='<p>先天數：<strong>'+birthMeta.code+'</strong></p>';
+roleHtml+=kindFocus(currentKind,pairs);
+document.getElementById('roleBox').innerHTML=roleHtml;
+var counts={};pairs.forEach(function(p){counts[p.field]=(counts[p.field]||0)+1;});
+document.getElementById('storyBox').innerHTML=richStory(currentKind,pairs);
+var bar=document.getElementById('starBar');bar.innerHTML='';Object.keys(counts).forEach(function(k){var f=FIELDS[k];var chip=document.createElement('span');chip.className='star-chip '+f.pol;chip.textContent=f.name+' ×'+counts[k];bar.appendChild(chip);});
+var luckCard=document.getElementById('luckCard');
+if(currentKind==='id'){luckCard.style.display='block';document.getElementById('luckGrid').innerHTML=idCycles(pairs).map(function(s){var p=s.pair,f=FIELDS[p.field];return '<div class="luck-item '+f.pol+'"><div><strong>'+s.from+'–'+s.to+'歲</strong></div><div>'+p.display+' · '+f.name+'（'+f.pol+'／'+f.rank+'）</div><div class="muted">'+f.short+'。'+f.job+' '+f.wealth+' '+f.love+'</div></div>';}).join('');}else luckCard.style.display='none';
+document.getElementById('pairFlow').innerHTML=pairs.map(function(p){var f=FIELDS[p.field];return '<div class="pair-row"><span class="pair-box">'+p.display+'</span> → <strong>'+f.name+'</strong> <span class="muted">'+f.pol+(p.note?'（'+p.note+'）':'')+'</span></div>';}).join('');
+var oldPC=document.getElementById('phoneRuleCard');if(oldPC)oldPC.remove();
+if(currentKind==='phone'){var zeroHits=checkPhoneZeros(digits);var ruleWarns=phoneTextbook(digits,pairs);
+var extra='<div class="card" id="phoneRuleCard"><div class="card-title">教材：手機絕對定律／後五位0／身份組合</div>';
+if(zeroHits.length){extra+='<p><strong>後五位0</strong></p><ul class="tight">';zeroHits.forEach(function(h){extra+='<li>倒數第'+h.pos+'位係0 → <strong>'+h.body+'</strong>｜'+h.palace+'：'+h.effect+'</li>';});extra+='</ul>';}
+ruleWarns.forEach(function(w){extra+='<div class="'+(w.lv==='ok'?'hl-resolve':'hl-warn')+'">'+w.t+'</div>';});
+extra+='<p class="muted" style="margin-top:10px">教材崗位磁場：領導延年+天醫 913／786／194；策劃五鬼+天醫 813／794／368；銷售禍害+天醫 713／468／649；投資絕命+天醫 213／968／849；客服六煞+天醫 613／168／749；公關生氣+天醫 413／768／149。</p></div>';
+var tmp=document.createElement('div');tmp.innerHTML=extra;document.getElementById('fixCard').parentNode.insertBefore(tmp.firstChild,document.getElementById('fixCard'));}
+var uniq=[],seen={};pairs.forEach(function(p){if(!seen[p.field]){seen[p.field]=1;uniq.push(p.field);}});
+document.getElementById('details').innerHTML=uniq.map(function(k){return wikiCard(FIELDS[k]);}).join('');
+var missing=['tianyi','yannian','shengqi'].filter(function(k){return !counts[k];});
+var lastBad=FIELDS[pairs[pairs.length-1].field].pol==='凶';
+var bads=uniq.filter(function(k){return FIELDS[k].pol==='凶';});
+var fixCard=document.getElementById('fixCard');
+fixCard.style.display='block';var html='<p><strong>教材化解：</strong>先天同證件改唔到。用後天（電話最緊要）補<strong>生氣＋天醫＋延年</strong>。唔好用凶星去剋凶星。</p>';
+if(currentKind==='phone')html+='<p>手機本身就係用來補足。尾段優先生氣＋天醫＋延年；最後4位唔可以有0同凶星；後面五位唔可以有0。</p>';
+if(currentKind==='birth')html+='<p>先天只可以喺電話補。</p>';
+if(currentKind==='id')html+='<p>流年改唔到，行凶星嗰段用電話尾段蓋過。</p>';
+if(currentKind==='plate')html+='<p>車牌尾段優先用生氣／天醫／延年。</p>';
+if(missing.length)html+='<p>呢組缺：'+missing.map(function(k){return FIELDS[k].name;}).join('、')+'</p>';
+html+='<p>老師4位「＋生天延」：</p><p><span class="num-sug">1491</span><span class="num-sug">4134</span><span class="num-sug">3943</span><span class="num-sug">9319</span><span class="num-sug">2862</span><span class="num-sug">8278</span><span class="num-sug">6726</span><span class="num-sug">7687</span></p>';
+if(currentProfile==='female')html+='<p class="muted">女性唔好用含19／91／109／159等教材禁號。</p>';
+document.getElementById('fixBox').innerHTML=html;
+document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});}catch(err){alert('解讀出錯：'+err.message);}}
+document.getElementById('wikiGrid').innerHTML='<p class="muted" style="margin-bottom:14px">以下按教材「八大命格解讀」整理。伏位永遠跟前面嗰粒星。</p>'+Object.keys(FIELDS).map(function(k){return wikiCard(FIELDS[k]);}).join('');
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindUI);else bindUI();
+</script></body></html>
