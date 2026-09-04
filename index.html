@@ -1,1 +1,65 @@
-PLACEHOLDER_USE_LOCAL
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>好命密碼 · 數字磁場</title><script src="https://cdn.jsdelivr.net/npm/solarlunar@3.1.0/dist/solarlunar.min.js"></script><style>
+:root{--p:#1a4a3a;--bg:#f7f4ee;--t:#1c1c1c;--m:#5a5a5a;--b:#e0d8c8;--good:#2e7d32;--bad:#c62828;--neutral:#546e7a;--warn-bg:#fff8e6;--good-bg:#e8f5e9;--bad-bg:#fce4ec;--shadow:0 4px 18px rgba(26,74,58,.08)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.75;min-height:100vh}
+.container{max-width:880px;margin:0 auto;padding:20px 16px 60px}header{text-align:center;padding:22px 0 16px;border-bottom:2px solid var(--b);margin-bottom:18px}header h1{font-size:1.55rem;color:var(--p)}header .sub{color:var(--m);font-size:.88rem;margin-top:6px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}.tab{border:1.5px solid var(--b);background:#fff;border-radius:24px;padding:8px 18px;font-size:.88rem;cursor:pointer;color:var(--m)}.tab.active{border-color:var(--p);background:var(--p);color:#fff;font-weight:600}
+.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:18px;margin-bottom:16px;border:1px solid var(--b)}.card-title{font-size:1.05rem;font-weight:700;color:var(--p);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b)}
+label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}input[type=text],input[type=date]{width:100%;padding:12px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:1rem}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}.pill{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:7px 13px;font-size:.78rem;cursor:pointer;color:var(--m)}.pill.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
+.btn-group{display:flex;gap:10px;margin-top:14px}button{cursor:pointer;border:none;border-radius:8px;padding:11px 20px;font-size:.92rem;font-weight:600}.btn-primary{background:var(--p);color:#fff}.btn-outline{background:transparent;border:1.5px solid var(--b)}
+.muted{color:var(--m);font-size:.84rem}.tag{display:inline-block;background:var(--p);color:#fff;border-radius:6px;padding:2px 9px;font-size:.72rem;font-weight:600;margin-right:6px}
+.nature{background:#e8f0ec;border:1px solid #c5d9ce;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+.story{background:#f0f5f1;border-left:5px solid var(--p);padding:14px 16px;border-radius:0 10px 10px 0;margin:10px 0;line-height:1.9}
+.star-bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.star-chip{padding:5px 12px;border-radius:16px;font-size:.8rem;font-weight:600;color:#fff}.star-chip.吉{background:var(--good)}.star-chip.凶{background:var(--bad)}.star-chip.平{background:var(--neutral)}
+.pair-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0;padding:6px 0;border-bottom:1px dashed #eee}.pair-box{background:#f7f5f0;border:1px solid var(--b);border-radius:6px;padding:4px 10px;font-family:ui-monospace,monospace;font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.box{border-radius:8px;padding:10px 12px;font-size:.86rem}.box.g{background:var(--good-bg)}.box.b{background:var(--bad-bg)}
+.hl-resolve{margin-top:10px;background:var(--good-bg);border-left:4px solid var(--good);border-radius:8px;padding:10px 12px}.hl-warn{margin-top:10px;background:var(--warn-bg);border-left:4px solid #e6a817;border-radius:8px;padding:10px 12px}
+.num-sug{display:inline-block;font-family:ui-monospace,monospace;letter-spacing:.12em;background:#e8f0ec;border:1.5px solid var(--p);color:var(--p);padding:6px 12px;border-radius:8px;margin:4px 6px 4px 0;font-weight:600}
+.luck-grid{display:grid;gap:10px}.luck-item{border:1.5px solid var(--b);border-radius:10px;padding:10px 12px}.luck-item.吉{border-color:#81c784;background:#f1f8e9}.luck-item.凶{border-color:#e57373;background:#fce4ec}
+.wiki-card{border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:16px;background:#fff}.wiki-card h3{margin-bottom:8px;color:var(--p)}.wiki-card .ptag{display:inline-block;font-size:.7rem;padding:3px 9px;border-radius:12px;color:#fff;margin-right:6px}.ptag.吉{background:var(--good)}.ptag.凶{background:var(--bad)}.ptag.平{background:var(--neutral)}
+.section{display:none}.section.active{display:block}ul.tight{margin:6px 0 6px 18px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}input[type=date]{font-size:16px}}
+</style></head><body>
+<div class="container">
+<header><h1>好命密碼 · 數字磁場</h1><p class="sub">跟愛德華教材／筆記 · 先天／流年／後天分流</p></header>
+<div class="tabs"><button type="button" class="tab active" data-sec="analyze">分析</button><button type="button" class="tab" data-sec="wiki">八大磁場百科</button></div>
+<section id="sec-analyze" class="section active">
+<div class="card"><div class="card-title">輸入數字</div>
+<div class="pills" id="kindPills">
+<button type="button" class="pill active" data-kind="phone">手機號碼</button>
+<button type="button" class="pill" data-kind="id">身份證</button>
+<button type="button" class="pill" data-kind="birth">出生年月日</button>
+<button type="button" class="pill" data-kind="plate">車牌</button>
+<button type="button" class="pill" data-kind="address">門牌</button>
+<button type="button" class="pill" data-kind="account">銀行帳號</button>
+<button type="button" class="pill" data-kind="other">其他數字</button>
+</div>
+<div id="profileWrap">
+<p class="muted" style="margin-bottom:6px">身份（教材「如何看手機號碼的好壞」先分老年人／女性／學生／男性）</p>
+<div class="pills" id="profilePills">
+<button type="button" class="pill" data-profile="male">男性</button>
+<button type="button" class="pill" data-profile="female">女性</button>
+<button type="button" class="pill" data-profile="student">學生</button>
+<button type="button" class="pill" data-profile="elder">老年人</button>
+</div>
+</div>
+<div class="nature" id="kindHint"><span class="tag">後天分身</span>影響而家運勢。重點睇尾段、後五位0、絕對定律。教材：後4位決定80%運勢。</div>
+<div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 98764321" maxlength="40"/></div>
+<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><input type="date" id="birthInput"/><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
+<div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn">解讀</button><button type="button" class="btn-outline" id="clearBtn">清除</button></div>
+<p class="muted" style="margin-top:12px">0＝電話隱性弱化；車牌號碼入面嘅 0 唔計。5＝只咽電話計。字母 A=01…Z=26（身份證、門牌、其他數字、車牌）。</p>
+</div>
+<div id="results" style="display:none">
+<div class="card"><div class="card-title">呢次分析角色</div><div id="roleBox"></div></div>
+<div class="card"><div class="card-title">故事解讀</div><div class="story" id="storyBox"></div><div class="star-bar" id="starBar"></div></div>
+<div class="card" id="kindReadCard"><div class="card-title" id="kindReadTitle">類別解讀</div><div id="kindReadBox"></div></div>
+<div class="card" id="luckCard" style="display:none"><div class="card-title">身份證流年走勢</div><div class="luck-grid" id="luckGrid"></div></div>
+<div class="card"><div class="card-title">磁場走勢</div><div id="pairFlow"></div></div>
+<div class="card"><div class="card-title">詳細說明</div><div id="details"></div></div>
+<div class="card" id="fixCard" style="display:none"><div class="card-title">化解／補足建議</div><div id="fixBox"></div></div>
+</div>
+</section>
+<section id="sec-wiki" class="section"><div class="card"><div class="card-title">八大磁場百科</div><div id="wikiGrid"></div></div></section>
+</div>
+<script src="app.js"></script></body></html>
