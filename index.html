@@ -47,7 +47,7 @@ label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}input[typ
 <div class="nature" id="kindHint"><span class="tag">後天分身</span>影響而家運勢。重點睇尾段、後五位0、絕對定律。教材：後4位決定80%運勢。</div>
 <div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 98764321" maxlength="40"/></div>
 <div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><input type="date" id="birthInput"/><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
-<div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn">解讀</button><button type="button" class="btn-outline" id="clearBtn">清除</button></div>
+<div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn" onclick="return hmAnalyze()">解讀</button><button type="button" class="btn-outline" id="clearBtn" onclick="document.getElementById('numInput').value='';document.getElementById('birthInput').value='';document.getElementById('results').style.display='none';return false;">清除</button></div>
 <p class="muted" style="margin-top:12px">0＝電話隱性弱化；車牌號碼入面嘅0唔計。5＝只咽電話計。字母 A=01…Z=26（身份證、門牌、其他數字、車牌）。</p>
 </div>
 <div id="results" style="display:none">
@@ -89,11 +89,19 @@ window.hmPickProfile=function(btn){
 window.hmPickTab=function(btn){
   document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
   btn.classList.add('active');
-  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');
-  });
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
   var sec=document.getElementById('sec-'+btn.getAttribute('data-sec'));
   if(sec)sec.classList.add('active');
   return false;
 };
+window.hmAnalyze=function(){
+  var fn=window.analyze|| (typeof analyze==='function'?analyze:null);
+  if(fn){fn();}
+  else {alert('解讀程式未載入，請重新整理頁面');}
+  return false;
+};
 </script>
-<script src="./app1.js"></script><script src="./app2.js"></script></body></html>
+<script src="./core1.js"></script>
+<script src="./core2.js"></script>
+<script src="./core3.js"></script>
+</body></html>
