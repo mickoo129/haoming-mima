@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-Hant"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>好命密碼 · 數字磁場</title><script src="https://cdn.jsdelivr.net/npm/solarlunar@3.1.0/dist/solarlunar.min.js"></script><style>
+<html lang="zh-Hant"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/><title>好命密碼 · 數字磁場</title><script src="https://cdn.jsdelivr.net/npm/solarlunar@3.1.0/dist/solarlunar.min.js"></script><style>
 :root{--p:#1a4a3a;--bg:#f7f4ee;--t:#1c1c1c;--m:#5a5a5a;--b:#e0d8c8;--good:#2e7d32;--bad:#c62828;--neutral:#546e7a;--warn-bg:#fff8e6;--good-bg:#e8f5e9;--bad-bg:#fce4ec;--shadow:0 4px 18px rgba(26,74,58,.08)}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.75;min-height:100vh}
-.container{max-width:880px;margin:0 auto;padding:20px 16px 60px}header{text-align:center;padding:22px 0 16px;border-bottom:2px solid var(--b);margin-bottom:18px}header h1{font-size:1.55rem;color:var(--p)}header .sub{color:var(--m);font-size:.88rem;margin-top:6px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.75;min-height:100vh;overflow-x:hidden}
+.container{max-width:880px;margin:0 auto;padding:20px 16px 60px;overflow-x:hidden}header{text-align:center;padding:22px 0 16px;border-bottom:2px solid var(--b);margin-bottom:18px}header h1{font-size:1.55rem;color:var(--p)}header .sub{color:var(--m);font-size:.88rem;margin-top:6px}
 .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}.tab{border:1.5px solid var(--b);background:#fff;border-radius:24px;padding:8px 18px;font-size:.88rem;cursor:pointer;color:var(--m)}.tab.active{border-color:var(--p);background:var(--p);color:#fff;font-weight:600}
-.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:18px;margin-bottom:16px;border:1px solid var(--b)}.card-title{font-size:1.05rem;font-weight:700;color:var(--p);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b)}
-label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}input[type=text],input[type=date]{width:100%;padding:12px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:1rem}
+.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:18px;margin-bottom:16px;border:1px solid var(--b);overflow:hidden}.card-title{font-size:1.05rem;font-weight:700;color:var(--p);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b)}
+label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}
+input[type=text]{width:100%;max-width:100%;padding:12px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:1rem}
+#inputBirth{width:100%;max-width:100%;overflow:hidden}
+.date-wrap{width:100%;max-width:100%;overflow:hidden;border:1.5px solid var(--b);border-radius:8px;background:#fff}
+input[type=date]{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;padding:12px 10px;border:0;border-radius:8px;font-size:16px;line-height:1.4;background:transparent;-webkit-appearance:none;appearance:none}
 .pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}.pill{border:1.5px solid var(--b);background:#fff;border-radius:20px;padding:7px 13px;font-size:.78rem;cursor:pointer;color:var(--m);position:relative;z-index:2;-webkit-tap-highlight-color:transparent}.pill.active{border-color:var(--p);background:#e8f0ec;color:var(--p);font-weight:600}
 .btn-group{display:flex;gap:10px;margin-top:14px}button{cursor:pointer;border:none;border-radius:8px;padding:11px 20px;font-size:.92rem;font-weight:600}.btn-primary{background:var(--p);color:#fff}.btn-outline{background:transparent;border:1.5px solid var(--b)}
 .muted{color:var(--m);font-size:.84rem}.tag{display:inline-block;background:var(--p);color:#fff;border-radius:6px;padding:2px 9px;font-size:.72rem;font-weight:600;margin-right:6px}
@@ -19,7 +23,7 @@ label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}input[typ
 .luck-grid{display:grid;gap:10px}.luck-item{border:1.5px solid var(--b);border-radius:10px;padding:10px 12px}.luck-item.吉{border-color:#81c784;background:#f1f8e9}.luck-item.凶{border-color:#e57373;background:#fce4ec}
 .wiki-card{border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:16px;background:#fff}.wiki-card h3{margin-bottom:8px;color:var(--p)}.wiki-card .ptag{display:inline-block;font-size:.7rem;padding:3px 9px;border-radius:12px;color:#fff;margin-right:6px}.ptag.吉{background:var(--good)}.ptag.凶{background:var(--bad)}.ptag.平{background:var(--neutral)}
 .section{display:none}.section.active{display:block}ul.tight{margin:6px 0 6px 18px}
-@media(max-width:560px){.grid2{grid-template-columns:1fr}input[type=date]{font-size:16px}}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.card{padding:14px}.date-wrap{max-width:100%}}
 </style></head><body>
 <div class="container">
 <header><h1>好命密碼 · 數字磁場</h1><p class="sub">跟愛德華教材／筆記 · 先天／流年／後天分流</p></header>
@@ -46,7 +50,7 @@ label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}input[typ
 </div>
 <div class="nature" id="kindHint"><span class="tag">後天分身</span>影響而家運勢。重點睇尾段、後五位0、絕對定律。教材：後4位決定80%運勢。</div>
 <div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 98764321" maxlength="40"/></div>
-<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><input type="date" id="birthInput"/><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
+<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><div class="date-wrap"><input type="date" id="birthInput"/></div><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
 <div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn" onclick="return hmAnalyze()">解讀</button><button type="button" class="btn-outline" id="clearBtn" onclick="document.getElementById('numInput').value='';document.getElementById('birthInput').value='';document.getElementById('results').style.display='none';return false;">清除</button></div>
 <p class="muted" style="margin-top:12px">0＝電話隱性弱化；車牌號碼入面嘅0唔計。5＝只咽電話計。字母 A=01…Z=26（身份證、門牌、其他數字、車牌）。</p>
 </div>
