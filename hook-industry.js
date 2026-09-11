@@ -36,6 +36,16 @@ function findLiushaJueming(digits,pairs){
  }
  return {found:found,has5:has5,atEnd:atEnd};
 }
+function juemingScore(digits){
+ var pts={'12':100,'21':100,'69':75,'96':75,'48':50,'84':50,'37':25,'73':25};
+ var hits=[],total=0,i,p;
+ if(!digits)return {total:0,hits:hits};
+ for(i=0;i<digits.length-1;i++){
+  p=digits.substr(i,2);
+  if(pts[p]){hits.push(p+' '+pts[p]+'分');total+=pts[p];}
+ }
+ return {total:total,hits:hits};
+}
 function extraCourseNotes(digits,pairs){
  var html='',hit;
  hit=['917','871','198','789'].filter(function(x){return digits&&digits.indexOf(x)>=0;});
@@ -60,6 +70,16 @@ function extraCourseNotes(digits,pairs){
   if(lj.atEnd)extra+='；如果係結尾更不好';
   html+='<div class="hl-warn"><strong>教材筆記</strong>：凡六煞（16、47、38、29）+絕命（12、69、48、37）都容易有婦科病。呢組見到：'+lj.found.join('、')+extra+'。612、169、473、692 只係例子。</div>';
  }
+ var js=juemingScore(digits);
+ if(js.hits.length){
+  var over=js.total>100;
+  html+='<div class="'+(over?'hl-warn':'hl-resolve')+'"><strong>教材筆記</strong>：絕命計分 12＝100、69＝75、48＝50、37＝25（掉轉同分）。呢組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>';
+  if(over)html+='。男人絕命過多（超過100分就過多）：性功能下降';
+  html+='。</div>';
+ }
+ if(digits&&digits.indexOf('121')>=0){
+  html+='<div class="hl-warn"><strong>教材筆記</strong>：121 — 腰不太好；如果是女性，容易冷淡</div>';
+ }
  return html;
 }
 if(typeof phoneTextbook==='function'){
@@ -79,6 +99,13 @@ if(typeof phoneTextbook==='function'){
    if(lj.atEnd)extra+='；如果係結尾更不好';
    w.push({lv:'warn',t:'教材筆記：凡六煞+絕命都容易有婦科病（'+lj.found.join('、')+'）'+extra});
   }
+  var js=juemingScore(digits);
+  if(js.hits.length){
+   var t='教材筆記：絕命計分 '+js.hits.join('＋')+' ＝ '+js.total+'分';
+   if(js.total>100)t+='。男人絕命過多（超過100分就過多）：性功能下降';
+   w.push({lv:js.total>100?'bad':'warn',t:t});
+  }
+  if(digits.indexOf('121')>=0)w.push({lv:'warn',t:'教材筆記：121 — 腰不太好；如果是女性，容易冷淡'});
   return w;
  };
 }
