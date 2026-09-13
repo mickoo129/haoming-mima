@@ -8,6 +8,31 @@ function industryReadHtml(keys,digits){
  html+='</div>';
  return html;
 }
+var PAIR_POWER={'14':4,'41':4,'67':3,'76':3,'39':2,'93':2,'28':1,'82':1,'13':4,'31':4,'68':3,'86':3,'49':2,'94':2,'27':1,'72':1,'19':4,'91':4,'78':3,'87':3,'34':2,'43':2,'26':1,'62':1,'11':4,'22':4,'99':3,'88':3,'66':2,'77':2,'33':1,'44':1,'16':4,'61':4,'47':3,'74':3,'38':2,'83':2,'29':1,'92':1,'17':4,'71':4,'89':3,'98':3,'46':2,'64':2,'23':1,'32':1,'18':4,'81':4,'79':3,'97':3,'36':2,'63':2,'24':1,'42':1,'12':4,'21':4,'69':3,'96':3,'48':2,'84':2,'37':1,'73':1};
+var POWER_NAME={4:'最強',3:'次強',2:'次弱',1:'最弱'};
+function birthMingGeHtml(digits){
+ if(!digits||digits.length<2)return '';
+ var counts={},bestP={},bestPair={},i,p,k,lv;
+ for(i=0;i<digits.length-1;i++){
+  p=digits.substr(i,2);k=PAIR_MAP[p];if(!k)continue;
+  counts[k]=(counts[k]||0)+1;
+  lv=PAIR_POWER[p]||0;
+  if(!bestP[k]||lv>bestP[k]){bestP[k]=lv;bestPair[k]=p;}
+ }
+ var keys=Object.keys(counts);if(!keys.length)return '';
+ var max=0;keys.forEach(function(x){if(counts[x]>max)max=counts[x];});
+ var top=keys.filter(function(x){return counts[x]===max;});
+ var win=top[0],reason='數量最多';
+ if(top.length>1){
+  var hi=-1;
+  top.forEach(function(x){var v=bestP[x]||0;if(v>hi){hi=v;win=x;}});
+  reason='數量相同，比能量（'+POWER_NAME[hi]+'）';
+ }
+ var lines=keys.map(function(x){
+  return FIELDS[x].name+' ×'+counts[x]+'（最高能量 '+ (bestPair[x]||'')+' '+ (POWER_NAME[bestP[x]]||'') +'）';
+ }).join('、');
+ return '<div class="hl-resolve"><strong>先天命格</strong>：<strong>'+FIELDS[win].name+'命格</strong>。跟筆記：先數邊粒星最多；數目相同就比黃表能量最強 / 次強 / 次弱 / 最弱，最強嘅那粒先算命格。呢組：'+lines+'。判決：'+reason+'。</div>';
+}
 function findLiushaJueming(digits,pairs){
  var L={'16':1,'61':1,'47':1,'74':1,'38':1,'83':1,'29':1,'92':1};
  var J={'12':1,'21':1,'69':1,'96':1,'48':1,'84':1,'37':1,'73':1};
@@ -71,6 +96,7 @@ function juemingScore(digits){
 }
 function extraCourseNotes(digits,pairs,kind){
  var html='',hit;
+ if(kind==='birth')html+=birthMingGeHtml(digits);
  var person=kind==='phone'||kind==='birth'||kind==='id'||kind==='other'||!kind;
  var speech=kind==='phone'||kind==='other'||kind==='birth'||!kind;
  var drive=kind==='plate';
