@@ -43,7 +43,7 @@
   if(kind==='plate')return '<p><strong>車牌＝出行安危</strong>。課堂筆記：0要解（弱化前一組）；5自己唔成星、跟隔離。唔好當事業發達。</p>';
   if(kind==='address')return '<p><strong>門牌＝家宅</strong>，講住屋氣場同家人健康。</p>';
   if(kind==='account')return '<p><strong>銀行帳號＝錢點入點出</strong>，守唔守得住。</p>';
-  if(kind==='other')return '<p><strong>其他數字</strong>：輸入咧就計咧，用八星講呢組數本身。</p>';
+  if(kind==='other')return '<p><strong>其他數字</strong>：跟車牌同套拆法。0黐前減弱；5伏跟前。</p>';
   return '';
  }
  function digitsOf(kind){
@@ -77,12 +77,9 @@
   wrapped.__storyWrapped=true;
   window.analyze=wrapped;
   window.hmAnalyze=function(){window.analyze();return false;};
-  var foot=document.querySelector('.card .muted[style*="margin-top:12px"]');
-  if(foot)foot.textContent='電話：0隱性、5顯性。車牌0要解、5跟隔離（課堂車牌筆記）。身份證／門牌／戶口／其他：0同5留低當伏跟前（書補）。字母 A=01…Z=26。';
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(attach,0);});
  else setTimeout(attach,0);
- var s=document.createElement('script');
- s.src='./hook-plate.js';
- document.body.appendChild(s);
+ var s=document.createElement('script');s.src='./hook-plate.js';document.body.appendChild(s);
+ var s2=document.createElement('script');s2.src='./hook-hl.js';document.body.appendChild(s2);
 })();
