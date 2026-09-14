@@ -6,12 +6,16 @@
    .replace(/課堂睇號筆記/g,'筆記')
    .replace(/教材筆記/g,'筆記')
    .replace(/高級課程/g,'筆記')
-   .replace(/教材大凶：/g,'課堂：')
+   .replace(/教材次凶：/g,'課堂次凶：')
+   .replace(/教材大凶：/g,'課堂大凶：')
+   .replace(/教材感情：/g,'課堂感情：')
+   .replace(/教材例子：/g,'課堂：')
+   .replace(/教材大凶：/g,'課堂大凶：')
    .replace(/教材適合的行業/g,'課堂：適合的行業')
    .replace(/百科主文跟教材/g,'百科主文跟課堂')
    .replace(/手機教材分類提示/g,'課堂手機分類提示')
    .replace(/教材禁號/g,'課堂禁號')
-   .replace(/教材例子/g,'筆記與課堂例子')
+   .replace(/教材例子/g,'課堂例子')
    .replace(/教材：/g,'課堂：');
  }
  if(typeof KIND_INFO!=='undefined'){
@@ -28,7 +32,7 @@
  window.extraCourseNotes=extraCourseNotes;
  function cleanBoxes(){
   var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');
-  ['kindReadBox','details','fixBox','storyBox','roleBox','wikiGrid'].forEach(function(id){
+  ['kindReadBox','details','fixBox','storyBox','roleBox','wikiGrid','phoneRuleCard'].forEach(function(id){
    var el=document.getElementById(id);
    if(!el||!el.innerHTML)return;
    el.innerHTML=relabel(el.innerHTML);
@@ -63,4 +67,5 @@
  else setTimeout(wrap,0);
  var hx=document.createElement('script');hx.src='./hook-hitbox.js';document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js';document.body.appendChild(hr);
+ var he=document.createElement('script');he.src='./hook-explain.js';document.body.appendChild(he);
 })();
