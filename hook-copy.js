@@ -10,7 +10,6 @@
    .replace(/教材大凶：/g,'課堂大凶：')
    .replace(/教材感情：/g,'課堂感情：')
    .replace(/教材例子：/g,'課堂：')
-   .replace(/教材大凶：/g,'課堂大凶：')
    .replace(/教材適合的行業/g,'課堂：適合的行業')
    .replace(/百科主文跟教材/g,'百科主文跟課堂')
    .replace(/手機教材分類提示/g,'課堂手機分類提示')
@@ -68,4 +67,5 @@
  var hx=document.createElement('script');hx.src='./hook-hitbox.js';document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js';document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js';document.body.appendChild(he);
+ var ht=document.createElement('script');ht.src='./hook-teacher.js';document.body.appendChild(ht);
 })();
