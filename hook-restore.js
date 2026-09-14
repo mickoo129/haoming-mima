@@ -18,11 +18,14 @@
   if(typeof juemingScore!=='function'||!digits)return '';
   var js=juemingScore(digits);
   if(!js.hits.length)return '';
+  var prof=window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');
   var over=js.total>100;
-  var html='<div class="'+(over?'hl-warn':'hl-resolve')+'"><strong>筆記</strong>：絕命計分 12／21＝100、69／96＝75、48／84＝50、37／73＝25。呢組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>。';
-  html+='筆記：男人絕命過多（超過100分就過多）：性功能下降。';
-  html+=over?'呢組已超過100分。':'呢組未超過100分。';
-  if(digits.indexOf('121')>=0)html+='121 — 腰不太好；如果是女性，容易冷淡。';
+  var html='<div class="'+(over?'hl-warn':'nature')+'">';
+  html+='<p><strong>筆記</strong>：絕命計分 12／21＝100、69／96＝75、48／84＝50、37／73＝25（掉轉同分）。呢組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>。</p>';
+  html+='<p><strong>筆記原文</strong>：男人絕命過多（超過100分就過多）：性功能下降。</p>';
+  html+='<p><strong>筆記原文</strong>：121 — 腰不太好；如果是女性，容易冷淡。'+(digits.indexOf('121')>=0?'呢組有121。':'')+'</p>';
+  html+='<p><strong>筆記原文</strong>：六煞+絕命：容易有婦科病；絕命中有5，概率更大；如果是結尾更不好。</p>';
+  if(prof==='female')html+='<p class="muted">已擁女性：記上面「女性容易冷淡」「婦科病」兩條原文。筆記無另寫女性絕命計分過多的後果。</p>';
   html+='</div>';
   return html;
  }
@@ -94,10 +97,12 @@
    pairs=buildPairs(digits,kind);
   }catch(e){}
   var box=document.getElementById('kindReadBox');
-  if(box){
-   if(box.innerHTML.indexOf('絕命計分')<0 && kind!=='id') box.innerHTML+=juemingBlock(digits);
-   else if(box.innerHTML.indexOf('絕命計分')>=0 && box.innerHTML.indexOf('性功能')<0){
-    box.innerHTML=box.innerHTML.replace(/(絕命計分[\s\S]*?分<\/strong>)/,'$1。筆記：男人絕命過多（超過100分就過多）：性功能下降。');
+  if(box&&kind!=='id'){
+   var fresh=juemingBlock(digits);
+   if(fresh){
+    if(box.innerHTML.indexOf('絕命計分')>=0){
+     box.innerHTML=box.innerHTML.replace(/<div class="hl-(?:warn|resolve)"[^>]*>[\s\S]*?絕命計分[\s\S]*?<\/div>/,fresh);
+    }else box.innerHTML+=fresh;
    }
   }
   var pc=document.getElementById('phoneRuleCard');
