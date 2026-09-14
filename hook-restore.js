@@ -21,11 +21,47 @@
   var over=js.total>100;
   var html='<div class="'+(over?'hl-warn':'hl-resolve')+'"><strong>筆記</strong>：絕命計分 12／21＝100、69／96＝75、48／84＝50、37／73＝25。呢組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>。';
   html+='筆記：男人絕命過多（超過100分就過多）：性功能下降。';
-  if(over)html+='呢組已超過100分。';
-  else html+='呢組未超過100分。';
+  html+=over?'呢組已超過100分。':'呢組未超過100分。';
   if(digits.indexOf('121')>=0)html+='121 — 腰不太好；如果是女性，容易冷淡。';
   html+='</div>';
   return html;
+ }
+ function rebuildPhoneCard(digits,pairs){
+  var pc=document.getElementById('phoneRuleCard');
+  if(!pc){
+   pc=document.createElement('div');
+   pc.className='card';
+   pc.id='phoneRuleCard';
+   var kindCard=document.getElementById('kindReadCard');
+   if(kindCard&&kindCard.parentNode)kindCard.parentNode.insertBefore(pc,kindCard.nextSibling);
+  }
+  var last5=(digits||'').slice(-5);
+  var zeroHits=(typeof checkPhoneZeros==='function')?checkPhoneZeros(digits||''):[];
+  var warns=(typeof phoneTextbook==='function')?phoneTextbook(digits||'',pairs||[]):[];
+  var law=[],prof=[];
+  warns.forEach(function(w){
+   var t=w.t||'';
+   if(/女性|老年人|學生|男性/.test(t))prof.push(w);else law.push(w);
+  });
+  var h='<div class="card-title">手機定律 ／ 後五位0 ／ 身份組合</div>';
+  h+='<p><strong>手機定律</strong>（套中呢組先出）</p>';
+  if(law.length)law.forEach(function(w){h+='<div class="'+(w.lv==='ok'?'hl-resolve':'hl-warn')+'">'+(typeof srcTag==='function'?srcTag('c'):'')+w.t+'</div>';});
+  else h+='<p class="muted">呢組未觸發課堂手機定律條文。</p>';
+  h+='<p style="margin-top:12px"><strong>後五位0</strong>（尾五位 '+last5+'）</p>';
+  if(zeroHits.length){
+   h+='<ul class="tight">';
+   zeroHits.forEach(function(x){h+='<li>倒數第'+x.pos+'位係0 → <strong>'+x.body+'</strong>｜'+x.palace+'：'+x.effect+'</li>';});
+   h+='</ul>';
+  }else h+='<p class="muted">尾五位冇見0。課堂：後五位絕對不能有0。</p>';
+  var pn={male:'男性',female:'女性',student:'學生',elder:'老年人'};
+  var profNow=window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');
+  h+='<p style="margin-top:12px"><strong>身份組合</strong>'+(profNow?'（已擁 '+pn[profNow]+'）':'')+'</p>';
+  if(!profNow)h+='<p class="muted">未擁身份。上面擁女性／男性／學生／老年人再解讀，先出課堂對應禁號與組合。</p>';
+  else if(prof.length)prof.forEach(function(w){h+='<div class="'+(w.lv==='ok'?'hl-resolve':'hl-warn')+'">'+(typeof srcTag==='function'?srcTag('c'):'')+w.t+'</div>';});
+  else h+='<p class="muted">呢個身份下，呢組未見課堂列明的禁號／特殊組合。</p>';
+  pc.innerHTML=h;
+  pc.style.display='block';
+  return pc;
  }
  function restore(){
   var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');
@@ -42,38 +78,34 @@
     }
    }catch(e){}
    if(keys.length){
-    det.innerHTML='<p class="muted" style="margin-bottom:8px">以下係呢組出現過的星，課堂／筆記／書全文。八星百科有全部六欄。</p>'+keys.map(function(k){return fullStar(FIELDS[k]);}).join('');
+    det.innerHTML='<p class="muted" style="margin-bottom:8px">以下係呢組出現過的星，課堂／筆記／書全文。</p>'+keys.map(function(k){return fullStar(FIELDS[k]);}).join('');
    }
   }
+  var raw=document.getElementById('numInput');
+  var digits='',pairs=[];
+  try{
+   if(kind==='birth'){var iso=document.getElementById('birthInput').value;var m=birthCode(iso);digits=m?m.code:'';}
+   else if(kind==='plate')digits=plateToDigits((raw&&raw.value||'').trim());
+   else {
+    var s=(raw&&raw.value||'').trim();
+    if(typeof expandLetters==='function')s=expandLetters(s);
+    digits=(typeof extractDigits==='function')?extractDigits(s):s;
+   }
+   pairs=buildPairs(digits,kind);
+  }catch(e){}
   var box=document.getElementById('kindReadBox');
   if(box){
-   var raw=document.getElementById('numInput');
-   var digits='';
-   try{
-    if(kind==='birth'){var iso=document.getElementById('birthInput').value;var m=birthCode(iso);digits=m?m.code:'';}
-    else if(kind==='plate')digits=plateToDigits((raw&&raw.value||'').trim());
-    else {
-     var s=(raw&&raw.value||'').trim();
-     if(typeof expandLetters==='function')s=expandLetters(s);
-     digits=(typeof extractDigits==='function')?extractDigits(s):s;
-    }
-   }catch(e){}
-   if(box.innerHTML.indexOf('絕命計分')<0 && kind!=='id'){
-    box.innerHTML+=juemingBlock(digits);
-   }else if(box.innerHTML.indexOf('絕命計分')>=0 && box.innerHTML.indexOf('性功能')<0){
+   if(box.innerHTML.indexOf('絕命計分')<0 && kind!=='id') box.innerHTML+=juemingBlock(digits);
+   else if(box.innerHTML.indexOf('絕命計分')>=0 && box.innerHTML.indexOf('性功能')<0){
     box.innerHTML=box.innerHTML.replace(/(絕命計分[\s\S]*?分<\/strong>)/,'$1。筆記：男人絕命過多（超過100分就過多）：性功能下降。');
    }
   }
   var pc=document.getElementById('phoneRuleCard');
-  var kindCard=document.getElementById('kindReadCard');
-  if(pc&&kindCard&&kindCard.parentNode){
-   pc.style.display=(kind==='phone')?'block':'none';
-   if(kind==='phone'){
-    var tit=pc.querySelector('.card-title');
-    if(tit)tit.textContent='手機定律';
-    kindCard.parentNode.insertBefore(pc, kindCard.nextSibling);
-   }
-  }
+  if(kind==='phone'){
+   pc=rebuildPhoneCard(digits,pairs);
+   var kindCard=document.getElementById('kindReadCard');
+   if(pc&&kindCard&&kindCard.parentNode)kindCard.parentNode.insertBefore(pc,kindCard.nextSibling);
+  }else if(pc)pc.style.display='none';
  }
  var tries=0;
  function wrap(){
