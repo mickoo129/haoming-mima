@@ -3,15 +3,14 @@
   var st=document.createElement('style');
   st.id='hm-layout-css';
   st.textContent=[
-   '#results .card{margin-bottom:14px}',
-   '#results .card-title{font-size:1.02rem;letter-spacing:.02em}',
-   '.pair-row{align-items:flex-start;gap:10px;padding:8px 0}',
-   '.pair-box{font-size:1.05rem;padding:6px 12px;background:#fff8e6;border-color:#d4a017}',
-   '.pair-row strong{min-width:3em;display:inline-block}',
-   '#pairFlow{background:#fbfaf6;border-radius:8px;padding:4px 8px}',
-   '.hl-warn,.hl-resolve{margin-top:12px}',
-   '#kindReadBox p,#details p{margin:8px 0}',
-   '#kindReadBox .muted{display:block;margin-top:4px}'
+   '#results,#results .card,#kindReadBox,#details,#pairFlow,#storyBox{max-width:100%;overflow-x:hidden;overflow-wrap:anywhere;word-break:break-word}',
+   '.pair-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px;padding:8px 0;max-width:100%}',
+   '.pair-box{font-size:1rem;padding:6px 10px;background:#fff8e6;border-color:#d4a017;flex:0 0 auto}',
+   '.hl-warn,.hl-resolve,.nature{max-width:100%;overflow-wrap:anywhere}',
+   '.num-in,.num-ex,.num-def{max-width:100%;white-space:normal}',
+   '#hitCard{display:none !important}',
+   '#toTop{position:fixed;right:16px;bottom:18px;z-index:40;border:0;border-radius:22px;background:#1a4a3a;color:#fff;padding:10px 14px;font-size:.82rem;box-shadow:0 4px 14px rgba(26,74,58,.25);display:none}',
+   '#toTop.show{display:block}'
   ].join('');
   document.head.appendChild(st);
  }
@@ -19,7 +18,6 @@
   var res=document.getElementById('results');
   if(!res||res.getAttribute('data-reordered'))return;
   var cards=res.querySelectorAll(':scope > .card');
-  if(cards.length<6)return;
   var map={};
   cards.forEach(function(c){
    var t=c.querySelector('.card-title');
@@ -27,29 +25,20 @@
    if(id==='kindReadCard')map.kind=c;
    else if(id==='luckCard')map.luck=c;
    else if(id==='fixCard')map.fix=c;
+   else if(id==='hitCard')c.style.display='none';
    else if(t){
     var tx=t.textContent||'';
-    if(tx.indexOf('角色')>=0)map.role=c;
-    else if(tx.indexOf('故事')>=0)map.story=c;
-    else if(tx.indexOf('磁場走勢')>=0)map.flow=c;
+    if(tx.indexOf('角色')>=0||tx.indexOf('睇乜類')>=0)map.role=c;
+    else if(tx.indexOf('故事')>=0||tx.indexOf('由頭')>=0)map.story=c;
+    else if(tx.indexOf('磁場')>=0||tx.indexOf('點拆')>=0)map.flow=c;
     else if(tx.indexOf('詳細')>=0)map.detail=c;
    }
   });
-  if(!map.role||!map.flow||!map.story)return;
   var order=[map.role,map.flow,map.story,map.kind,map.luck,map.detail,map.fix];
   order.forEach(function(c){if(c)res.appendChild(c);});
-  if(map.role){
-   var tit=map.role.querySelector('.card-title');
-   if(tit)tit.textContent='呢次睇乜類';
-  }
-  if(map.flow){
-   var tit2=map.flow.querySelector('.card-title');
-   if(tit2)tit2.textContent='呢組點拆（磁場走勢）';
-  }
-  if(map.story){
-   var tit3=map.story.querySelector('.card-title');
-   if(tit3)tit3.textContent='由頭講到尾';
-  }
+  if(map.role){var a=map.role.querySelector('.card-title');if(a)a.textContent='呢次睇乜類';}
+  if(map.flow){var b=map.flow.querySelector('.card-title');if(b)b.textContent='呢組點拆';}
+  if(map.story){var c=map.story.querySelector('.card-title');if(c)c.textContent='由頭講到尾';}
   res.setAttribute('data-reordered','1');
  }
  function tidyRole(){
@@ -57,20 +46,29 @@
   if(!role)return;
   role.innerHTML=role.innerHTML.replace('號碼0已跳過','0留低要解，5夾中當伏');
  }
+ function topBtn(){
+  if(document.getElementById('toTop'))return;
+  var b=document.createElement('button');
+  b.id='toTop';
+  b.type='button';
+  b.textContent='↑ 回頂';
+  b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+  document.body.appendChild(b);
+  window.addEventListener('scroll',function(){
+   if(window.scrollY>400)b.classList.add('show');else b.classList.remove('show');
+  });
+ }
+ var tries=0;
  function wrap(){
-  reorder();
+  reorder();topBtn();
   var impl=window.analyze;
-  if(!impl||impl.__layWrapped){
-   if(!impl)setTimeout(wrap,80);
-   return;
-  }
-  var wrapped=function(){
-   impl();
-   tidyRole();
-  };
+  if(!impl){if(tries++<30)setTimeout(wrap,80);return;}
+  if(impl.__layWrapped)return;
+  var wrapped=function(){impl();tidyRole();};
   wrapped.__layWrapped=true;
   wrapped.__storyWrapped=impl.__storyWrapped;
   wrapped.__hlWrapped=impl.__hlWrapped;
+  wrapped.__copyWrapped=impl.__copyWrapped;
   window.analyze=wrapped;
   window.hmAnalyze=function(){window.analyze();return false;};
  }
