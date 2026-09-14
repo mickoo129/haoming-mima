@@ -68,4 +68,5 @@
  var hr=document.createElement('script');hr.src='./hook-restore.js';document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js';document.body.appendChild(he);
  var ht=document.createElement('script');ht.src='./hook-teacher.js';document.body.appendChild(ht);
+ var hs=document.createElement('script');hs.src='./hook-sales.js';document.body.appendChild(hs);
 })();
