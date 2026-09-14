@@ -61,4 +61,5 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
+ var hx=document.createElement('script');hx.src='./hook-hitbox.js';document.body.appendChild(hx);
 })();
