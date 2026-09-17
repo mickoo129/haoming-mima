@@ -115,12 +115,12 @@ function extraCourseNotes(digits,pairs,kind){
     if(p.field==='huohai'&&((p.display&&p.display.indexOf('0')>=0)||(p.note&&p.note.indexOf('0')>=0)))clip=true;
    });
   }
-  if(hit.length||clip)html+='<div class="hl-warn"><strong>騙子號</strong>：禍害夾0'+(hit.length?'（'+hit.join('、')+'）':'')+' — 不一定存心騙人，說話表里不一，比較有城府，不一定會說出真實的話</div>';
+  if(hit.length||clip)html+='<div class="hl-warn"><strong>騙子號</strong>：禍害夾0'+(hit.length?'（'+hit.join('、')+'）':'')+' — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</div>';
  }
  var jh=findJuemingHuohai(digits,pairs);
  if(jh.length&&(person||drive)){
   var lead=drive?'出行亦可參照：開車衝動、不計後果。':'';
-  html+='<div class="hl-warn"><strong>教材筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不饒人。呢組見到：'+jh.join('、')+'。712、217、698、896 只係例子。'+lead+'</div>';
+  html+='<div class="hl-warn"><strong>教材筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不饜人。呢組見到：'+jh.join('、')+'。712、217、698、896 只係例子。'+lead+'</div>';
  }
  if(person){
   var lj=findLiushaJueming(digits,pairs);
@@ -154,7 +154,7 @@ if(typeof phoneTextbook==='function'){
   hit=['917','871','198','789'].filter(function(x){return digits.indexOf(x)>=0;});
   if(hit.length)w.push({lv:'warn',t:'高級課程：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差'});
   var jh=findJuemingHuohai(digits,pairs);
-  if(jh.length)w.push({lv:'warn',t:'教材筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不饒人（'+jh.join('、')+'）。712、217、698、896 只係例子'});
+  if(jh.length)w.push({lv:'warn',t:'教材筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不饜人（'+jh.join('、')+'）。712、217、698、896 只係例子'});
   var lj=findLiushaJueming(digits,pairs);
   if(lj.found.length){
    var extra='';
