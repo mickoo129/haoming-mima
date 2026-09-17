@@ -10,8 +10,8 @@
  };
  window.plateToDigits=plateToDigits;
  if(typeof KIND_INFO!=='undefined'){
-  if(KIND_INFO.plate) KIND_INFO.plate.text='課堂車牌筆記：拆法似電話（0／5夾中間）。0黐住前一組會減弱（生氣即貴人越來越少）。5當伏跟前，課堂未講增強。字母A=01…Z=26。';
-  if(KIND_INFO.other) KIND_INFO.other.text='老師見號（未指明類別）跟車牌同套：0／5夾中間。0黐前減弱；5當伏跟前（未講增強）。輸入咧計咧，字母A=01…Z=26。';
+  if(KIND_INFO.plate) KIND_INFO.plate.text='課堂車牌筆記：拆法似電話（0／5夾中間）。0黎住前一組會減弱（生氣即貴人越來越少）。5當伏跟前，課堂未講增強。字母A=01…Z=26。';
+  if(KIND_INFO.other) KIND_INFO.other.text='老師見號（未指明類別）跟車牌同套：0／5夾中間。0黎前減弱；5當伏跟前（未講增強）。輸入咩計咩，字母A=01…Z=26。';
  }
  var oldBP=window.buildPairs;
  function sandwichNotes(pairs,kind){
@@ -21,7 +21,7 @@
   for(i=0;i<pairs.length;i++){
    p=pairs[i];n='';
    if(p.display&&p.display.indexOf('0')>=0){
-    n=tag+'：0黐住前一組，減弱該組能量';
+    n=tag+'：0黎住前一組，減弱該組能量';
     if(i>0&&pairs[i-1].field==='shengqi') n+='（前面生氣：貴人越來越少）';
     else if(p.field==='shengqi') n+='（生氣：貴人越來越少）';
    }
@@ -52,7 +52,7 @@
   var sheng0=['140','410','670','760','390','930','280','820'];
   var hit=sheng0.filter(function(x){return digits.indexOf(x)>=0;});
   if(hit.length){
-   html+='<div class="hl-warn"><strong>'+label+'</strong>：生氣後面黐0（'+hit.join('、')+'）— 貴人越來越少，人際不長久，感情來得快去得快，友誼漾漾平淡，重複被騙；貴人唔給力。</div>';
+   html+='<div class="hl-warn"><strong>'+label+'</strong>：生氣後面黎0（'+hit.join('、')+'）— 貴人越來越少，人際不長久，感情來得快去得快，友誼慢慢平淡，重複被騙；貴人唔給力。</div>';
   }
   var has409=false;
   if(pairs)pairs.forEach(function(p){if(p.display&&p.display.indexOf('409')>=0)has409=true;});
@@ -68,7 +68,7 @@
    if(has.shengqi&&has.tianyi&&has.yannian){
     html+='<div class="hl-resolve"><strong>'+label+'</strong>：有齊生氣、天醫、延年三吉。';
     var yn=pairs.filter(function(p){return p.field==='yannian';}).map(function(p){return p.pair;});
-    if(yn.indexOf('19')>=0||yn.indexOf('91')>=0) html+='延年收到19／91，能量較43／34強。';
+    if(yn.indexOf('19')>=0||yn.indexOf('91')>=0) html+='延年收到19／91，能量轃43／34強。';
     html+='</div>';
    }
    var allTian=true;
