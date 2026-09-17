@@ -52,7 +52,7 @@ if(zeroCount>=2)warns.push({lv:'warn',t:'教材：手機號碼多個2個0（出�
   warns.push({lv:'warn',t:'教材例子：全部是天醫，沒有生氣、延年的磁場（如27572）'});
  }
  var liusha5=hasSeq(digits,['156','457','358','259']);
- if(liusha5.length)warns.push({lv:'warn',t:'教材感情：六煞中有5（'+liusha5.join('、')+'）——桃花特別旺，有人主動喜歡或機會多，可轉成有效結果、不容易被人知道；亦可能追求者多／多段感情／一腳踏兩船，自身桃花容易被配偶或另一半知道；喜歡主動展示魅力，釋放曙昧氣質或感情持續甜蜜'});
+ if(liusha5.length)warns.push({lv:'warn',t:'教材感情：六煞中有5（'+liusha5.join('、')+'）——桃花特別旺，有人主動喜歡或機會多，可轉成有效結果、不容易被人知道；亦可能追求者多／多段感情／一腳踏兩船，自身桃花容易被配偶或另一半知道；喜歡主動展示魅力，釋放曖昧氣質或感情持續甜蜜'});
  else if(hasSeq(digits,['16','47','38','29']).length)warns.push({lv:'warn',t:'教材感情：六煞（16、47、38、29）代表爛桃花'});
  if(currentProfile==='female'){
   var bans=FEMALE_BAN.filter(function(x){return digits.indexOf(x)>=0;});
@@ -66,7 +66,7 @@ if(zeroCount>=2)warns.push({lv:'warn',t:'教材：手機號碼多個2個0（出�
  }
  if(currentProfile==='elder'){
   if(counts.tianyi>=2)warns.push({lv:'bad',t:'教材老年人：不適用天醫太多的號碼（富貴病、心腦血管）'});
-  warns.push({lv:'warn',t:'教材老年人：適用生氣+延年，但不嶇太大，二至三級磁場最佳'});
+  warns.push({lv:'warn',t:'教材老年人：適用生氣+延年，但不宜太大，二至三級磁場最佳'});
   if(digits.indexOf('819')>=0||adjacentHas(pairs,'wugui','yannian'))warns.push({lv:'bad',t:'教材老年人：五鬼+延年（如819）容易突發腦梗'});
  }
  if(currentProfile==='student'){
