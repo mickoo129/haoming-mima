@@ -25,7 +25,7 @@
   html+='<p><strong>筆記原文</strong>：男人絕命過多（超過100分就過多）：性功能下降。</p>';
   html+='<p><strong>筆記原文</strong>：121 — 腰不太好；如果是女性，容易冷淡。'+(digits.indexOf('121')>=0?'呢組有121。':'')+'</p>';
   html+='<p><strong>筆記原文</strong>：六煞+絕命：容易有婦科病；絕命中有5，概率更大；如果是結尾更不好。</p>';
-  if(prof==='female')html+='<p class="muted">已撿女性：記上面「女性容易冷淡」「婦科病」兩條原文。筆記無另寫女性絕命計分過多的後果。</p>';
+  if(prof==='female')html+='<p class="muted">已揀女性：記上面「女性容易冷淡」「婦科病」兩條原文。筆記無另寫女性絕命計分過多的後果。</p>';
   html+='</div>';
   return html;
  }
@@ -58,8 +58,8 @@
   }else h+='<p class="muted">尾五位冇見0。課堂：後五位絕對不能有0。</p>';
   var pn={male:'男性',female:'女性',student:'學生',elder:'老年人'};
   var profNow=window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');
-  h+='<p style="margin-top:12px"><strong>身份組合</strong>'+(profNow?'（已撿 '+pn[profNow]+'）':'')+'</p>';
-  if(!profNow)h+='<p class="muted">未撿身份。上面撿女性／男性／學生／老年人再解讀，先出課堂對應禁號與組合。</p>';
+  h+='<p style="margin-top:12px"><strong>身份組合</strong>'+(profNow?'（已揀 '+pn[profNow]+'）':'')+'</p>';
+  if(!profNow)h+='<p class="muted">未揀身份。上面揀女性／男性／學生／老年人再解讀，先出課堂對應禁號與組合。</p>';
   else if(prof.length)prof.forEach(function(w){h+='<div class="'+(w.lv==='ok'?'hl-resolve':'hl-warn')+'">'+(typeof srcTag==='function'?srcTag('c'):'')+w.t+'</div>';});
   else h+='<p class="muted">呢個身份下，呢組未見課堂列明的禁號／特殊組合。</p>';
   pc.innerHTML=h;
