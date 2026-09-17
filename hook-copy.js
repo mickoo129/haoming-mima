@@ -69,4 +69,5 @@
  var he=document.createElement('script');he.src='./hook-explain.js';document.body.appendChild(he);
  var ht=document.createElement('script');ht.src='./hook-teacher.js';document.body.appendChild(ht);
  var hs=document.createElement('script');hs.src='./hook-sales.js';document.body.appendChild(hs);
+ var hh=document.createElement('script');hh.src='./hook-note-health.js';document.body.appendChild(hh);
 })();
