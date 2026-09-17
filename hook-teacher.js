@@ -32,7 +32,7 @@
    html+='<div class="hl-resolve teacher-note"><strong>筆記</strong>：呢組有大天醫（'+bigT.join('、')+'；13／31最強）。</div>';
   }
   if((kind==='plate'||kind==='other') && fields.indexOf('wugui')>=0 && fields.indexOf('jueming')>=0){
-   html+='<div class="hl-warn teacher-note"><strong>筆記</strong>：車牌五鬼+絕命—老師例：事故車輝、血光。</div>';
+   html+='<div class="hl-warn teacher-note"><strong>筆記</strong>：車牌五鬼+絕命—老師例：事故車禍、血光。</div>';
   }else if((kind==='plate'||kind==='other') && fields.indexOf('wugui')>=0){
    html+='<div class="hl-warn teacher-note"><strong>筆記</strong>：車牌出現五鬼—老師例：出現車禍。</div>';
   }
