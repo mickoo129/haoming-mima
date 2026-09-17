@@ -7,9 +7,9 @@
   var html='',h;
   h=hits(digits,YE_WG);
   if(h.length){
-   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：疾病號：敞夜傷身：延年+五鬼（'+h.join('、')+'）</p>';
+   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：疾病號：熬夜傷身：延年+五鬼（'+h.join('、')+'）</p>';
    html+='<p>筆記原文例：197／918、781／879、342／436、263／624。</p>';
-   html+='<p>筆記原文：容易出現敞夜失眠、頸椎病、心腦血管疾病。</p></div>';
+   html+='<p>筆記原文：容易出現熬夜失眠、頸椎病、心腦血管疾病。</p></div>';
   }
   var last4=digits.slice(-4);
   h=hits(last4,HAI0);
