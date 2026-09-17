@@ -41,8 +41,8 @@ if(zeroCount>=2)warns.push({lv:'warn',t:'教材：手機號碼多個2個0（出�
  var hit=hasSeq(digits,['103','301']);if(hit.length)warns.push({lv:'warn',t:'教材：'+hit.join('、')+' 可能有地下情，資金被套住'});
  var sheng0=hasSeq(digits,['140','410','670','760','390','930','280','820']);
  if(sheng0.length)warns.push({lv:'warn',t:'教材例子：生氣後面為0（'+sheng0.join('、')+'）——貴人越來越少，人際關係不長久，感情來得快去得快，不長久，感情友誼慢慢的平淡，有重複被欺騙和傷害的信息，貴人不給力，幫不上什麼忙'});
- if(hasSeq(digits,['409']).length)warns.push({lv:'warn',t:'教材例子：409 資産被套的或沒法變現'});
- if(digits.indexOf('14099')>=0||digits.indexOf('1409')>=0)warns.push({lv:'warn',t:'教材例子（如14099）：有隱藏地下情，隱藏的婚姻，容易在婚姻中有第三者插足，男性容易有婚愛情，女性容易被小三；容易被朋友捅刀子，插足'});
+ if(hasSeq(digits,['409']).length)warns.push({lv:'warn',t:'教材例子：409 資產被套的或沒法變現'});
+ if(digits.indexOf('14099')>=0||digits.indexOf('1409')>=0)warns.push({lv:'warn',t:'教材例子（如14099）：有隱藏地下情，隱藏的婚姻，容易在婚姻中有第三者插足，男性容易有婚外情，女性容易被小三；容易被朋友捅刀子，插足'});
  var hasSheng=!!counts.shengqi,hasTian=!!counts.tianyi,hasYan=!!counts.yannian;
  if(hasTian&&hasSheng&&hasYan){
   var up=hasSeq(digits,['4319','4391','3419','3491']);
@@ -52,7 +52,7 @@ if(zeroCount>=2)warns.push({lv:'warn',t:'教材：手機號碼多個2個0（出�
   warns.push({lv:'warn',t:'教材例子：全部是天醫，沒有生氣、延年的磁場（如27572）'});
  }
  var liusha5=hasSeq(digits,['156','457','358','259']);
- if(liusha5.length)warns.push({lv:'warn',t:'教材感情：六煞中有5（'+liusha5.join('、')+'）——桃花特別旺，有人主動喜歡或機會多，可轉成有效結果、不容易被人知道；亦可能追求者多／多段感情／一腳踏兩船，自身桃花容易被配偶或另一半知道；喜歡主動展示魅力，釋放曖昧氣質或感情持續甜蜜'});
+ if(liusha5.length)warns.push({lv:'warn',t:'教材感情：六煞中有5（'+liusha5.join('、')+'）——桃花特別旺，有人主動喜歡或機會多，可轉成有效結果、不容易被人知道；亦可能追求者多／多段感情／一腳踏兩船，自身桃花容易被配偶或另一半知道；喜歡主動展示魅力，釋放曙昧氣質或感情持續甜蜜'});
  else if(hasSeq(digits,['16','47','38','29']).length)warns.push({lv:'warn',t:'教材感情：六煞（16、47、38、29）代表爛桃花'});
  if(currentProfile==='female'){
   var bans=FEMALE_BAN.filter(function(x){return digits.indexOf(x)>=0;});
@@ -66,7 +66,7 @@ if(zeroCount>=2)warns.push({lv:'warn',t:'教材：手機號碼多個2個0（出�
  }
  if(currentProfile==='elder'){
   if(counts.tianyi>=2)warns.push({lv:'bad',t:'教材老年人：不適用天醫太多的號碼（富貴病、心腦血管）'});
-  warns.push({lv:'warn',t:'教材老年人：適用生氣+延年，但不宜太大，二至三級磁場最佳'});
+  warns.push({lv:'warn',t:'教材老年人：適用生氣+延年，但不嶇太大，二至三級磁場最佳'});
   if(digits.indexOf('819')>=0||adjacentHas(pairs,'wugui','yannian'))warns.push({lv:'bad',t:'教材老年人：五鬼+延年（如819）容易突發腦梗'});
  }
  if(currentProfile==='student'){
@@ -103,7 +103,7 @@ function kindReadHtml(kind,pairs,digits){
   keys.forEach(function(k){if(BANK_TXT[k])html+='<p><strong>'+FIELDS[k].name+'：</strong>'+BANK_TXT[k]+'</p>';});
   if(keys.indexOf('wugui')>=0&&keys.indexOf('liusha')>=0)html+='<div class="hl-warn">教材：五鬼+六煞——大破財</div>';
   if(keys.indexOf('wugui')>=0&&keys.indexOf('jueming')>=0)html+='<div class="hl-warn">教材：五鬼+絕命——大進大出</div>';
-  html+='<p>教材「不好的銀行咋密碼結尾」：四大凶星；凶星+生氣；0或05結尾。</p>';
+  html+='<p>教材「不好的銀行卡密碼結尾」：四大凶星；凶星+生氣；0或05結尾。</p>';
   if(digits&&(/[0]$/.test(digits)||/05$/.test(digits)))html+='<div class="hl-warn">呢組尾係0或05，教材列作不好的銀行結尾。</div>';
   if(last&&last.field!=='yannian')html+='<p>教材守財：凡不是以延年結尾，都花錢太快、存不住錢。</p>';
  }else if(kind==='address'){
