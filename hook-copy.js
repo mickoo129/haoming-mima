@@ -15,7 +15,10 @@
    .replace(/手機教材分類提示/g,'課堂手機分類提示')
    .replace(/教材禁號/g,'課堂禁號')
    .replace(/教材例子/g,'課堂例子')
-   .replace(/教材：/g,'課堂：');
+   .replace(/教材：/g,'課堂：')
+   .replace(/銀行咋密碼/g,'銀行卡密碼')
+   .replace(/婚愛情/g,'婚外情')
+   .replace(/資産/g,'資產');
  }
  if(typeof KIND_INFO!=='undefined'){
   Object.keys(KIND_INFO).forEach(function(k){
