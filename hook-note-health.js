@@ -7,18 +7,18 @@
   var html='',h;
   h=hits(digits,YE_WG);
   if(h.length){
-   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：疾病号：燼夜伤身：延年+五鬼（'+h.join('、')+'）</p>';
+   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：疾病號：敞夜傷身：延年+五鬼（'+h.join('、')+'）</p>';
    html+='<p>筆記原文例：197／918、781／879、342／436、263／624。</p>';
-   html+='<p>筆記原文：容易出现燼夜失眠、颈椎病、心脑血管疾病。</p></div>';
+   html+='<p>筆記原文：容易出現敞夜失眠、頸椎病、心腦血管疾病。</p></div>';
   }
   var last4=digits.slice(-4);
   h=hits(last4,HAI0);
   if(h.length){
-   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：手机号后四位出现：'+h.join('、')+'</p>';
+   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：手機號後四位出現：'+h.join('、')+'</p>';
    html+='<p>筆記原文例：107／701、809／908、604／406、203／302。</p>';
-   html+='<p>筆記原文：1. 容易有隐藏的伤口或者隐藏的疾病</p>';
-   html+='<p>筆記原文：2. 严重容易开刀动手术</p>';
-   html+='<p>筆記原文：3. 女性容易流产、堕胎、剖腹产等情况</p></div>';
+   html+='<p>筆記原文：1. 容易有隱藏的傷口或者隱藏的疾病</p>';
+   html+='<p>筆記原文：2. 嚴重容易開刀動手術</p>';
+   html+='<p>筆記原文：3. 女性容易流產、墮胎、剖腹產等情況</p></div>';
   }
   return html;
  }
