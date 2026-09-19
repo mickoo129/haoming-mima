@@ -8,6 +8,16 @@
    });
   });
  }
+ function stripScore(box){
+  if(!box)return;
+  [].slice.call(box.querySelectorAll('div,p')).forEach(function(el){
+   var t=el.textContent||'';
+   if(t.indexOf('絕命計分')<0)return;
+   var wrap=el.className&&/(hl-warn|hl-resolve|nature)/.test(el.className)?el:(el.closest?el.closest('.hl-warn,.hl-resolve,.nature'):el);
+   if(!wrap)wrap=el;
+   if(wrap.parentNode)wrap.parentNode.removeChild(wrap);
+  });
+ }
  function stripDupCatalog(box,kind){
   if(!box)return;
   var stars=['天醫','延年','生氣','伏位','絕命','五鬼','禍害','六煞'];
@@ -33,6 +43,7 @@
   if(kind==='birth'||kind==='id'){
    kill(box,['.seq-note','.hm-seq-explain','.hm-gap-explain','.hm-hit-explain','#hmSum','.hm-sum','.hl-legend']);
    stripDupCatalog(box,kind);
+   stripScore(box);
   }
   if(kind!=='phone'&&kind!=='birth'&&kind!=='id'){
    kill(box,['.hm-gap-explain','.hm-hit-explain']);
