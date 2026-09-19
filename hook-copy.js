@@ -47,7 +47,7 @@
    var leg=box.querySelector('.hl-legend');
    if(!showLeg&&leg)leg.parentNode.removeChild(leg);
    if(showLeg&&box.innerHTML&&!box.querySelector('.hl-legend')){
-    box.innerHTML+='<p class="hl-legend"><i><span class="num-in">黃底</span> 呢組真係有呢個號</i><i><span class="num-def">綠邊</span> 星點組成（規則，唔等於你全部都有）</i><i><span class="num-ex">灰虛線</span> 課堂／筆記例子</i></p>';
+    box.innerHTML+='<p class="hl-legend"><i><span class="num-in">黃底</span> 此組號碼確實出現</i><i><span class="num-def">綠邊</span> 星曜組合規則（不代表全部皆有）</i><i><span class="num-ex">灰虛線</span> 課堂／筆記例子</i></p>';
    }
   }
  }

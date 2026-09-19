@@ -35,14 +35,14 @@
   var t=(el.textContent||'').replace(/\s+/g,'');
   if(t.indexOf('絕命計分')>=0)return 'jue-score';
   if(t.indexOf('121')>=0&&t.indexOf('腰')>=0)return 'jue-121';
-  if(t.indexOf('婦科')>=0&&(t.indexOf('六煞')>=0||t.indexOf('絕命')>=0))return 'liu-jue';
+  if(t.indexOf('婦科')>=0&&(t.indexOf('六紥')>=0||t.indexOf('絕命')>=0))return 'liu-jue';
   if(t.indexOf('得理不')>=0)return 'jue-hai';
   if(t.indexOf('痛經')>=0)return 'yan-hai';
   if(t.indexOf('禍害夾0')>=0||t.indexOf('隱藏的傷口')>=0)return 'hai0';
   if(t.indexOf('後五位')>=0&&t.indexOf('0')>=0&&t.indexOf('不能')>=0)return 'last5-0';
   if(t.indexOf('適合的行業')>=0)return 'industry';
   if(t.indexOf('銷售攻略')>=0)return 'sales';
-  if(t.indexOf('疾病號')>=0||t.indexOf('\u71ac\u591c')>=0)return 'ye-wg';
+  if(t.indexOf('疾病號')>=0||t.indexOf('熬夜')>=0)return 'ye-wg';
   if(t.indexOf('生天延')>=0)return 'sheng-tian-yan';
   if(t.indexOf('大凶')>=0&&t.indexOf('天醫')>=0&&t.indexOf('五鬼')>=0)return 'ty-wg';
   if(t.indexOf('大凶')>=0&&t.indexOf('五鬼')>=0&&t.indexOf('絕命')>=0)return 'wg-jue';
@@ -80,15 +80,15 @@
   keep.className='hl-crit health-note hai0-merged';
   if(lastHits.length){
    keep.innerHTML=
-    '<p><strong>筆記</strong>：禍害夾0（健康＋說話）'+(lab?'：'+lab:'')+'</p>'+
-    '<p><strong>健康原文</strong>：1，容易有隱藏的傷口或者隱藏的疾病</p>'+
-    '<p><strong>健康原文</strong>：2，嚴重的話，容易開刀，動手術</p>'+
-    '<p><strong>健康原文</strong>：3，女性容易流產，墮胎，剖腹產等情況</p>'+
-    '<p><strong>說話原文</strong>：不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+    '<p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lab+'</p>'+
+    '<p>筆記原文例：107、701、809、604、406、203、302。</p>'+
+    '<p>筆記原文：1，容易有隱藏的傷口或者隱藏的疾病</p>'+
+    '<p>筆記原文：2，嚴重的話，容易開刀，動手術</p>'+
+    '<p>筆記原文：3，女性容易流產，墮胎，剖腹產等情況</p>'+
+    '<p><strong>騙子號</strong>：禍害夾0（'+lab+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
   }else{
    keep.innerHTML=
-    '<p><strong>筆記</strong>：禍害夾0（說話）'+(lab?'：'+lab:'')+'</p>'+
-    '<p><strong>說話原文</strong>：不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+    '<p><strong>騙子號</strong>：禍害夾0'+(lab?'（'+lab+'）':'')+' — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
   }
  }
  function dedupeRoots(roots){
@@ -124,11 +124,11 @@
    ['tianyi','yannian','shengqi'].forEach(function(k){if(keys.indexOf(k)<0)miss.push(FIELDS[k].name);});
   }catch(e){}
   var h='<div class="hm-sum" id="hmSum">';
-  h+='<p><strong>先睇呢句</strong>：尾段係「'+last+'」'+(kind==='phone'?'，尾四位 '+tail:'')+'。</p>';
-  if(hits.length)h+='<p>今次觸發：'+hits.map(function(x){return '<span class="hit">'+x+'</span>';}).join('')+'</p>';
-  else h+='<p class="muted">今次未見大凶／疾病號／後四位禍害夾0。</p>';
-  if(miss.length)h+='<p class="muted">缺吉星：'+miss.join('、')+'</p>';
-  if(kind==='phone'&&!profNow())h+='<p class="muted">\u672a\u64bf\u8eab\u4efd\u3002\u5973\u6027\uff0f\u7537\u6027\uff0f\u5b78\u751f\uff0f\u8001\u5e74\u4eba\u689d\u6587\u8981\u5148\u64bf\u8eab\u4efd\u5148\u51fa\u3002</p>';
+  h+='<p><strong>重點</strong>：尾段為「'+last+'」'+(kind==='phone'?'，末四位 '+tail:'')+'。</p>';
+  if(hits.length)h+='<p>本次觸發：'+hits.map(function(x){return '<span class="hit">'+x+'</span>';}).join('')+'</p>';
+  else h+='<p class="muted">本次未見大凶、疾病號或後四位禍害夾0。</p>';
+  if(miss.length)h+='<p class="muted">缺少吉星：'+miss.join('、')+'</p>';
+  if(kind==='phone'&&!profNow())h+='<p class="muted">尚未選擇身份。女性、男性、學生、老年人相關條文，須先選擇身份後才會顯示。</p>';
   h+='</div>';
   return h;
  }
@@ -160,7 +160,7 @@
    if(showLeg&&!box.querySelector('.hl-legend')){
     var p=document.createElement('p');
     p.className='hl-legend';
-    p.innerHTML='<i><span class="num-in">黃底</span> 呢組真係有呢個號</i><i><span class="num-def">綠邊</span> 星點組成（規則，唔等於你全部都有）</i><i><span class="num-ex">灰虛線</span> 課堂／筆記例子</i>';
+    p.innerHTML='<i><span class="num-in">黃底</span> 此組號碼確實出現</i><i><span class="num-def">綠邊</span> 星曜組合規則（不代表全部皆有）</i><i><span class="num-ex">灰虛線</span> 課堂／筆記例子</i>';
     box.insertBefore(p,box.firstChild);
    }else moveLegend(box);
    box.insertBefore(document.createRange().createContextualFragment(summaryHtml(kind,digits)),box.firstChild);
