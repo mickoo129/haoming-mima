@@ -16,7 +16,7 @@
    .replace(/教材禁號/g,'課堂禁號')
    .replace(/教材例子/g,'課堂例子')
    .replace(/教材：/g,'課堂：')
-   .replace(/銀行咋密碼/g,'銀行卡密碼')
+   .replace(/銀行咅密碼/g,'銀行卡密碼')
    .replace(/婚愛情/g,'婚外情')
    .replace(/資産/g,'資產');
  }
@@ -73,4 +73,5 @@
  var ht=document.createElement('script');ht.src='./hook-teacher.js';document.body.appendChild(ht);
  var hs=document.createElement('script');hs.src='./hook-sales.js';document.body.appendChild(hs);
  var hh=document.createElement('script');hh.src='./hook-note-health.js';document.body.appendChild(hh);
+ var hu=document.createElement('script');hu.src='./hook-ux.js';document.body.appendChild(hu);
 })();
