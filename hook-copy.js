@@ -21,7 +21,9 @@
    .replace(/呢個/g,'這個')
    .replace(/銀行[咋咅]密碼/g,'銀行卡密碼')
    .replace(/婚愛情/g,'婚外情')
-   .replace(/資産/g,'資產');
+   .replace(/資産/g,'資產')
+   .replace(/六紳/g,'六煞')
+   .replace(/六紮/g,'六煞');
  }
  if(typeof KIND_INFO!=='undefined'){
   Object.keys(KIND_INFO).forEach(function(k){
