@@ -81,4 +81,5 @@
  var hh=document.createElement('script');hh.src='./hook-note-health.js';document.body.appendChild(hh);
  var hu=document.createElement('script');hu.src='./hook-ux.js';document.body.appendChild(hu);
  var hg=document.createElement('script');hg.src='./hook-gap.js';document.body.appendChild(hg);
+ var hq=document.createElement('script');hq.src='./hook-seq.js';document.body.appendChild(hq);
 })();
