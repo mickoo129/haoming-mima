@@ -22,8 +22,9 @@
    .replace(/銀行[咋咅]密碼/g,'銀行卡密碼')
    .replace(/婚愛情/g,'婚外情')
    .replace(/資産/g,'資產')
-   .replace(/六紳/g,'六煞')
-   .replace(/六紮/g,'六煞');
+   .replace(/六紥/g,'六煞')
+   .replace(/六紮/g,'六煞')
+   .replace(/六紳/g,'六煞');
  }
  if(typeof KIND_INFO!=='undefined'){
   Object.keys(KIND_INFO).forEach(function(k){
@@ -39,7 +40,7 @@
  window.extraCourseNotes=extraCourseNotes;
  function cleanBoxes(){
   var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');
-  ['kindReadBox','details','fixBox','storyBox','roleBox','wikiGrid','phoneRuleCard'].forEach(function(id){
+  ['kindReadBox','details','fixBox','storyBox','roleBox','wikiGrid','phoneRuleCard','pairFlow'].forEach(function(id){
    var el=document.getElementById(id);
    if(!el||!el.innerHTML)return;
    el.innerHTML=relabel(el.innerHTML);
