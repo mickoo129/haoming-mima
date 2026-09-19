@@ -1,5 +1,5 @@
 function industryReadHtml(keys,digits){
- var html='<div class="hl-resolve" style="margin-top:12px"><p><strong>教材適合的行業</strong>（呢組出現的星）</p>';
+ var html='<div class="hl-resolve" style="margin-top:12px"><p><strong>課堂：適合的行業</strong>（此組出現的星）</p>';
  keys.forEach(function(k){html+='<p><strong>'+FIELDS[k].name+'：</strong>'+FIELDS[k].job+'</p>';});
  if(typeof pairJobNotes==='function'){
   var pj=pairJobNotes(digits||'');
@@ -97,49 +97,17 @@ function juemingScore(digits){
 function extraCourseNotes(digits,pairs,kind){
  var html='',hit;
  if(kind==='birth')html+=birthMingGeHtml(digits);
- var person=kind==='phone';
- var speech=kind==='phone';
+ if(kind==='phone'||kind==='id')return html;
+ var person=false;
+ var speech=false;
  var drive=kind==='plate';
  if(speech){
   hit=['917','871','198','789'].filter(function(x){return digits&&digits.indexOf(x)>=0;});
-  if(hit.length)html+='<div class="hl-warn"><strong>高級課程</strong>：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差</div>';
-  hit=['189','817','798','971','364','637','246','423'].filter(function(x){return digits&&digits.indexOf(x)>=0;});
-  if(hit.length)html+='<div class="hl-warn"><strong>騙子號</strong>：五鬼+禍害（'+hit.join('、')+'） — 容易說假話，存心騙人，鬼話連篇，花言巧語，說話的目的性強</div>';
-  hit=['123','217','698','964','489','846','371','732'].filter(function(x){return digits&&digits.indexOf(x)>=0;});
-  if(hit.length)html+='<div class="hl-warn"><strong>騙子號</strong>：絕命+禍害（'+hit.join('、')+'） — 容易說大話，不靠譜，愛吹牛，說話水份大，會包裝</div>';
-  var h0=['107','170','701','710','809','890','908','980','406','460','604','640','203','230','302','320'];
-  hit=h0.filter(function(x){return digits&&digits.indexOf(x)>=0;});
-  var clip=false;
-  if(pairs&&pairs.length){
-   pairs.forEach(function(p){
-    if(p.field==='huohai'&&((p.display&&p.display.indexOf('0')>=0)||(p.note&&p.note.indexOf('0')>=0)))clip=true;
-   });
-  }
-  if(hit.length||clip)html+='<div class="hl-warn"><strong>騙子號</strong>：禍害夾0'+(hit.length?'（'+hit.join('、')+'）':'')+' — 不一定存心騙人，說話表裡不一，比較有城府，不一定會說出真實的話</div>';
+  if(hit.length)html+='<div class="hl-warn"><strong>筆記</strong>：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差</div>';
  }
  var jh=findJuemingHuohai(digits,pairs);
- if(jh.length&&(person||drive)){
-  var lead=drive?'出行亦可參照：開車衝動、不計後果。':'';
-  html+='<div class="hl-warn"><strong>教材筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不餮人。此組見到：'+jh.join('、')+'。712、217、698、896 只係例子。'+lead+'</div>';
- }
- if(person){
-  var lj=findLiushaJueming(digits,pairs);
-  if(lj.found.length){
-   var extra='';
-   if(lj.has5)extra+='；絕命中有5，概率更大';
-   if(lj.atEnd)extra+='；如果係結尾更不好';
-   html+='<div class="hl-warn"><strong>教材筆記</strong>：凡六煞（16、47、38、29）+絕命（12、69、48、37）都容易有婦科病。此組見到：'+lj.found.join('、')+extra+'。612、169、473、692 只係例子。</div>';
-  }
-  var js=juemingScore(digits);
-  if(js.hits.length){
-   var over=js.total>100;
-   html+='<div class="'+(over?'hl-warn':'hl-resolve')+'"><strong>教材筆記</strong>：絕命計分 12＝100、69＝75、48＝50、37＝25（掉轉同分）。此組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>';
-   if(over)html+='。男人絕命過多（超過100分就過多）：性功能下降';
-   html+='。</div>';
-  }
-  if(digits&&digits.indexOf('121')>=0){
-   html+='<div class="hl-warn"><strong>教材筆記</strong>：121 — 腰不太好；如果是女性，容易冷淡</div>';
-  }
+ if(jh.length&&drive){
+  html+='<div class="hl-warn"><strong>筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不餮人。出行亦可參照：開車衝動、不計後果。此組見到：'+jh.join('、')+'。712、217、698、896 只是例子。</div>';
  }
  return html;
 }
@@ -152,23 +120,23 @@ if(typeof phoneTextbook==='function'){
   hit=['123','217','698','964','489','846','371','732'].filter(function(x){return digits.indexOf(x)>=0;});
   if(hit.length)w.push({lv:'warn',t:'騙子號：絕命+禍害（'+hit.join('、')+'） — 容易說大話，不靠譜，愛吹牛，說話水份大，會包裝'});
   hit=['917','871','198','789'].filter(function(x){return digits.indexOf(x)>=0;});
-  if(hit.length)w.push({lv:'warn',t:'高級課程：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差'});
+  if(hit.length)w.push({lv:'warn',t:'筆記：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差'});
   var jh=findJuemingHuohai(digits,pairs);
-  if(jh.length)w.push({lv:'warn',t:'教材筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不餮人（'+jh.join('、')+'）。712、217、698、896 只係例子'});
+  if(jh.length)w.push({lv:'warn',t:'筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不餮人（'+jh.join('、')+'）。712、217、698、896 只是例子'});
   var lj=findLiushaJueming(digits,pairs);
   if(lj.found.length){
    var extra='';
    if(lj.has5)extra+='；絕命中有5，概率更大';
-   if(lj.atEnd)extra+='；如果係結尾更不好';
-   w.push({lv:'warn',t:'教材筆記：凡六煞+絕命都容易有婦科病（'+lj.found.join('、')+'）'+extra});
+   if(lj.atEnd)extra+='；如果是結尾更不好';
+   w.push({lv:'warn',t:'筆記：凡六煞+絕命都容易有婦科病（'+lj.found.join('、')+'）'+extra});
   }
   var js=juemingScore(digits);
   if(js.hits.length){
-   var t='教材筆記：絕命計分 '+js.hits.join('＋')+' ＝ '+js.total+'分';
+   var t='筆記：絕命計分 '+js.hits.join('＋')+' ＝ '+js.total+'分';
    if(js.total>100)t+='。男人絕命過多（超過100分就過多）：性功能下降';
    w.push({lv:js.total>100?'bad':'warn',t:t});
   }
-  if(digits.indexOf('121')>=0)w.push({lv:'warn',t:'教材筆記：121 — 腰不太好；如果是女性，容易冷淡'});
+  if(digits.indexOf('121')>=0)w.push({lv:'warn',t:'筆記：121 — 腰不太好；如果是女性，容易冷淡'});
   return w;
  };
 }
