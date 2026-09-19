@@ -8,10 +8,12 @@
    '.hm-sum{background:#fff;border:1.5px solid #1a4a3a;border-radius:10px;padding:12px 14px;margin-bottom:12px}',
    '.hm-sum strong{color:#1a4a3a}',
    '.hm-sum .hit{display:inline-block;background:#fff3cd;border:1px solid #d4a017;border-radius:6px;padding:1px 8px;margin:2px 4px 2px 0;font-size:.86rem}',
-   '.hl-legend{margin:0 0 12px}'
+   '.hl-legend{margin:0 0 12px}',
+   '.hm-hit-explain{margin:0 0 12px}'
   ].join('');
   document.head.appendChild(st);
  }
+ var HAI0=['107','701','809','908','604','406','203','302'];
  function kindNow(){return window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');}
  function profNow(){return window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');}
  function digitsNow(){
@@ -31,6 +33,7 @@
    return FIELDS[pairs[pairs.length-1].field].name;
   }catch(e){return '';}
  }
+ function listHits(str,list){return list.filter(function(x){return str&&str.indexOf(x)>=0;});}
  function keyOf(el){
   var t=(el.textContent||'').replace(/\s+/g,'');
   if(t.indexOf('絕命計分')>=0)return 'jue-score';
@@ -42,10 +45,10 @@
   if(t.indexOf('後五位')>=0&&t.indexOf('0')>=0&&t.indexOf('不能')>=0)return 'last5-0';
   if(t.indexOf('適合的行業')>=0)return 'industry';
   if(t.indexOf('銷售攻略')>=0)return 'sales';
-  if(t.indexOf('疾病號')>=0||t.indexOf('熬夜')>=0)return 'ye-wg';
+  if(t.indexOf('疾病號')>=0)return 'ye-wg';
   if(t.indexOf('生天延')>=0)return 'sheng-tian-yan';
   if(t.indexOf('大凶')>=0&&t.indexOf('天醫')>=0&&t.indexOf('五鬼')>=0)return 'ty-wg';
-  if(t.indexOf('大凶')>=0&&t.indexOf('五鬼')>=0&&t.indexOf('絕命')>=0)return 'wg-jue';
+  if(t.indexOf('容易身體差')>=0||(t.indexOf('大凶')>=0&&t.indexOf('五鬼')>=0&&t.indexOf('絕命')>=0))return 'wg-jue';
   return '';
  }
  function paintLevel(el){
@@ -74,8 +77,8 @@
   drop.forEach(function(el){if(el.parentNode)el.parentNode.removeChild(el);});
   if(!keep)return;
   var last4=(digits||'').slice(-4);
-  var lastHits=['107','701','809','908','604','406','203','302'].filter(function(x){return last4.indexOf(x)>=0;});
-  var allHits=['107','701','809','908','604','406','203','302'].filter(function(x){return (digits||'').indexOf(x)>=0;});
+  var lastHits=listHits(last4,HAI0);
+  var allHits=listHits(digits,HAI0);
   var lab=(lastHits.length?lastHits:allHits).join('、');
   keep.className='hl-crit health-note hai0-merged';
   if(lastHits.length){
@@ -95,7 +98,7 @@
   var seen={};
   roots.forEach(function(root){
    if(!root)return;
-   [].slice.call(root.querySelectorAll('.hl-warn,.hl-resolve,.hl-crit,.hl-sales,.nature,.health-note,.teacher-note,.sales-note')).forEach(function(el){
+   [].slice.call(root.querySelectorAll('.hl-warn,.hl-resolve,.hl-crit,.hl-sales,.nature,.health-note,.teacher-note,.sales-note,.hm-hit-explain')).forEach(function(el){
     var k=keyOf(el);
     if(!k)return;
     if(seen[k]){if(el.parentNode)el.parentNode.removeChild(el);}
@@ -106,9 +109,13 @@
  function summaryHtml(kind,digits){
   var last=lastField(digits,kind)||'—';
   var tail=(digits||'').slice(-4);
+  var lastHits=listHits(tail,HAI0);
+  var midHits=listHits(digits,HAI0).filter(function(x){return lastHits.indexOf(x)<0;});
   var hits=[];
   if(kind==='phone'&&tail&&tail.indexOf('0')>=0)hits.push('後四位有0');
-  [['197','疾病號'],['918','疾病號'],['107','禍害夾0'],['701','禍害夾0'],['809','禍害夾0'],['908','禍害夾0'],['604','禍害夾0'],['406','禍害夾0'],['203','禍害夾0'],['302','禍害夾0']].forEach(function(p){
+  if(kind==='phone'&&lastHits.length)hits.push('後四位禍害夾0');
+  else if(kind==='phone'&&midHits.length)hits.push('禍害夾0');
+  [['197','疾病號'],['918','疾病號']].forEach(function(p){
    if((kind==='phone')&&digits&&digits.indexOf(p[0])>=0&&hits.indexOf(p[1])<0)hits.push(p[1]);
   });
   try{
@@ -132,10 +139,59 @@
   h+='</div>';
   return h;
  }
+ function explainHtml(kind,digits){
+  if(kind!=='phone'||!digits)return '';
+  var last4=digits.slice(-4);
+  var lastHits=listHits(last4,HAI0);
+  var allHits=listHits(digits,HAI0);
+  var html='';
+  if(lastHits.length){
+   html+='<div class="hl-crit health-note hai0-merged"><p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lastHits.join('、')+'</p>';
+   html+='<p>筆記原文例：107、701、809、604、406、203、302。</p>';
+   html+='<p>筆記原文：1，容易有隱藏的傷口或者隱藏的疾病</p>';
+   html+='<p>筆記原文：2，嚴重的話，容易開刀，動手術</p>';
+   html+='<p>筆記原文：3，女性容易流產，墮胎，剖腹產等情況</p>';
+   html+='<p><strong>騙子號</strong>：禍害夾0（'+lastHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p></div>';
+  }else if(allHits.length){
+   html+='<div class="hl-warn health-note hai0-merged"><p><strong>騙子號</strong>：禍害夾0（'+allHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+   html+='<p class="muted">此組出現在末四位以外。筆記健康三條（隱藏傷口／開刀／流產）只適用於手機號後四位。</p></div>';
+  }
+  try{
+   var pairs=buildPairs(digits,kind);
+   if(typeof adjacentHas==='function'&&adjacentHas(pairs,'wugui','jueming')){
+    html+='<div class="hl-crit"><p><strong>課堂</strong>：五鬼+絕命（如218、812）：容易身體差、絕症</p></div>';
+   }
+   if(typeof adjacentHas==='function'&&adjacentHas(pairs,'tianyi','wugui')){
+    html+='<div class="hl-crit"><p><strong>課堂</strong>：大凶：天醫+五鬼</p></div>';
+   }
+  }catch(e){}
+  return html;
+ }
+ function placeExplain(box,html){
+  if(!box||!html)return;
+  var old=box.querySelector('.hm-hit-explain');
+  if(old&&old.parentNode)old.parentNode.removeChild(old);
+  var wrap=document.createElement('div');
+  wrap.className='hm-hit-explain';
+  wrap.innerHTML=html;
+  var sum=box.querySelector('#hmSum');
+  var leg=box.querySelector('.hl-legend');
+  var ref=leg||sum;
+  if(ref&&ref.nextSibling)box.insertBefore(wrap,ref.nextSibling);
+  else if(ref)box.appendChild(wrap);
+  else box.insertBefore(wrap,box.firstChild);
+ }
  function moveLegend(box){
   if(!box)return;
   var leg=box.querySelector('.hl-legend');
   if(leg)box.insertBefore(leg,box.firstChild);
+ }
+ function fixTitles(){
+  var t=document.getElementById('kindReadTitle');
+  if(t){
+   var s=t.textContent||'';
+   if(s.indexOf('點樣')>=0||s.indexOf('呢組')>=0)t.textContent='手機：如何分析此組號碼';
+  }
  }
  function run(){
   var kind=kindNow();
@@ -144,7 +200,6 @@
   var pc=document.getElementById('phoneRuleCard');
   mergeHai0(box,digits);
   mergeHai0(pc,digits);
-  dedupeRoots([box,pc]);
   [box,pc,document.getElementById('details')].forEach(function(root){
    if(!root)return;
    root.querySelectorAll('.hl-warn,.hl-resolve,.health-note,.sales-note,.hl-crit').forEach(paintLevel);
@@ -164,14 +219,17 @@
     box.insertBefore(p,box.firstChild);
    }else moveLegend(box);
    box.insertBefore(document.createRange().createContextualFragment(summaryHtml(kind,digits)),box.firstChild);
+   placeExplain(box,explainHtml(kind,digits));
   }
+  dedupeRoots([box,pc]);
+  fixTitles();
  }
  var tries=0;
  function wrap(){
   var impl=window.analyze;
   if(!impl){if(tries++<50)setTimeout(wrap,80);return;}
   if(impl.__uxWrapped)return;
-  var wrapped=function(){impl();setTimeout(run,220);};
+  var wrapped=function(){impl();setTimeout(run,260);};
   wrapped.__uxWrapped=true;
   wrapped.__healthWrapped=impl.__healthWrapped;
   wrapped.__salesWrapped=impl.__salesWrapped;
