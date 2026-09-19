@@ -8,20 +8,31 @@
    });
   });
  }
+ function stripDupCatalog(box,kind){
+  if(!box)return;
+  var stars=['天醫','延年','生氣','伏位','絕命','五鬼','禍害','六煞'];
+  [].slice.call(box.querySelectorAll('p')).forEach(function(p){
+   var t=(p.textContent||'').replace(/\s+/g,'');
+   if(!t)return;
+   if(t.indexOf('段會見到')>=0){if(p.parentNode)p.parentNode.removeChild(p);return;}
+   if(kind!=='birth')return;
+   if(t.indexOf('先天命格')>=0||t.indexOf('出生年月日')>=0||t.indexOf('此組出現')>=0)return;
+   var i;
+   for(i=0;i<stars.length;i++){
+    if(t.indexOf(stars[i]+'：')===0||t.indexOf(stars[i]+':')===0){
+     if(p.parentNode)p.parentNode.removeChild(p);
+     return;
+    }
+   }
+  });
+ }
  function strip(){
   var kind=kindNow();
   var box=document.getElementById('kindReadBox');
   if(!box)return;
   if(kind==='birth'||kind==='id'){
    kill(box,['.seq-note','.hm-seq-explain','.hm-gap-explain','.hm-hit-explain','#hmSum','.hm-sum','.hl-legend']);
-  }
-  if(kind==='id'){
-   [].slice.call(box.querySelectorAll('p')).forEach(function(p){
-    var t=p.textContent||'';
-    if(t.indexOf('段會見到')>=0||t.indexOf('段会见到')>=0){
-     if(p.parentNode)p.parentNode.removeChild(p);
-    }
-   });
+   stripDupCatalog(box,kind);
   }
   if(kind!=='phone'&&kind!=='birth'&&kind!=='id'){
    kill(box,['.hm-gap-explain','.hm-hit-explain']);
