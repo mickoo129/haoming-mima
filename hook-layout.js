@@ -28,30 +28,30 @@
    else if(id==='hitCard')c.style.display='none';
    else if(t){
     var tx=t.textContent||'';
-    if(tx.indexOf('角色')>=0||tx.indexOf('睇乜類')>=0)map.role=c;
+    if(tx.indexOf('角色')>=0||tx.indexOf('分析類型')>=0||tx.indexOf('睇乜類')>=0)map.role=c;
     else if(tx.indexOf('故事')>=0||tx.indexOf('由頭')>=0)map.story=c;
-    else if(tx.indexOf('磁場')>=0||tx.indexOf('點拆')>=0)map.flow=c;
+    else if(tx.indexOf('磁場')>=0||tx.indexOf('拆解')>=0||tx.indexOf('點拆')>=0)map.flow=c;
     else if(tx.indexOf('詳細')>=0)map.detail=c;
    }
   });
   var order=[map.role,map.flow,map.story,map.kind,map.luck,map.detail,map.fix];
   order.forEach(function(c){if(c)res.appendChild(c);});
-  if(map.role){var a=map.role.querySelector('.card-title');if(a)a.textContent='呢次睇乜類';}
-  if(map.flow){var b=map.flow.querySelector('.card-title');if(b)b.textContent='呢組點拆';}
-  if(map.story){var c=map.story.querySelector('.card-title');if(c)c.textContent='由頭講到尾';}
+  if(map.role){var a=map.role.querySelector('.card-title');if(a)a.textContent='本次分析類型';}
+  if(map.flow){var b=map.flow.querySelector('.card-title');if(b)b.textContent='數組拆解';}
+  if(map.story){var c=map.story.querySelector('.card-title');if(c)c.textContent='從頭至尾';}
   res.setAttribute('data-reordered','1');
  }
  function tidyRole(){
   var role=document.getElementById('roleBox');
   if(!role)return;
-  role.innerHTML=role.innerHTML.replace('號碼0已跳過','0留低要解，5夾中當伏');
+  role.innerHTML=role.innerHTML.replace('號碼0已跳過','0保留須解析，5夾於中間視為伏位');
  }
  function topBtn(){
   if(document.getElementById('toTop'))return;
   var b=document.createElement('button');
   b.id='toTop';
   b.type='button';
-  b.textContent='↑ 回頂';
+  b.textContent='↑ 回頂部';
   b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
   document.body.appendChild(b);
   window.addEventListener('scroll',function(){
