@@ -121,15 +121,17 @@
   }
  }
  function run(){
+  var kind=kindNow();
   var digits=digitsNow();
   var box=document.getElementById('kindReadBox');
-  if(!box||!digits)return;
+  if(!box)return;
   var old=box.querySelector('.seq-note');
   if(old&&old.parentNode){
    var wrapOld=old.closest?old.closest('.hm-seq-explain'):old.parentNode;
    if(wrapOld&&wrapOld.className&&String(wrapOld.className).indexOf('hm-seq-explain')>=0)wrapOld.parentNode.removeChild(wrapOld);
    else old.parentNode.removeChild(old);
   }
+  if(kind!=='phone'||!digits)return;
   var rows=scanSeq(digits);
   var sum=box.querySelector('#hmSum');
   tidyHits(sum);
