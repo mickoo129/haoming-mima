@@ -16,6 +16,9 @@
    .replace(/教材禁號/g,'課堂禁號')
    .replace(/教材例子/g,'課堂例子')
    .replace(/教材：/g,'課堂：')
+   .replace(/呢組/g,'此組')
+   .replace(/呢次/g,'本次')
+   .replace(/呢個/g,'這個')
    .replace(/銀行[咋咅]密碼/g,'銀行卡密碼')
    .replace(/婚愛情/g,'婚外情')
    .replace(/資産/g,'資產');

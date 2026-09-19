@@ -8,7 +8,7 @@
    field=key||'fuwei';
    note='';
    if(!key){
-    if(pair.indexOf('0')>=0||pair.indexOf('5')>=0) note='書：0／5自己唔成星，當伏';
+    if(pair.indexOf('0')>=0||pair.indexOf('5')>=0) note='書：0／5本身不成星，當作伏位';
     else note='書：非八星組合當伏';
    }
    if(field==='fuwei'&&out.length){
