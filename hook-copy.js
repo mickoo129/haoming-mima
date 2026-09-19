@@ -73,13 +73,14 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var hx=document.createElement('script');hx.src='./hook-hitbox.js';document.body.appendChild(hx);
- var hr=document.createElement('script');hr.src='./hook-restore.js';document.body.appendChild(hr);
- var he=document.createElement('script');he.src='./hook-explain.js';document.body.appendChild(he);
- var ht=document.createElement('script');ht.src='./hook-teacher.js';document.body.appendChild(ht);
- var hs=document.createElement('script');hs.src='./hook-sales.js';document.body.appendChild(hs);
- var hh=document.createElement('script');hh.src='./hook-note-health.js';document.body.appendChild(hh);
- var hu=document.createElement('script');hu.src='./hook-ux.js';document.body.appendChild(hu);
- var hg=document.createElement('script');hg.src='./hook-gap.js';document.body.appendChild(hg);
- var hq=document.createElement('script');hq.src='./hook-seq.js';document.body.appendChild(hq);
+ var v='?v=20260919e';
+ var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
+ var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
+ var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
+ var ht=document.createElement('script');ht.src='./hook-teacher.js'+v;document.body.appendChild(ht);
+ var hs=document.createElement('script');hs.src='./hook-sales.js'+v;document.body.appendChild(hs);
+ var hh=document.createElement('script');hh.src='./hook-note-health.js'+v;document.body.appendChild(hh);
+ var hu=document.createElement('script');hu.src='./hook-ux.js'+v;document.body.appendChild(hu);
+ var hg=document.createElement('script');hg.src='./hook-gap.js'+v;document.body.appendChild(hg);
+ var hq=document.createElement('script');hq.src='./hook-seq.js'+v;document.body.appendChild(hq);
 })();
