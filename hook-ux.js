@@ -13,7 +13,9 @@
   ].join('');
   document.head.appendChild(st);
  }
- var HAI0=['107','701','809','908','604','406','203','302'];
+ var HAI0_HEALTH=['107','701','809','908','604','406','203','302'];
+ var HAI0_SPEECH=['107','170','701','710','809','890','908','980','406','460','604','640','203','230','302','320'];
+ var YE_WG=['197','918','781','879','342','436','263','624'];
  function kindNow(){return window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');}
  function profNow(){return window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');}
  function digitsNow(){
@@ -38,17 +40,17 @@
   var t=(el.textContent||'').replace(/\s+/g,'');
   if(t.indexOf('絕命計分')>=0)return 'jue-score';
   if(t.indexOf('121')>=0&&t.indexOf('腰')>=0)return 'jue-121';
-  if(t.indexOf('婦科')>=0&&(t.indexOf('六紥')>=0||t.indexOf('絕命')>=0))return 'liu-jue';
+  if(t.indexOf('婦科')>=0&&(t.indexOf('六煞')>=0||t.indexOf('絕命')>=0))return 'liu-jue';
   if(t.indexOf('得理不')>=0)return 'jue-hai';
   if(t.indexOf('痛經')>=0)return 'yan-hai';
   if(t.indexOf('禍害夾0')>=0||t.indexOf('隱藏的傷口')>=0)return 'hai0';
   if(t.indexOf('後五位')>=0&&t.indexOf('0')>=0&&t.indexOf('不能')>=0)return 'last5-0';
   if(t.indexOf('適合的行業')>=0)return 'industry';
   if(t.indexOf('銷售攻略')>=0)return 'sales';
-  if(t.indexOf('疾病號')>=0)return 'ye-wg';
+  if(t.indexOf('疾病號')>=0||t.indexOf('熬夜傷身')>=0)return 'ye-wg';
   if(t.indexOf('生天延')>=0)return 'sheng-tian-yan';
   if(t.indexOf('大凶')>=0&&t.indexOf('天醫')>=0&&t.indexOf('五鬼')>=0)return 'ty-wg';
-  if(t.indexOf('容易身體差')>=0||(t.indexOf('大凶')>=0&&t.indexOf('五鬼')>=0&&t.indexOf('絕命')>=0))return 'wg-jue';
+  if(t.indexOf('容易身體差')>=0||(t.indexOf('五鬼')>=0&&t.indexOf('絕命')>=0&&(t.indexOf('絕症')>=0||t.indexOf('大凶')>=0)))return 'wg-jue';
   return '';
  }
  function paintLevel(el){
@@ -77,21 +79,21 @@
   drop.forEach(function(el){if(el.parentNode)el.parentNode.removeChild(el);});
   if(!keep)return;
   var last4=(digits||'').slice(-4);
-  var lastHits=listHits(last4,HAI0);
-  var allHits=listHits(digits,HAI0);
-  var lab=(lastHits.length?lastHits:allHits).join('、');
-  keep.className='hl-crit health-note hai0-merged';
+  var lastHits=listHits(last4,HAI0_HEALTH);
+  var speechHits=listHits(digits,HAI0_SPEECH);
+  keep.className=(lastHits.length?'hl-crit':'hl-warn')+' health-note hai0-merged';
   if(lastHits.length){
    keep.innerHTML=
-    '<p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lab+'</p>'+
+    '<p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lastHits.join('、')+'</p>'+
     '<p>筆記原文例：107、701、809、604、406、203、302。</p>'+
     '<p>筆記原文：1，容易有隱藏的傷口或者隱藏的疾病</p>'+
     '<p>筆記原文：2，嚴重的話，容易開刀，動手術</p>'+
     '<p>筆記原文：3，女性容易流產，墮胎，剖腹產等情況</p>'+
-    '<p><strong>騙子號</strong>：禍害夾0（'+lab+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
-  }else{
+    '<p><strong>騙子號</strong>：禍害夾0（'+lastHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+  }else if(speechHits.length){
    keep.innerHTML=
-    '<p><strong>騙子號</strong>：禍害夾0'+(lab?'（'+lab+'）':'')+' — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+    '<p><strong>騙子號</strong>：禍害夾0（'+speechHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>'+
+    '<p class="muted">此組出現在末四位以外。筆記健康三條（隱藏傷口／開刀／流產）只適用於手機號後四位。</p>';
   }
  }
  function dedupeRoots(roots){
@@ -109,21 +111,24 @@
  function summaryHtml(kind,digits){
   var last=lastField(digits,kind)||'—';
   var tail=(digits||'').slice(-4);
-  var lastHits=listHits(tail,HAI0);
-  var midHits=listHits(digits,HAI0).filter(function(x){return lastHits.indexOf(x)<0;});
+  var lastHits=listHits(tail,HAI0_HEALTH);
+  var midHealth=listHits(digits,HAI0_HEALTH).filter(function(x){return lastHits.indexOf(x)<0;});
+  var speechHits=listHits(digits,HAI0_SPEECH);
+  var yeHits=listHits(digits,YE_WG);
   var hits=[];
   if(kind==='phone'&&tail&&tail.indexOf('0')>=0)hits.push('後四位有0');
-  if(kind==='phone'&&lastHits.length)hits.push('後四位禍害夾0');
-  else if(kind==='phone'&&midHits.length)hits.push('禍害夾0');
-  [['197','疾病號'],['918','疾病號']].forEach(function(p){
-   if((kind==='phone')&&digits&&digits.indexOf(p[0])>=0&&hits.indexOf(p[1])<0)hits.push(p[1]);
-  });
+  if(kind==='phone'&&lastHits.length)hits.push('後四位禍害夾0（健康）');
+  if(kind==='phone'&&speechHits.length&&!lastHits.length)hits.push('號碼中禍害夾0（說話）');
+  else if(kind==='phone'&&speechHits.length&&lastHits.length)hits.push('禍害夾0（說話）');
+  if(kind==='phone'&&yeHits.length)hits.push('疾病號（延年+五鬼）');
   try{
    var pairs=buildPairs(digits,kind);
    if(typeof adjacentHas==='function'){
     if(adjacentHas(pairs,'wugui','jueming'))hits.push('五鬼+絕命');
     if(adjacentHas(pairs,'tianyi','wugui'))hits.push('天醫+五鬼');
+    if(adjacentHas(pairs,'yannian','wugui'))hits.push('延年+五鬼');
    }
+   if(kind==='phone'&&pairs&&pairs.length)hits.push('尾段銷售攻略');
   }catch(e){}
   var miss=[];
   try{
@@ -134,16 +139,19 @@
   h+='<p><strong>重點</strong>：尾段為「'+last+'」'+(kind==='phone'?'，末四位 '+tail:'')+'。</p>';
   if(hits.length)h+='<p>本次觸發：'+hits.map(function(x){return '<span class="hit">'+x+'</span>';}).join('')+'</p>';
   else h+='<p class="muted">本次未見大凶、疾病號或後四位禍害夾0。</p>';
+  if(yeHits.length)h+='<p class="muted">疾病號命中：'+yeHits.join('、')+'（筆記例：197／918、781／879、342／436、263／624）</p>';
+  if(kind==='phone'&&midHealth.length)h+='<p class="muted">禍害夾0出現在末四位以外（'+midHealth.join('、')+'），健康三條不套用。</p>';
   if(miss.length)h+='<p class="muted">缺少吉星：'+miss.join('、')+'</p>';
-  if(kind==='phone'&&!profNow())h+='<p class="muted">尚未選擇身份。女性、男性、學生、老年人相關條文，須先選擇身份後才會顯示。</p>';
+  if(kind==='phone'&&!profNow())h+='<p class="muted">尚未選擇身份。女性禁號、滑胎、男性腎結石、學生學業、老年人腦梗等條文，須先選擇身份後才會顯示。</p>';
   h+='</div>';
   return h;
  }
  function explainHtml(kind,digits){
   if(kind!=='phone'||!digits)return '';
   var last4=digits.slice(-4);
-  var lastHits=listHits(last4,HAI0);
-  var allHits=listHits(digits,HAI0);
+  var lastHits=listHits(last4,HAI0_HEALTH);
+  var speechHits=listHits(digits,HAI0_SPEECH);
+  var yeHits=listHits(digits,YE_WG);
   var html='';
   if(lastHits.length){
    html+='<div class="hl-crit health-note hai0-merged"><p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lastHits.join('、')+'</p>';
@@ -152,9 +160,14 @@
    html+='<p>筆記原文：2，嚴重的話，容易開刀，動手術</p>';
    html+='<p>筆記原文：3，女性容易流產，墮胎，剖腹產等情況</p>';
    html+='<p><strong>騙子號</strong>：禍害夾0（'+lastHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p></div>';
-  }else if(allHits.length){
-   html+='<div class="hl-warn health-note hai0-merged"><p><strong>騙子號</strong>：禍害夾0（'+allHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+  }else if(speechHits.length){
+   html+='<div class="hl-warn health-note hai0-merged"><p><strong>騙子號</strong>：禍害夾0（'+speechHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
    html+='<p class="muted">此組出現在末四位以外。筆記健康三條（隱藏傷口／開刀／流產）只適用於手機號後四位。</p></div>';
+  }
+  if(yeHits.length){
+   html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：疾病號：熬夜傷身：延年+五鬼（'+yeHits.join('、')+'）</p>';
+   html+='<p>筆記原文例：197／918、781／879、342／436、263／624。</p>';
+   html+='<p>筆記原文：容易出現熬夜失眠、頸椎病、心腦血管疾病。</p></div>';
   }
   try{
    var pairs=buildPairs(digits,kind);
@@ -163,6 +176,9 @@
    }
    if(typeof adjacentHas==='function'&&adjacentHas(pairs,'tianyi','wugui')){
     html+='<div class="hl-crit"><p><strong>課堂</strong>：大凶：天醫+五鬼</p></div>';
+   }
+   if(typeof adjacentHas==='function'&&adjacentHas(pairs,'yannian','wugui')){
+    html+='<div class="hl-warn"><p><strong>課堂</strong>：次凶：延年+五鬼。筆記老年人：五鬼+延年（如819）容易突發腦梗。</p></div>';
    }
   }catch(e){}
   return html;
@@ -181,17 +197,22 @@
   else if(ref)box.appendChild(wrap);
   else box.insertBefore(wrap,box.firstChild);
  }
- function moveLegend(box){
+ function promoteBlocks(box){
   if(!box)return;
+  var sum=box.querySelector('#hmSum');
   var leg=box.querySelector('.hl-legend');
-  if(leg)box.insertBefore(leg,box.firstChild);
- }
- function fixTitles(){
-  var t=document.getElementById('kindReadTitle');
-  if(t){
-   var s=t.textContent||'';
-   if(s.indexOf('點樣')>=0||s.indexOf('呢組')>=0)t.textContent='手機：如何分析此組號碼';
-  }
+  var exp=box.querySelector('.hm-hit-explain');
+  var sales=[].slice.call(box.querySelectorAll('.sales-note'));
+  var industry=[].slice.call(box.querySelectorAll('.hl-resolve,.nature')).filter(function(el){
+   return (el.textContent||'').indexOf('適合的行業')>=0;
+  });
+  var head=[];
+  if(sum)head.push(sum);
+  if(leg)head.push(leg);
+  if(exp)head.push(exp);
+  sales.forEach(function(el){head.push(el);});
+  industry.forEach(function(el){head.push(el);});
+  for(var i=head.length-1;i>=0;i--) box.insertBefore(head[i],box.firstChild);
  }
  function run(){
   var kind=kindNow();
@@ -217,12 +238,17 @@
     p.className='hl-legend';
     p.innerHTML='<i><span class="num-in">黃底</span> 此組號碼確實出現</i><i><span class="num-def">綠邊</span> 星曜組合規則（不代表全部皆有）</i><i><span class="num-ex">灰虛線</span> 課堂／筆記例子</i>';
     box.insertBefore(p,box.firstChild);
-   }else moveLegend(box);
+   }else if(leg) box.insertBefore(leg,box.firstChild);
    box.insertBefore(document.createRange().createContextualFragment(summaryHtml(kind,digits)),box.firstChild);
    placeExplain(box,explainHtml(kind,digits));
+   promoteBlocks(box);
   }
   dedupeRoots([box,pc]);
-  fixTitles();
+  var t=document.getElementById('kindReadTitle');
+  if(t){
+   var s=t.textContent||'';
+   if(s.indexOf('點樣')>=0||s.indexOf('呢組')>=0)t.textContent='手機：如何分析此組號碼';
+  }
  }
  var tries=0;
  function wrap(){
