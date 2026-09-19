@@ -80,8 +80,9 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(attach,0);});
  else setTimeout(attach,0);
- var s=document.createElement('script');s.src='./hook-plate.js';document.body.appendChild(s);
- var s2=document.createElement('script');s2.src='./hook-hl.js';document.body.appendChild(s2);
- var s3=document.createElement('script');s3.src='./hook-layout.js';document.body.appendChild(s3);
- var s4=document.createElement('script');s4.src='./hook-copy.js';document.body.appendChild(s4);
+ var v='?v=20260919f';
+ var s=document.createElement('script');s.src='./hook-plate.js'+v;document.body.appendChild(s);
+ var s2=document.createElement('script');s2.src='./hook-hl.js'+v;document.body.appendChild(s2);
+ var s3=document.createElement('script');s3.src='./hook-layout.js'+v;document.body.appendChild(s3);
+ var s4=document.createElement('script');s4.src='./hook-copy.js'+v;document.body.appendChild(s4);
 })();
