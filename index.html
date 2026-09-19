@@ -51,14 +51,14 @@ input[type=date]{display:block;width:100%;max-width:100%;min-width:0;box-sizing:
 <button type="button" class="pill" data-profile="elder" onclick="return hmPickProfile(this)">老年人</button>
 </div>
 </div>
-<div class="nature" id="kindHint"><span class="tag">後天分身</span>電話＝而家呢段人生。尾四位大約佔八成，唔使理用咗幾耐。</div>
+<div class="nature" id="kindHint"><span class="tag">後天分身</span>電話＝現時這段人生。末四位大約佔八成，不必理會使用多久。</div>
 <div id="inputText"><label for="numInput">數字</label><input type="text" id="numInput" placeholder="例如 98764321" maxlength="40"/></div>
-<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><div class="date-wrap"><input type="date" id="birthInput"/></div><p class="muted" style="margin-top:8px">月份單位數唔加0，日子單位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
+<div id="inputBirth" style="display:none"><label for="birthInput">出生新曆日期</label><div class="date-wrap"><input type="date" id="birthInput"/></div><p class="muted" style="margin-top:8px">月份個位數不加0，日子個位數要加0。≤2000：年−1911；≥2001：年−1971。</p></div>
 <div class="btn-group"><button type="button" class="btn-primary" id="analyzeBtn" onclick="return hmAnalyze()">解讀</button><button type="button" class="btn-outline" id="clearBtn" onclick="document.getElementById('numInput').value='';document.getElementById('birthInput').value='';document.getElementById('results').style.display='none';return false;">清除</button></div>
-<p class="muted" style="margin-top:12px">電話：0隱性、5顯性。車牌唔計0。身份證／門牌／戶口／其他：0同5留低當伏跟前（書補）。字母 A=01…Z=26。</p>
+<p class="muted" style="margin-top:12px">電話：0隱性、5顯性。車牌不計0。身份證／門牌／戶口／其他：0與5保留並作為伏位跟隨前一組（書補）。字母 A=01…Z=26。</p>
 </div>
 <div id="results" style="display:none">
-<div class="card"><div class="card-title">呢次分析角色</div><div id="roleBox"></div></div>
+<div class="card"><div class="card-title">本次分析角色</div><div id="roleBox"></div></div>
 <div class="card"><div class="card-title">故事解讀</div><div class="story" id="storyBox"></div><div class="star-bar" id="starBar"></div></div>
 <div class="card" id="kindReadCard"><div class="card-title" id="kindReadTitle">類別解讀</div><div id="kindReadBox"></div></div>
 <div class="card" id="luckCard" style="display:none"><div class="card-title">身份證流年走勢</div><div class="luck-grid" id="luckGrid"></div></div>
