@@ -1,15 +1,24 @@
 (function(){
  function kindNow(){return window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');}
- function strip(){
-  var kind=kindNow();
-  var box=document.getElementById('kindReadBox');
+ function kill(box,sels){
   if(!box)return;
-  if(kind==='phone')return;
-  ['.seq-note','.hm-seq-explain','.hm-gap-explain','.hm-hit-explain','#hmSum','.hm-sum'].forEach(function(sel){
+  sels.forEach(function(sel){
    [].slice.call(box.querySelectorAll(sel)).forEach(function(el){
     if(el&&el.parentNode)el.parentNode.removeChild(el);
    });
   });
+ }
+ function strip(){
+  var kind=kindNow();
+  var box=document.getElementById('kindReadBox');
+  if(!box)return;
+  if(kind==='birth'||kind==='id'){
+   kill(box,['.seq-note','.hm-seq-explain','.hm-gap-explain','.hm-hit-explain','#hmSum','.hm-sum']);
+   return;
+  }
+  if(kind!=='phone'){
+   kill(box,['.hm-gap-explain','.hm-hit-explain']);
+  }
  }
  var tries=0;
  function wrapFn(){
