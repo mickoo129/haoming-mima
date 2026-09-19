@@ -1,23 +1,23 @@
 (function(){
  var FLOW={
-  tianyi:'有正財路同貴人，錢同機會較易到，但花得大方、守得唔穩。',
-  shengqi:'人緣開、有人幫手、心境較鬆，不過容易滿足、亦容易信錯人。',
-  yannian:'要自己掉、責任重，賺嚟的相對守得住。',
-  fuwei:'呢段未有自己方向，氣場跟住前面喺段。',
-  huohai:'易口舌、身體虛、為小事噶，開口有時有財但亦易因口破財。',
-  liusha:'人情桃花多，錢容易花喺人同感情度。',
-  wugui:'變數大，機會同錢來得快、去得亦快，承諾唔穩。',
+  tianyi:'有正財路與貴人，錢財與機會較易到來，但花費大方、守財不穩。',
+  shengqi:'人緣開闊、有人協助、心境較鬆，但容易滿足，亦容易信錯人。',
+  yannian:'須靠自己承擔、責任重，賺來的相對守得住。',
+  fuwei:'此段尚無自身方向，氣場跟隨前面一段。',
+  huohai:'易口舌、身體虛、為小事爭執，開口有時有財，但亦易因口破財。',
+  liusha:'人情桃花多，錢容易花在人際與感情上。',
+  wugui:'變數大，機會與錢來得快、去得也快，承諾不穩。',
   jueming:'起伏大，博得就上、失手就空，決定要三思。'
  };
  function linkWords(prevPol,pol){
-  if(prevPol==='吉'&&pol==='凶')return '跟住轉弱：';
+  if(prevPol==='吉'&&pol==='凶')return '接著轉弱：';
   if(prevPol==='凶'&&pol==='吉')return '之後有轉機：';
-  if(prevPol==='凶'&&pol==='凶')return '再疊多一層：';
+  if(prevPol==='凶'&&pol==='凶')return '再疊加一層：';
   return '再接：';
  }
  function phoneStoryHtml(pairs,digits){
   if(!pairs||!pairs.length)return '';
-  var html='<div class="story" style="margin-bottom:12px"><p><strong>電話＝後天第二人生</strong>。唔使理用咗幾耐，課堂都係由頭行到尾睇氣場點接；<strong>最尾四個位大約佔八成</strong>。</p>';
+  var html='<div class="story" style="margin-bottom:12px"><p><strong>電話＝後天第二人生</strong>。不必理會使用多久，課堂皆由頭至尾看氣場如何衔接；<strong>最尾四個位大約佔八成</strong>。</p>';
   var i,p,f,prev=null,bits=[];
   for(i=0;i<pairs.length;i++){
    p=pairs[i];f=FIELDS[p.field];
@@ -30,20 +30,20 @@
   var tail=digits?digits.slice(-4):'';
   var last=pairs[pairs.length-1];
   var lf=FIELDS[last.field];
-  html+='<p><strong>尾四位 '+tail+'</strong>收喺「'+lf.name+'」。課堂：尾段決定大部分而家運勢——';
+  html+='<p><strong>尾四位 '+tail+'</strong>收在「'+lf.name+'」。課堂：尾段決定大部分現時運勢——';
   if(lf.pol==='吉') html+='收尾吉，較易把前面的勢留住。';
-  else if(lf.pol==='平') html+='收尾跟住前一段，自己無新方向。';
-  else html+='收尾凶，前面就算好，而家都要小心口舌、錢同感情漏。';
+  else if(lf.pol==='平') html+='收尾跟隨前一段，自身沒有新方向。';
+  else html+='收尾為凶，前面即使順利，現時仍須小心口舌、錢財與感情洩漏。';
   html+='</p></div>';
   return html;
  }
- function birthLeadHtml(){return '<p><strong>出世日期＝先天命格</strong>，出世就定，一世唔改號。下面先講底子，唔好當改電話建議。</p>';}
- function idLeadHtml(){return '<p><strong>身份證＝流年</strong>。0–13歲第一段，之後每五年一段，行完再由頭至98歲。證件改唔到，差的年段用電話尾段補。</p>';}
+ function birthLeadHtml(){return '<p><strong>出世日期＝先天命格</strong>，出生即定，一世不改號。以下先說明底子，不要當作改電話建議。</p>';}
+ function idLeadHtml(){return '<p><strong>身份證＝流年</strong>。0–13歲第一段，之後每五年一段，行完再由頭至98歲。證件無法更改，較差的年段以電話末段補足。</p>';}
  function otherLead(kind){
-  if(kind==='plate')return '<p><strong>車牌＝出行安危</strong>。課堂筆記：0要解（弱化前一組）；5自己唔成星、跟隔離。唔好當事業發達。</p>';
-  if(kind==='address')return '<p><strong>門牌＝家宅</strong>，講住屋氣場同家人健康。</p>';
-  if(kind==='account')return '<p><strong>銀行帳號＝錢點入點出</strong>，守唔守得住。</p>';
-  if(kind==='other')return '<p><strong>其他數字</strong>：跟車牌同套拆法。0黐前減弱；5伏跟前。</p>';
+  if(kind==='plate')return '<p><strong>車牌＝出行安危</strong>。課堂筆記：0要解（弱化前一組）；5自身不成星、跟隨相鄰。不要當作事業發達。</p>';
+  if(kind==='address')return '<p><strong>門牌＝家宅</strong>，講住屋氣場與家人健康。</p>';
+  if(kind==='account')return '<p><strong>銀行帳號＝錢財如何流入流出</strong>，能否守住。</p>';
+  if(kind==='other')return '<p><strong>其他數字</strong>：與車牌同一套拆法。0貼前則減弱；5為伏位跟隨前一組。</p>';
   return '';
  }
  function digitsOf(kind){
