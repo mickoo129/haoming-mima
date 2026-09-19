@@ -78,7 +78,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var v='?v=20260919i';
+ var v='?v=20260919j';
  var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
