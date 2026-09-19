@@ -14,21 +14,21 @@
    if(!n)return raw;
    if(/<span/.test(n))return n;
    var inHere=digits&&digits.indexOf(n.replace(/\s/g,''))>=0;
-   return chip(n,inHere?'num-in':'num-def',inHere?'呢組真係有呢個號':'星的組合，唔等於呢組全部都有');
+   return chip(n,inHere?'num-in':'num-def',inHere?'此組確實出現此號碼':'星曜組合規則，不代表此組全部皆有');
   }).join('、');
  }
  function paint(html,digits){
   if(!html)return html;
   digits=digits||'';
   html=html.replace(/612、169、473、692/g,function(){
-   return ['612','169','473','692'].map(function(n){return chip(n,'num-ex','教材例子，唔等於你呢組有');}).join('、');
+   return ['612','169','473','692'].map(function(n){return chip(n,'num-ex','教材例子，不代表此組皆有');}).join('、');
   });
   html=html.replace(/712、217、698、896/g,function(){
-   return ['712','217','698','896'].map(function(n){return chip(n,'num-ex','教材例子，唔等於你呢組有');}).join('、');
+   return ['712','217','698','896'].map(function(n){return chip(n,'num-ex','教材例子，不代表此組皆有');}).join('、');
   });
-  html=html.replace(/只係例子/g,'<span class="ex-tag">只係例子，唔係你呢組的號</span>');
-  html=html.replace(/呢組見到：([^。<]+)/g,function(_,body){
-   return '呢組見到：'+body.split('、').map(function(p){return chip(p.trim(),'num-in','呢組真係有呢個號');}).join('、');
+  html=html.replace(/只是例子/g,'<span class="ex-tag">只是例子，不是此組號碼</span>');
+  html=html.replace(/此組見到：([^ 。<]+)/g,function(_,body){
+   return '此組見到：'+body.split('、').map(function(p){return chip(p.trim(),'num-in','此組確實出現此號碼');}).join('、');
   });
   html=html.replace(/（([0-9]{2,4}(?:、[0-9]{2,4})+)）/g,function(_,body){
    return '（'+paintList(body,digits)+'）';
@@ -54,7 +54,7 @@
   });
   var box=document.getElementById('kindReadBox');
   if(box&&box.innerHTML&&box.innerHTML.indexOf('hl-legend')<0){
-   box.innerHTML+='<p class="hl-legend"><i><span class="num-in">黃底</span> 呢組有呢個號</i><i><span class="num-def">綠邊</span> 星的組合（唔一定全部都有）</i><i><span class="num-ex">灰虛線</span> 教材例子</i></p>';
+   box.innerHTML+='<p class="hl-legend"><i><span class="num-in">黃底</span> 此組號碼確實出現</i><i><span class="num-def">綠邊</span> 星曜組合規則（不代表全部皆有）</i><i><span class="num-ex">灰虛線</span> 教材例子</i></p>';
   }
  }
  var tries=0;
