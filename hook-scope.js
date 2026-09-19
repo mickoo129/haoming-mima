@@ -13,10 +13,17 @@
   var box=document.getElementById('kindReadBox');
   if(!box)return;
   if(kind==='birth'||kind==='id'){
-   kill(box,['.seq-note','.hm-seq-explain','.hm-gap-explain','.hm-hit-explain','#hmSum','.hm-sum']);
-   return;
+   kill(box,['.seq-note','.hm-seq-explain','.hm-gap-explain','.hm-hit-explain','#hmSum','.hm-sum','.hl-legend']);
   }
-  if(kind!=='phone'){
+  if(kind==='id'){
+   [].slice.call(box.querySelectorAll('p')).forEach(function(p){
+    var t=p.textContent||'';
+    if(t.indexOf('段會見到')>=0||t.indexOf('段会见到')>=0){
+     if(p.parentNode)p.parentNode.removeChild(p);
+    }
+   });
+  }
+  if(kind!=='phone'&&kind!=='birth'&&kind!=='id'){
    kill(box,['.hm-gap-explain','.hm-hit-explain']);
   }
  }
