@@ -128,7 +128,6 @@
     if(adjacentHas(pairs,'tianyi','wugui'))hits.push('天醫+五鬼');
     if(adjacentHas(pairs,'yannian','wugui'))hits.push('延年+五鬼');
    }
-   if(kind==='phone'&&pairs&&pairs.length)hits.push('尾段銷售攻略');
   }catch(e){}
   var miss=[];
   try{
