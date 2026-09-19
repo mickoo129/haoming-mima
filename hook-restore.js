@@ -21,11 +21,11 @@
   var prof=window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');
   var over=js.total>100;
   var html='<div class="'+(over?'hl-warn':'nature')+'">';
-  html+='<p><strong>筆記</strong>：絕命計分 12／21＝100、69／96＝75、48／84＝50、37／73＝25（掉轉同分）。呢組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>。</p>';
+  html+='<p><strong>筆記</strong>：絕命計分 12／21＝100、69／96＝75、48／84＝50、37／73＝25（掉轉同分）。此組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>。</p>';
   html+='<p><strong>筆記原文</strong>：男人絕命過多（超過100分就過多）：性功能下降。</p>';
-  html+='<p><strong>筆記原文</strong>：121 — 腰不太好；如果是女性，容易冷淡。'+(digits.indexOf('121')>=0?'呢組有121。':'')+'</p>';
+  html+='<p><strong>筆記原文</strong>：121 — 腰不太好；如果是女性，容易冷淡。'+(digits.indexOf('121')>=0?'此組有121。':'')+'</p>';
   html+='<p><strong>筆記原文</strong>：六煞+絕命：容易有婦科病；絕命中有5，概率更大；如果是結尾更不好。</p>';
-  if(prof==='female')html+='<p class="muted">已揀女性：記上面「女性容易冷淡」「婦科病」兩條原文。筆記無另寫女性絕命計分過多的後果。</p>';
+  if(prof==='female')html+='<p class="muted">已選女性：記上面「女性容易冷淡」「婦科病」兩條原文。筆記無另寫女性絕命計分過多的後果。</p>';
   html+='</div>';
   return html;
  }
@@ -47,21 +47,21 @@
    if(/女性|老年人|學生|男性/.test(t))prof.push(w);else law.push(w);
   });
   var h='<div class="card-title">手機定律 ／ 後五位0 ／ 身份組合</div>';
-  h+='<p><strong>手機定律</strong>（套中呢組先出）</p>';
+  h+='<p><strong>手機定律</strong>（套中此組先出）</p>';
   if(law.length)law.forEach(function(w){h+='<div class="'+(w.lv==='ok'?'hl-resolve':'hl-warn')+'">'+(typeof srcTag==='function'?srcTag('c'):'')+w.t+'</div>';});
-  else h+='<p class="muted">呢組未觸發課堂手機定律條文。</p>';
+  else h+='<p class="muted">此組未觸發課堂手機定律條文。</p>';
   h+='<p style="margin-top:12px"><strong>後五位0</strong>（尾五位 '+last5+'）</p>';
   if(zeroHits.length){
    h+='<ul class="tight">';
-   zeroHits.forEach(function(x){h+='<li>倒數第'+x.pos+'位係0 → <strong>'+x.body+'</strong>｜'+x.palace+'：'+x.effect+'</li>';});
+   zeroHits.forEach(function(x){h+='<li>倒數第'+x.pos+'位是0 → <strong>'+x.body+'</strong>｜'+x.palace+'：'+x.effect+'</li>';});
    h+='</ul>';
-  }else h+='<p class="muted">尾五位冇見0。課堂：後五位絕對不能有0。</p>';
+  }else h+='<p class="muted">尾五位未見0。課堂：後五位絕對不能有0。</p>';
   var pn={male:'男性',female:'女性',student:'學生',elder:'老年人'};
   var profNow=window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');
-  h+='<p style="margin-top:12px"><strong>身份組合</strong>'+(profNow?'（已揀 '+pn[profNow]+'）':'')+'</p>';
-  if(!profNow)h+='<p class="muted">未揀身份。上面揀女性／男性／學生／老年人再解讀，先出課堂對應禁號與組合。</p>';
+  h+='<p style="margin-top:12px"><strong>身份組合</strong>'+(profNow?'（已選 '+pn[profNow]+'）':'')+'</p>';
+  if(!profNow)h+='<p class="muted">未選身份。上面選女性／男性／學生／老年人再解讀，先出課堂對應禁號與組合。</p>';
   else if(prof.length)prof.forEach(function(w){h+='<div class="'+(w.lv==='ok'?'hl-resolve':'hl-warn')+'">'+(typeof srcTag==='function'?srcTag('c'):'')+w.t+'</div>';});
-  else h+='<p class="muted">呢個身份下，呢組未見課堂列明的禁號／特殊組合。</p>';
+  else h+='<p class="muted">此身份下，此組未見課堂列明的禁號／特殊組合。</p>';
   pc.innerHTML=h;
   pc.style.display='block';
   return pc;
@@ -81,7 +81,7 @@
     }
    }catch(e){}
    if(keys.length){
-    det.innerHTML='<p class="muted" style="margin-bottom:8px">以下係呢組出現過的星，課堂／筆記／書全文。</p>'+keys.map(function(k){return fullStar(FIELDS[k]);}).join('');
+    det.innerHTML='<p class="muted" style="margin-bottom:8px">以下是此組出現過的星，課堂／筆記／書全文。</p>'+keys.map(function(k){return fullStar(FIELDS[k]);}).join('');
    }
   }
   var raw=document.getElementById('numInput');
@@ -97,7 +97,7 @@
    pairs=buildPairs(digits,kind);
   }catch(e){}
   var box=document.getElementById('kindReadBox');
-  if(box&&kind!=='id'){
+  if(box&&kind!=='id'&&kind!=='birth'){
    var fresh=juemingBlock(digits);
    if(fresh){
     if(box.innerHTML.indexOf('絕命計分')>=0){
