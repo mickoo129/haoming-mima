@@ -73,7 +73,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var v='?v=20260919e';
+ var v='?v=20260919g';
  var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
@@ -83,4 +83,5 @@
  var hu=document.createElement('script');hu.src='./hook-ux.js'+v;document.body.appendChild(hu);
  var hg=document.createElement('script');hg.src='./hook-gap.js'+v;document.body.appendChild(hg);
  var hq=document.createElement('script');hq.src='./hook-seq.js'+v;document.body.appendChild(hq);
+ var hk=document.createElement('script');hk.src='./hook-scope.js'+v;document.body.appendChild(hk);
 })();
