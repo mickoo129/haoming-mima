@@ -31,7 +31,7 @@ function birthMingGeHtml(digits){
  var lines=keys.map(function(x){
   return FIELDS[x].name+' ×'+counts[x]+'（最高能量 '+ (bestPair[x]||'')+' '+ (POWER_NAME[bestP[x]]||'') +'）';
  }).join('、');
- return '<div class="hl-resolve"><strong>先天命格</strong>：<strong>'+FIELDS[win].name+'命格</strong>。跟筆記：先數邊粒星最多；數目相同就比黃表能量最強 / 次強 / 次弱 / 最弱，最強嘅那粒先算命格。呢組：'+lines+'。判決：'+reason+'。</div>';
+ return '<div class="hl-resolve"><strong>先天命格</strong>：<strong>'+FIELDS[win].name+'命格</strong>。跟筆記：先數哪粒星最多；數目相同就比黃表能量最強 / 次強 / 次弱 / 最弱，最強那粒先算命格。此組：'+lines+'。判決：'+reason+'。</div>';
 }
 function findLiushaJueming(digits,pairs){
  var L={'16':1,'61':1,'47':1,'74':1,'38':1,'83':1,'29':1,'92':1};
@@ -97,8 +97,8 @@ function juemingScore(digits){
 function extraCourseNotes(digits,pairs,kind){
  var html='',hit;
  if(kind==='birth')html+=birthMingGeHtml(digits);
- var person=kind==='phone'||kind==='birth'||kind==='id'||kind==='other'||!kind;
- var speech=kind==='phone'||kind==='other'||kind==='birth'||!kind;
+ var person=kind==='phone';
+ var speech=kind==='phone';
  var drive=kind==='plate';
  if(speech){
   hit=['917','871','198','789'].filter(function(x){return digits&&digits.indexOf(x)>=0;});
@@ -115,12 +115,12 @@ function extraCourseNotes(digits,pairs,kind){
     if(p.field==='huohai'&&((p.display&&p.display.indexOf('0')>=0)||(p.note&&p.note.indexOf('0')>=0)))clip=true;
    });
   }
-  if(hit.length||clip)html+='<div class="hl-warn"><strong>騙子號</strong>：禍害夾0'+(hit.length?'（'+hit.join('、')+'）':'')+' — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</div>';
+  if(hit.length||clip)html+='<div class="hl-warn"><strong>騙子號</strong>：禍害夾0'+(hit.length?'（'+hit.join('、')+'）':'')+' — 不一定存心騙人，說話表裡不一，比較有城府，不一定會說出真實的話</div>';
  }
  var jh=findJuemingHuohai(digits,pairs);
  if(jh.length&&(person||drive)){
   var lead=drive?'出行亦可參照：開車衝動、不計後果。':'';
-  html+='<div class="hl-warn"><strong>教材筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不饜人。呢組見到：'+jh.join('、')+'。712、217、698、896 只係例子。'+lead+'</div>';
+  html+='<div class="hl-warn"><strong>教材筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不餮人。此組見到：'+jh.join('、')+'。712、217、698、896 只係例子。'+lead+'</div>';
  }
  if(person){
   var lj=findLiushaJueming(digits,pairs);
@@ -128,12 +128,12 @@ function extraCourseNotes(digits,pairs,kind){
    var extra='';
    if(lj.has5)extra+='；絕命中有5，概率更大';
    if(lj.atEnd)extra+='；如果係結尾更不好';
-   html+='<div class="hl-warn"><strong>教材筆記</strong>：凡六煞（16、47、38、29）+絕命（12、69、48、37）都容易有婦科病。呢組見到：'+lj.found.join('、')+extra+'。612、169、473、692 只係例子。</div>';
+   html+='<div class="hl-warn"><strong>教材筆記</strong>：凡六煞（16、47、38、29）+絕命（12、69、48、37）都容易有婦科病。此組見到：'+lj.found.join('、')+extra+'。612、169、473、692 只係例子。</div>';
   }
   var js=juemingScore(digits);
   if(js.hits.length){
    var over=js.total>100;
-   html+='<div class="'+(over?'hl-warn':'hl-resolve')+'"><strong>教材筆記</strong>：絕命計分 12＝100、69＝75、48＝50、37＝25（掉轉同分）。呢組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>';
+   html+='<div class="'+(over?'hl-warn':'hl-resolve')+'"><strong>教材筆記</strong>：絕命計分 12＝100、69＝75、48＝50、37＝25（掉轉同分）。此組：'+js.hits.join('＋')+' ＝ <strong>'+js.total+'分</strong>';
    if(over)html+='。男人絕命過多（超過100分就過多）：性功能下降';
    html+='。</div>';
   }
@@ -154,7 +154,7 @@ if(typeof phoneTextbook==='function'){
   hit=['917','871','198','789'].filter(function(x){return digits.indexOf(x)>=0;});
   if(hit.length)w.push({lv:'warn',t:'高級課程：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差'});
   var jh=findJuemingHuohai(digits,pairs);
-  if(jh.length)w.push({lv:'warn',t:'教材筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不饜人（'+jh.join('、')+'）。712、217、698、896 只係例子'});
+  if(jh.length)w.push({lv:'warn',t:'教材筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不餮人（'+jh.join('、')+'）。712、217、698、896 只係例子'});
   var lj=findLiushaJueming(digits,pairs);
   if(lj.found.length){
    var extra='';
@@ -193,7 +193,7 @@ if(typeof phoneTextbook==='function'){
     digits=extractDigits(raw);
    }
    var pairs=buildPairs(digits,kind);
-   if(kind!=='plate'&&kind!=='account'&&kind!=='address'){
+   if(kind==='phone'){
     box.innerHTML+=industryReadHtml(presentKeys(pairs),digits);
    }
    box.innerHTML+=extraCourseNotes(digits,pairs,kind);
