@@ -55,6 +55,11 @@
    if(showLeg&&box.innerHTML&&!box.querySelector('.hl-legend')){
     box.innerHTML+='<p class="hl-legend"><i><span class="num-in">黃底</span> 此組號碼確實出現</i><i><span class="num-def">綠邊</span> 星曜組合規則（不代表全部皆有）</i><i><span class="num-ex">灰虛線</span> 課堂／筆記例子</i></p>';
    }
+   if(kind==='id'){
+    [].slice.call(box.querySelectorAll('p')).forEach(function(p){
+     if((p.textContent||'').indexOf('段會見到')>=0 && p.parentNode) p.parentNode.removeChild(p);
+    });
+   }
   }
  }
  var tries=0;
@@ -73,7 +78,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var v='?v=20260919g';
+ var v='?v=20260919h';
  var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
