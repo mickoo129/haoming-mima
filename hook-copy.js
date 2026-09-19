@@ -24,7 +24,12 @@
    .replace(/資産/g,'資產')
    .replace(/六紥/g,'六煞')
    .replace(/六紮/g,'六煞')
-   .replace(/六紳/g,'六煞');
+   .replace(/六紳/g,'六煞')
+   .replace(/毀耀/g,'炫耀')
+   .replace(/拖葺/g,'拖垮')
+   .replace(/優豫/g,'猶豫')
+   .replace(/孤注一撲/g,'孤注一擲')
+   .replace(/得理不餮/g,'得理不餝');
  }
  if(typeof KIND_INFO!=='undefined'){
   Object.keys(KIND_INFO).forEach(function(k){
@@ -78,7 +83,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var v='?v=20260919j';
+ var v='?v=20260919k';
  var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
