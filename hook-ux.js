@@ -42,7 +42,7 @@
   if(t.indexOf('後五位')>=0&&t.indexOf('0')>=0&&t.indexOf('不能')>=0)return 'last5-0';
   if(t.indexOf('適合的行業')>=0)return 'industry';
   if(t.indexOf('銷售攻略')>=0)return 'sales';
-  if(t.indexOf('疾病號')>=0||t.indexOf('燼夜')>=0)return 'ye-wg';
+  if(t.indexOf('疾病號')>=0||t.indexOf('\u71ac\u591c')>=0)return 'ye-wg';
   if(t.indexOf('生天延')>=0)return 'sheng-tian-yan';
   if(t.indexOf('大凶')>=0&&t.indexOf('天醫')>=0&&t.indexOf('五鬼')>=0)return 'ty-wg';
   if(t.indexOf('大凶')>=0&&t.indexOf('五鬼')>=0&&t.indexOf('絕命')>=0)return 'wg-jue';
@@ -128,7 +128,7 @@
   if(hits.length)h+='<p>今次觸發：'+hits.map(function(x){return '<span class="hit">'+x+'</span>';}).join('')+'</p>';
   else h+='<p class="muted">今次未見大凶／疾病號／後四位禍害夾0。</p>';
   if(miss.length)h+='<p class="muted">缺吉星：'+miss.join('、')+'</p>';
-  if(kind==='phone'&&!profNow())h+='<p class="muted">未撿身份。女性／男性／學生／老年人條文要先撿身份先出。</p>';
+  if(kind==='phone'&&!profNow())h+='<p class="muted">\u672a\u64bf\u8eab\u4efd\u3002\u5973\u6027\uff0f\u7537\u6027\uff0f\u5b78\u751f\uff0f\u8001\u5e74\u4eba\u689d\u6587\u8981\u5148\u64bf\u8eab\u4efd\u5148\u51fa\u3002</p>';
   h+='</div>';
   return h;
  }
