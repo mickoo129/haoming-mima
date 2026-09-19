@@ -12,6 +12,14 @@
  }
  var JI=['tianyi','yannian','shengqi','fuwei'];
  var XIONG=['jueming','wugui','huohai','liusha'];
+ var ALLOW={phone:1,account:1,plate:1,address:1,other:1};
+ var CTX={
+  phone:'此表主要用於手機號碼：日常電磁、通話與訊息，是數字能量最常發揮的地方。',
+  account:'銀行卡／存摺：此組合多用來看出入帳之後，錢財能否留在這個戶口。',
+  plate:'車牌：車輛主走動與速度，此組合多用來看出行安危、衝動駕駛與突發事故。',
+  address:'門牌：此組合多用來看家宅氣場，以及住進去之後的精神壓力。',
+  other:'密碼或其他常用數字：此組合多用來看每日重複輸入的氣場。'
+ };
  var GROUP={
   tianyi:{head:'天醫（財富、正桃花）後接凶星',intro:'天醫代表賺到的錢與正緣感情。後面接凶星，代表「財與情最後的下場」。'},
   yannian:{head:'延年（事業、能力、守財）後接凶星',intro:'延年代表大將之風、責任感與守財庫。後面接凶星，代表「事業決策失誤、守不住財、壓力爆煲」。'},
@@ -68,6 +76,7 @@
   if(!rows.length)return '';
   var h='<div class="seq-note">';
   h+='<p><strong>流通筆記：吉星後接凶星</strong>（詳細原版；與課堂「大凶／次凶」分列）</p>';
+  if(CTX[kindNow()])h+='<p>'+CTX[kindNow()]+'</p>';
   var last='';
   rows.forEach(function(row){
    var g=GROUP[row.def.star];
@@ -131,7 +140,7 @@
    if(wrapOld&&wrapOld.className&&String(wrapOld.className).indexOf('hm-seq-explain')>=0)wrapOld.parentNode.removeChild(wrapOld);
    else old.parentNode.removeChild(old);
   }
-  if(kind!=='phone'||!digits)return;
+  if(!ALLOW[kind]||!digits)return;
   var rows=scanSeq(digits);
   var sum=box.querySelector('#hmSum');
   tidyHits(sum);
