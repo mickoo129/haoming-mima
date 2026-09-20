@@ -19,20 +19,20 @@
    .replace(/呢組/g,'此組')
    .replace(/呢次/g,'本次')
    .replace(/呢個/g,'這個')
-   .replace(/銀行[咋咅]密碼/g,'銀行卡密碼')
+   .replace(/銀行[咋咆]密碼/g,'銀行卡密碼')
    .replace(/婚愛情/g,'婚外情')
    .replace(/資産/g,'資產')
    .replace(/六紥/g,'六煞')
    .replace(/六紮/g,'六煞')
    .replace(/六紳/g,'六煞')
-   .replace(/毀耀/g,'炫耀')
-   .replace(/毀耀/g,'炫耀')
+   .replace(/毀耀/g,'煇耀')
+   .replace(/毀耀/g,'煇耀')
    .replace(/拖葺/g,'拖垮')
-   .replace(/優豫/g,'猶豫')
+   .replace(/優豫/g,'優豫')
    .replace(/孤注一撲/g,'孤注一擲')
-   .replace(/得理不餮/g,'得理不饒')
-   .replace(/得理不餝/g,'得理不饒')
-   .replace(/得理不飼/g,'得理不饒');
+   .replace(/得理不饜/g,'得理不饕')
+   .replace(/得理不餜/g,'得理不饕')
+   .replace(/得理不飼/g,'得理不饕');
  }
  if(typeof KIND_INFO!=='undefined'){
   Object.keys(KIND_INFO).forEach(function(k){
@@ -46,6 +46,44 @@
   return relabel(html);
  };
  window.extraCourseNotes=extraCourseNotes;
+ function lastStarName(){
+  var flow=document.getElementById('pairFlow');
+  if(!flow)return '';
+  var rows=flow.querySelectorAll('.pair-row strong');
+  return rows.length?(rows[rows.length-1].textContent||'').trim():'';
+ }
+ function phoneDigits(){
+  var el=document.getElementById('numInput');
+  return el?((el.value.match(/\d/g)||[]).join('')):'';
+ }
+ function shrinkPhoneRead(box){
+  if(!box)return;
+  [].slice.call(box.querySelectorAll('ol')).forEach(function(ol){
+   var t=ol.textContent||'';
+   if(t.indexOf('天醫')>=0&&t.indexOf('延年')>=0){
+    var tip=document.createElement('p');
+    tip.className='muted';
+    tip.textContent='課堂閱讀次序：先天醫（婚姻／財運），再延年（事業／能力），再絕命（錢的來去）。後4位約佔八成。';
+    ol.parentNode.replaceChild(tip,ol);
+   }
+  });
+  [].slice.call(box.querySelectorAll('p')).forEach(function(p){
+   var t=p.textContent||'';
+   if(t.indexOf('分析手機')>=0&&t.indexOf('次序')>=0){p.parentNode.removeChild(p);return;}
+   if(t.indexOf('結尾六條')>=0||(t.indexOf('不能以0結尾')>=0&&t.indexOf('不能以五鬼')>=0)){
+    var last=lastStarName();
+    var d=phoneDigits();
+    var hits=[];
+    if(d&&d.charAt(d.length-1)==='0')hits.push('以0結尾（結局一場空）');
+    if(last.indexOf('五鬼')>=0)hits.push('以五鬼結尾（損財富，出意外）');
+    if(last.indexOf('六煞')>=0)hits.push('以六煞結尾（損財富，傷婚姻）');
+    if(last.indexOf('禍害')>=0)hits.push('以禍害結尾（招小人，傷身體）');
+    if(last.indexOf('絕命')>=0)hits.push('以絕命結尾（損財富，出意外）');
+    if(!hits.length){p.parentNode.removeChild(p);return;}
+    p.textContent='課堂結尾：'+hits.join('；')+'。';
+   }
+  });
+ }
  function cleanBoxes(){
   var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');
   ['kindReadBox','details','fixBox','storyBox','roleBox','wikiGrid','phoneRuleCard','pairFlow'].forEach(function(id){
@@ -68,6 +106,7 @@
      if((p.textContent||'').indexOf('段會見到')>=0 && p.parentNode) p.parentNode.removeChild(p);
     });
    }
+   if(kind==='phone')shrinkPhoneRead(box);
   }
  }
  var tries=0;
@@ -75,7 +114,7 @@
   var impl=window.analyze;
   if(!impl){if(tries++<30)setTimeout(wrap,80);return;}
   if(impl.__copyWrapped)return;
-  var wrapped=function(){impl();setTimeout(cleanBoxes,0);};
+  var wrapped=function(){impl();setTimeout(cleanBoxes,0);setTimeout(cleanBoxes,120);};
   wrapped.__copyWrapped=true;
   wrapped.__storyWrapped=impl.__storyWrapped;
   wrapped.__hlWrapped=impl.__hlWrapped;
@@ -86,7 +125,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var v='?v=20260919l';
+ var v='?v=20260920d';
  var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
