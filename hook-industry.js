@@ -1,6 +1,17 @@
+var CLASS_JOB={
+ tianyi:'財運好，適合從事任何行業，都可以賺錢，尤其是從事保險業，金融業或以口為職業的行業',
+ shengqi:'適合從事服務行業，飲食行業',
+ yannian:'智商好，思想正統，組織紀律性強，有領導能力及組織能力，適合上班族或從事領導工作',
+ fuwei:'適合經營小本生意，小販，小攤',
+ jueming:'適宜從事冒險行業，風險大的行業，賭博，投機生意等，也可以經營大型公司，開設大門面生意',
+ wugui:'適宜從事非正常職業，運動員，宗教業，命理，餐飲業，酒店，飯館，茶館，娛樂行業，別人休息自己忙的行業',
+ liusha:'一般不喜歡固定職業，適合從事服務性的行業，例如飲食業，美髮，化妝品，以女性為服務業的工作，娛樂業，公關，政府官員',
+ huohai:'口才好，從事以口為業的工作，例如律師，教師，記者，歌手，演講家，銷售'
+};
+window.CLASS_JOB=CLASS_JOB;
 function industryReadHtml(keys,digits){
  var html='<div class="hl-resolve" style="margin-top:12px"><p><strong>課堂：適合的行業</strong>（此組出現的星）</p>';
- keys.forEach(function(k){html+='<p><strong>'+FIELDS[k].name+'：</strong>'+FIELDS[k].job+'</p>';});
+ keys.forEach(function(k){var line=(CLASS_JOB[k]||(typeof JOB_TABLE!=='undefined'&&JOB_TABLE[k])||FIELDS[k].job);html+='<p><strong>'+FIELDS[k].name+'：</strong>'+line+'</p>';});
  if(typeof pairJobNotes==='function'){
   var pj=pairJobNotes(digits||'');
   if(pj.length)html+='<p>'+pj.join('；')+'</p>';
@@ -107,7 +118,7 @@ function extraCourseNotes(digits,pairs,kind){
  }
  var jh=findJuemingHuohai(digits,pairs);
  if(jh.length&&drive){
-  html+='<div class="hl-warn"><strong>筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不餮人。出行亦可參照：開車衝動、不計後果。此組見到：'+jh.join('、')+'。712、217、698、896 只是例子。</div>';
+  html+='<div class="hl-warn"><strong>筆記</strong>：凡絕命（12、69、48、37）+禍害（17、89、46、23） — 衝動，做事不計後果，得理不饜人。出行亦可參照：開車衝動、不計後果。此組見到：'+jh.join('、')+'。 712、217、698、896 只是例子。</div>';
  }
  return html;
 }
@@ -122,7 +133,7 @@ if(typeof phoneTextbook==='function'){
   hit=['917','871','198','789'].filter(function(x){return digits.indexOf(x)>=0;});
   if(hit.length)w.push({lv:'warn',t:'筆記：高能量延年+禍害（'+hit.join('、')+'） → 對女性來說：痛經+臉色差'});
   var jh=findJuemingHuohai(digits,pairs);
-  if(jh.length)w.push({lv:'warn',t:'筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不餮人（'+jh.join('、')+'）。712、217、698、896 只是例子'});
+  if(jh.length)w.push({lv:'warn',t:'筆記：凡絕命+禍害 — 衝動，做事不計後果，得理不饜人（'+jh.join('、')+'）。712、217、698、896 只是例子'});
   var lj=findLiushaJueming(digits,pairs);
   if(lj.found.length){
    var extra='';
@@ -161,11 +172,25 @@ if(typeof phoneTextbook==='function'){
     digits=extractDigits(raw);
    }
    var pairs=buildPairs(digits,kind);
-   if(kind==='phone'){
+   if(kind==='phone'||kind==='birth'){
     box.innerHTML+=industryReadHtml(presentKeys(pairs),digits);
    }
    box.innerHTML+=extraCourseNotes(digits,pairs,kind);
   }catch(e){}
  };
  window.hmAnalyze=function(){ if(window.analyze)window.analyze(); else alert('解讀程式未載入，請重新整理頁面'); return false; };
+})();
+(function(){
+ function wikiIndustry(){
+  var g=document.getElementById('wikiGrid');
+  if(!g||document.getElementById('wikiIndustry')||typeof FIELDS==='undefined')return;
+  var order=['tianyi','shengqi','yannian','fuwei','jueming','wugui','liusha','huohai'];
+  var h='<div class="wiki-card" id="wikiIndustry"><h3>課堂：適合的行業</h3>';
+  order.forEach(function(k){h+='<p><strong>'+FIELDS[k].name+'：</strong>'+(CLASS_JOB[k]||'')+'</p>';});
+  h+='<p class="muted">生氣組合較多：14適合開發工作；67容易設計工作；93容易廣告行業；82易營銷行業。</p>';
+  h+='<p class="muted">伏位組合：11、22從事長期確定工作；99、88從事行政管理工作；66、77從事研究分析工作；33、44從事固定單一工作。</p></div>';
+  g.insertAdjacentHTML('beforeend',h);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wikiIndustry,200);});
+ else setTimeout(wikiIndustry,200);
 })();
