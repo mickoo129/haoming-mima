@@ -72,4 +72,8 @@
  }
  window.buildPairs=wrapped;
  buildPairs=wrapped;
+ var ys=document.createElement('script');
+ ys.src='./hook-id-year.js?v=20260920a';
+ if(document.body)document.body.appendChild(ys);
+ else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ys);});
 })();
