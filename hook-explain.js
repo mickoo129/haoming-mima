@@ -6,7 +6,7 @@
   '延年+五鬼':'課堂列作「次凶」。筆記老年人：五鬼+延年（如819）容易突發腦梗。',
   '天醫+六煞':'課堂列作「次凶」（低於大凶）。附表未另寫此組的具體後果。',
   '五鬼+六煞':'課堂附表：100%會離婚、單身。鬼＋煞：大意外、血光。',
-  '絕命+禍害':'筆記：衝動，做事不計後果，得理不餝人。',
+  '絕命+禍害':'筆記：衝動，做事不計後果，得理不饜人。',
   '六煞+絕命':'筆記：容易有婦科病。',
   '五鬼+禍害':'筆記：容易說假話，存心騙人。',
   '延年+禍害':'筆記：對女性痛經+臉色差。'
@@ -41,6 +41,11 @@
    el.setAttribute('data-explained','1');
   });
  }
+ function jobLine(k,f){
+  if(window.CLASS_JOB&&CLASS_JOB[k])return CLASS_JOB[k];
+  if(typeof JOB_TABLE!=='undefined'&&JOB_TABLE[k])return JOB_TABLE[k];
+  return f.job;
+ }
  function splitIndustry(){
   var box=document.getElementById('kindReadBox');
   if(!box)return;
@@ -63,7 +68,7 @@
    var h='<p><strong>課堂：適合的行業</strong>（此組出現過的星）</p>';
    keys.forEach(function(k){
     var f=FIELDS[k];
-    h+='<p style="margin:8px 0 10px"><strong>'+f.name+'</strong><br>'+f.job+'</p>';
+    h+='<p style="margin:8px 0 10px"><strong>'+f.name+'</strong><br>'+jobLine(k,f)+'</p>';
    });
    el.className='nature';
    el.innerHTML=h;
