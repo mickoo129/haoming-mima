@@ -15,17 +15,18 @@
    .replace(/手機教材分類提示/g,'課堂手機分類提示')
    .replace(/教材禁號/g,'課堂禁號')
    .replace(/教材例子/g,'課堂例子')
+   .replace(/教材話/g,'課堂指')
    .replace(/教材：/g,'課堂：')
    .replace(/呢組/g,'此組')
    .replace(/呢次/g,'本次')
    .replace(/呢個/g,'這個')
+   .replace(/咋天醫/g,'無天醫')
    .replace(/銀行[咋咆]密碼/g,'銀行卡密碼')
    .replace(/婚愛情/g,'婚外情')
    .replace(/資産/g,'資產')
    .replace(/六紥/g,'六煞')
    .replace(/六紮/g,'六煞')
    .replace(/六紳/g,'六煞')
-   .replace(/毀耀/g,'煇耀')
    .replace(/毀耀/g,'煇耀')
    .replace(/拖葺/g,'拖垮')
    .replace(/優豫/g,'優豫')
@@ -56,6 +57,29 @@
   var el=document.getElementById('numInput');
   return el?((el.value.match(/\d/g)||[]).join('')):'';
  }
+ function boldPhoneHeads(box){
+  [].slice.call(box.querySelectorAll('p')).forEach(function(p){
+   var html=p.innerHTML;
+   if(!html)return;
+   html=html.replace(/教材話/g,'課堂指');
+   html=html.replace(/咋天醫/g,'無天醫');
+   if(html.indexOf('<strong>課堂閱讀次序')<0)
+    html=html.replace(/課堂閱讀次序：/,'<strong>課堂閱讀次序：</strong>');
+   if(html.indexOf('<strong>課堂結尾')<0)
+    html=html.replace(/課堂結尾：/,'<strong>課堂結尾：</strong>');
+   if(html.indexOf('<strong>無天醫')<0)
+    html=html.replace(/無天醫：/,'<strong>無天醫：</strong>');
+   if(html.indexOf('<strong>課堂：')<0)
+    html=html.replace(/課堂：/,'<strong>課堂：</strong>');
+   if(html.indexOf('<strong>天醫')<0)
+    html=html.replace(/天醫（婚姻／財運）：/,'<strong>天醫（婚姻／財運）：</strong>');
+   if(html.indexOf('<strong>延年')<0)
+    html=html.replace(/延年（事業／專業）：/,'<strong>延年（事業／專業）：</strong>');
+   if(html.indexOf('<strong>絕命')<0)
+    html=html.replace(/絕命（錢來去）：/,'<strong>絕命（錢來去）：</strong>');
+   p.innerHTML=html;
+  });
+ }
  function shrinkPhoneRead(box){
   if(!box)return;
   [].slice.call(box.querySelectorAll('ol')).forEach(function(ol){
@@ -63,7 +87,7 @@
    if(t.indexOf('天醫')>=0&&t.indexOf('延年')>=0){
     var tip=document.createElement('p');
     tip.className='muted';
-    tip.textContent='課堂閱讀次序：先天醫（婚姻／財運），再延年（事業／能力），再絕命（錢的來去）。後4位約佔八成。';
+    tip.innerHTML='<strong>課堂閱讀次序：</strong>先天醫（婚姻／財運），再延年（事業／能力），再絕命（錢的來去）。後4位約佔八成。';
     ol.parentNode.replaceChild(tip,ol);
    }
   });
@@ -80,9 +104,10 @@
     if(last.indexOf('禍害')>=0)hits.push('以禍害結尾（招小人，傷身體）');
     if(last.indexOf('絕命')>=0)hits.push('以絕命結尾（損財富，出意外）');
     if(!hits.length){p.parentNode.removeChild(p);return;}
-    p.textContent='課堂結尾：'+hits.join('；')+'。';
+    p.innerHTML='<strong>課堂結尾：</strong>'+hits.join('；')+'。';
    }
   });
+  boldPhoneHeads(box);
  }
  function cleanBoxes(){
   var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');
@@ -125,7 +150,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(wrap,0);});
  else setTimeout(wrap,0);
- var v='?v=20260920d';
+ var v='?v=20260920e';
  var hx=document.createElement('script');hx.src='./hook-hitbox.js'+v;document.body.appendChild(hx);
  var hr=document.createElement('script');hr.src='./hook-restore.js'+v;document.body.appendChild(hr);
  var he=document.createElement('script');he.src='./hook-explain.js'+v;document.body.appendChild(he);
