@@ -39,8 +39,7 @@
  }
  function idPairs(digits){
   if(!digits||digits.length<2)return [];
-  var src=digits+digits;
-  if(src.length<16)src+=digits;
+  var src=digits;
   var out=[],i,pair,key,field,note;
   for(i=0;i<src.length-1;i++){
    pair=src.substr(i,2);
@@ -59,6 +58,29 @@
   }
   return out;
  }
+ function followPair(src,prev){
+  var o={pair:src.pair,display:src.display,field:src.field,note:src.note||''};
+  var rawFu=!PAIR_MAP[src.pair]||PAIR_MAP[src.pair]==='fuwei';
+  if(rawFu&&prev){
+   o.field=prev.field;
+   o.note='伏位跟隨「'+FIELDS[o.field].name+'」';
+  }
+  return o;
+ }
+ window.idCycles=function(pairs){
+  var n=pairs.length,out=[];
+  if(!n)return out;
+  out.push({from:0,to:13,pair:pairs[0]});
+  var age=13,i=1;
+  while(age<98){
+   var from=age,to=Math.min(age+5,98);
+   var src=pairs[i%n];
+   var used=(i>=n)?followPair(src,out[out.length-1].pair):src;
+   out.push({from:from,to:to,pair:used});
+   age=to;i++;
+  }
+  return out;
+ };
  function wrapped(digits,kind){
   if(kind==='id'){
    var raw='';
@@ -73,7 +95,7 @@
  window.buildPairs=wrapped;
  buildPairs=wrapped;
  var ys=document.createElement('script');
- ys.src='./hook-id-year.js?v=20260920a';
+ ys.src='./hook-id-year.js?v=20260920b';
  if(document.body)document.body.appendChild(ys);
  else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(ys);});
 })();
