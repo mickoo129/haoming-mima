@@ -32,40 +32,41 @@
   keys.sort(function(a,b){return sum[b]-sum[a];});
   return {win:keys[0],sum:sum,detail:detail,keys:keys};
  }
- function paint(){
-  if((window.currentKind||'')!=='phone')return;
-  var box=document.getElementById('kindReadBox');
-  if(!box||box.querySelector('[data-sales-center]'))return;
-  var d=digits();if(!d||d.length<2)return;
-  var sc=scoreAll(d);if(!sc)return;
-  var tail=d.slice(-2);
-  var tailK=PAIR_MAP[tail]||'';
+ function innerHtml(sc,tailK){
   var lines=[];
   sc.keys.forEach(function(k){
    lines.push(FIELDS[k].name+' '+sc.sum[k]+'分（'+(sc.detail[k]||[]).join('、')+'）');
   });
-  var h='<div class="hl-sales" data-sales-center="1" style="margin-top:10px">';
-  h+='<p><strong>筆記：八位中心磁場</strong>（一級100／二級75／三級50／四級25；掉轉同分）</p>';
-  h+='<p>除尾兩位外，全號各星合計：'+lines.join('；')+'。</p>';
+  var h='<p data-sales-center="1"><strong>接著看全號八位中心磁場</strong>（一級100／二級75／三級50／四級25；掉轉同分）</p>';
+  h+='<p>全號各星合計：'+lines.join('；')+'。</p>';
   h+='<p><strong>中心磁場：'+FIELDS[sc.win].name+'</strong>（'+sc.sum[sc.win]+'分）</p>';
-  if(sc.win===tailK){
-   h+='<p>中心磁場與尾兩位相同，成交術見上段尾號攻略。</p>';
-  }else if(SALES[sc.win]){
-   h+='<p>'+SALES[sc.win]+'</p>';
-  }else{
-   h+='<p>此星無獨立成交術，仍以尾兩位為主。</p>';
-  }
-  h+='<p class="muted">課堂總結：較易成交為六煞、天醫、絕命；相對難搞為延年。</p></div>';
+  if(sc.win===tailK) h+='<p>中心磁場與尾兩位相同，成交術見上文。</p>';
+  else if(SALES[sc.win]) h+='<p>'+SALES[sc.win]+'</p>';
+  else h+='<p>此星無獨立成交術，仍以尾兩位為主。</p>';
+  h+='<p class="muted">課堂總結：較易成交為六煞、天醫、絕命；相對難搞為延年。</p>';
+  return h;
+ }
+ function paint(){
+  if((window.currentKind||'')!=='phone')return;
+  var box=document.getElementById('kindReadBox');
+  if(!box)return;
+  [].slice.call(box.querySelectorAll('[data-sales-center]')).forEach(function(el){
+   if(el.tagName==='DIV' && el.parentNode && !el.className.match(/sales-note/)) el.parentNode.removeChild(el);
+  });
   var host=box.querySelector('.sales-note');
-  if(host)host.insertAdjacentHTML('afterend',h);
-  else box.insertAdjacentHTML('beforeend',h);
+  if(!host)return;
+  if(host.querySelector('[data-sales-center]'))return;
+  var d=digits();if(!d||d.length<2)return;
+  var sc=scoreAll(d);if(!sc)return;
+  var tailK=PAIR_MAP[d.slice(-2)]||'';
+  host.insertAdjacentHTML('beforeend',innerHtml(sc,tailK));
  }
  var n=0;
  function wrap(){
   var impl=window.analyze;
   if(!impl){if(n++<40)setTimeout(wrap,80);return;}
   if(impl.__salesCenter)return;
-  var w=function(){impl();setTimeout(paint,240);setTimeout(paint,520);};
+  var w=function(){impl();setTimeout(paint,260);setTimeout(paint,540);};
   w.__salesCenter=true;
   w.__salesFix=impl.__salesFix;
   w.__copyWrapped=impl.__copyWrapped;
