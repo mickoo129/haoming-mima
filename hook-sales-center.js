@@ -10,6 +10,7 @@
   shengqi:'生氣：善良好說話，關係好就會再買，但有選擇困難。用高價值方案加情感連結建信賴，並明確幫他做決定。',
   tianyi:'天醫：忠厚老實、有原則、購買力較強。給專業、正規、正直的感覺，循序漸進用價值與人品成交。屬較易成交類型。'
  };
+ function blue(n){return '<strong style="color:#2563eb">'+n+'</strong>';}
  function scoreAll(d){
   if(typeof buildPairs!=='function')return null;
   var pairs=buildPairs(d,'phone');
@@ -28,22 +29,37 @@
    detail[k].push(label);
   }
   var keys=Object.keys(sum);if(!keys.length)return null;
-  keys.sort(function(a,b){return sum[b]-sum[a]||(PTS[POWER[(pairs.filter(function(x){return x.field===b;})[0]||{}).pair]||0]-PTS[POWER[(pairs.filter(function(x){return x.field===a;})[0]||{}).pair]||0]);});
+  keys.sort(function(a,b){return sum[b]-sum[a];});
   return {win:keys[0],sum:sum,detail:detail,keys:keys};
  }
  function innerHtml(sc,tailK){
   var lines=[];
   sc.keys.forEach(function(k){
-   lines.push(FIELDS[k].name+' '+sc.sum[k]+'分（'+(sc.detail[k]||[]).join('、')+'）');
+   lines.push('<strong>'+FIELDS[k].name+'</strong> '+sc.sum[k]+'分（'+(sc.detail[k]||[]).join('、')+'）');
   });
   var h='<p data-sales-center="1"><strong>接著看全號八位中心磁場</strong>（一級100／二級75／三級50／四級25；掉轉同分）</p>';
   h+='<p>全號各星合計：'+lines.join('；')+'。</p>';
-  h+='<p><strong>中心磁場：'+FIELDS[sc.win].name+'</strong>（'+sc.sum[sc.win]+'分）</p>';
+  h+='<p><strong>中心磁場：</strong>'+blue(FIELDS[sc.win].name)+'（'+sc.sum[sc.win]+'分）</p>';
   if(sc.win===tailK) h+='<p>中心磁場與尾兩位相同，成交術見上文。</p>';
   else if(SALES[sc.win]) h+='<p>'+SALES[sc.win]+'</p>';
   else h+='<p>此星無獨立成交術，仍以尾兩位為主。</p>';
   h+='<p class="muted">課堂總結：較易成交為六煞、天醫、絕命；相對難搞為延年。</p>';
   return h;
+ }
+ function colorTitle(host){
+  var p=host.querySelector('p');
+  if(!p)return;
+  if((p.textContent||'').indexOf('銷售攻略')<0)return;
+  if((p.innerHTML||'').indexOf('#2563eb')>=0)return;
+  var names=['禍害','絕命','五鬼','六煞','天醫','延年','生氣'];
+  var i,n;
+  for(i=0;i<names.length;i++){
+   n=names[i];
+   if(p.textContent.indexOf(n)>=0){
+    p.innerHTML=p.innerHTML.replace(n,blue(n));
+    break;
+   }
+  }
  }
  function paint(){
   if((window.currentKind||'')!=='phone')return;
@@ -51,6 +67,7 @@
   if(!box)return;
   var host=box.querySelector('.sales-note');
   if(!host)return;
+  colorTitle(host);
   if(host.querySelector('[data-sales-center]'))return;
   var el=document.getElementById('numInput');
   var d=el?((el.value.match(/\d/g)||[]).join('')):'';
