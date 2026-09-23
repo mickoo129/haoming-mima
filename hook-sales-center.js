@@ -1,5 +1,6 @@
 (function(){
  var PTS={4:100,3:75,2:50,1:25};
+ var POWER={'14':4,'41':4,'67':3,'76':3,'39':2,'93':2,'28':1,'82':1,'13':4,'31':4,'68':3,'86':3,'49':2,'94':2,'27':1,'72':1,'19':4,'91':4,'78':3,'87':3,'34':2,'43':2,'26':1,'62':1,'11':4,'22':4,'99':3,'88':3,'66':2,'77':2,'33':1,'44':1,'16':4,'61':4,'47':3,'74':3,'38':2,'83':2,'29':1,'92':1,'17':4,'71':4,'89':3,'98':3,'46':2,'64':2,'23':1,'32':1,'18':4,'81':4,'79':3,'97':3,'36':2,'63':2,'24':1,'42':1,'12':4,'21':4,'69':3,'96':3,'48':2,'84':2,'37':1,'73':1};
  var SALES={
   yannian:'延年：專業致勝，只喜歡懂行的人。在他的領域要比他更全面細致，切忌高傲。有主見，不要替他作主，給兩套方案二選一。極其固執，不要起爭執，順從他當領導的心理。相對較難成交。',
   wugui:'五鬼：聰明但疑心重。用客戶回饋、熟人見證、實際案例，眼見為實。講完即止，說多錯多。展示價值後可適度冷淡，製造緊迫感，欲擒故縱。',
@@ -9,27 +10,25 @@
   shengqi:'生氣：善良好說話，關係好就會再買，但有選擇困難。用高價值方案加情感連結建信賴，並明確幫他做決定。',
   tianyi:'天醫：忠厚老實、有原則、購買力較強。給專業、正規、正直的感覺，循序漸進用價值與人品成交。屬較易成交類型。'
  };
- function power(p){
-  if(typeof PAIR_POWER!=='undefined'&&PAIR_POWER[p])return PAIR_POWER[p];
-  return 0;
- }
- function digits(){
-  var el=document.getElementById('numInput');
-  return el?((el.value.match(/\d/g)||[]).join('')):'';
- }
  function scoreAll(d){
-  var sum={},detail={},i,p,k,lv,pt;
-  for(i=0;i<d.length-1;i++){
-   p=d.substr(i,2);k=PAIR_MAP[p];
+  if(typeof buildPairs!=='function')return null;
+  var pairs=buildPairs(d,'phone');
+  var sum={},detail={},i,p,raw,lv,pt,k,label;
+  for(i=0;i<pairs.length;i++){
+   p=pairs[i];k=p.field;
    if(!k||k==='fuwei')continue;
-   lv=power(p);if(!lv)continue;
+   raw=p.pair||'';
+   lv=POWER[raw]||0;
+   if(!lv)continue;
    pt=PTS[lv]||0;
    sum[k]=(sum[k]||0)+pt;
    if(!detail[k])detail[k]=[];
-   detail[k].push(p+'＝'+pt);
+   label=(p.display||raw)+'＝'+pt;
+   if((p.note||'').indexOf('伏位延續')>=0)label+='（伏位延續）';
+   detail[k].push(label);
   }
   var keys=Object.keys(sum);if(!keys.length)return null;
-  keys.sort(function(a,b){return sum[b]-sum[a];});
+  keys.sort(function(a,b){return sum[b]-sum[a]||(PTS[POWER[(pairs.filter(function(x){return x.field===b;})[0]||{}).pair]||0]-PTS[POWER[(pairs.filter(function(x){return x.field===a;})[0]||{}).pair]||0]);});
   return {win:keys[0],sum:sum,detail:detail,keys:keys};
  }
  function innerHtml(sc,tailK){
@@ -50,13 +49,12 @@
   if((window.currentKind||'')!=='phone')return;
   var box=document.getElementById('kindReadBox');
   if(!box)return;
-  [].slice.call(box.querySelectorAll('[data-sales-center]')).forEach(function(el){
-   if(el.tagName==='DIV' && el.parentNode && !el.className.match(/sales-note/)) el.parentNode.removeChild(el);
-  });
   var host=box.querySelector('.sales-note');
   if(!host)return;
   if(host.querySelector('[data-sales-center]'))return;
-  var d=digits();if(!d||d.length<2)return;
+  var el=document.getElementById('numInput');
+  var d=el?((el.value.match(/\d/g)||[]).join('')):'';
+  if(!d||d.length<2)return;
   var sc=scoreAll(d);if(!sc)return;
   var tailK=PAIR_MAP[d.slice(-2)]||'';
   host.insertAdjacentHTML('beforeend',innerHtml(sc,tailK));
