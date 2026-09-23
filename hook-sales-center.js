@@ -8,9 +8,14 @@
   liusha:'六煞：喜歡被讚美與認同，愛編織夢想，優豫不決。盡情讚美。要給確切保障，拿不定主意時可替他拍板。屬較易成交類型。',
   jueming:'絕命：感情用事、講義氣、決定衝動。打感情牌，表現大氣仗義。認同你就一衝而上，不認同再好都沒用。屬較易成交類型。',
   shengqi:'生氣：善良好說話，關係好就會再買，但有選擇困難。用高價值方案加情感連結建信賴，並明確幫他做決定。',
-  tianyi:'天醫：忠厚老實、有原則、購買力較強。給專業、正規、正直的感覺，循序漸進用價值與人品成交。屬較易成交類型。'
+  tianyi:'天醫：忠厚老實、有原則、購買力較強。需要給他專業、正規、正直的感覺。循序漸進，用常規、正規的價值與人品成交。屬較易成交類型。'
  };
  function blue(n){return '<strong style="color:#2563eb">'+n+'</strong>';}
+ function lastField(d){
+  if(typeof buildPairs!=='function')return PAIR_MAP[d.slice(-2)]||'';
+  var pairs=buildPairs(d,'phone');
+  return pairs.length?pairs[pairs.length-1].field:'';
+ }
  function scoreAll(d){
   if(typeof buildPairs!=='function')return null;
   var pairs=buildPairs(d,'phone');
@@ -40,9 +45,13 @@
   var h='<p data-sales-center="1"><strong>接著看全號八位中心磁場</strong>（一級100／二級75／三級50／四級25；掉轉同分）</p>';
   h+='<p>全號各星合計：'+lines.join('；')+'。</p>';
   h+='<p><strong>中心磁場：</strong>'+blue(FIELDS[sc.win].name)+'（'+sc.sum[sc.win]+'分）</p>';
-  if(sc.win===tailK) h+='<p>中心磁場與尾兩位相同，成交術見上文。</p>';
-  else if(SALES[sc.win]) h+='<p>'+SALES[sc.win]+'</p>';
-  else h+='<p>此星無獨立成交術，仍以尾兩位為主。</p>';
+  if(sc.win===tailK){
+   h+='<p>中心磁場與尾兩位同為'+blue(FIELDS[sc.win].name)+'，成交術見上文，不重覆。</p>';
+  }else if(SALES[sc.win]){
+   h+='<p>'+SALES[sc.win]+'</p>';
+  }else{
+   h+='<p>此星無獨立成交術，仍以尾兩位為主。</p>';
+  }
   h+='<p class="muted">課堂總結：較易成交為六煞、天醫、絕命；相對難搞為延年。</p>';
   return h;
  }
@@ -73,7 +82,7 @@
   var d=el?((el.value.match(/\d/g)||[]).join('')):'';
   if(!d||d.length<2)return;
   var sc=scoreAll(d);if(!sc)return;
-  var tailK=PAIR_MAP[d.slice(-2)]||'';
+  var tailK=lastField(d);
   host.insertAdjacentHTML('beforeend',innerHtml(sc,tailK));
  }
  var n=0;
