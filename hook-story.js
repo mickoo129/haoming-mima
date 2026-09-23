@@ -80,7 +80,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(attach,0);});
  else setTimeout(attach,0);
- var v='?v=20260922c';
+ var v='?v=20260923a';
  var s=document.createElement('script');s.src='./hook-plate.js'+v;document.body.appendChild(s);
  var s2=document.createElement('script');s2.src='./hook-hl.js'+v;document.body.appendChild(s2);
  var s3=document.createElement('script');s3.src='./hook-layout.js'+v;document.body.appendChild(s3);
@@ -90,4 +90,5 @@
  var s7=document.createElement('script');s7.src='./hook-pair-rank.js'+v;document.body.appendChild(s7);
  var s8=document.createElement('script');s8.src='./hook-year2026.js'+v;document.body.appendChild(s8);
  var s9=document.createElement('script');s9.src='./hook-tidy-notes.js'+v;document.body.appendChild(s9);
+ var s10=document.createElement('script');s10.src='./hook-sales-center.js'+v;document.body.appendChild(s10);
 })();
