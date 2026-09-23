@@ -80,7 +80,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(attach,0);});
  else setTimeout(attach,0);
- var v='?v=20260923d';
+ var v='?v=20260923e';
  var s=document.createElement('script');s.src='./hook-plate.js'+v;document.body.appendChild(s);
  var s2=document.createElement('script');s2.src='./hook-hl.js'+v;document.body.appendChild(s2);
  var s3=document.createElement('script');s3.src='./hook-layout.js'+v;document.body.appendChild(s3);
