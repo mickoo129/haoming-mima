@@ -14,8 +14,10 @@
   document.head.appendChild(st);
  }
  var HAI0_HEALTH=['107','701','809','908','604','406','203','302'];
+ var HAI0_AFTER=['170','710','890','980','460','640','230','320'];
  var HAI0_SPEECH=['107','170','701','710','809','890','908','980','406','460','604','640','203','230','302','320'];
  var YE_WG=['197','918','781','879','342','436','263','624'];
+ var YAN={'19':1,'91':1,'78':1,'87':1,'34':1,'43':1,'26':1,'62':1};
  function kindNow(){return window.currentKind||(typeof currentKind!=='undefined'?currentKind:'phone');}
  function profNow(){return window.currentProfile||(typeof currentProfile!=='undefined'?currentProfile:'');}
  function digitsNow(){
@@ -36,6 +38,34 @@
   }catch(e){return '';}
  }
  function listHits(str,list){return list.filter(function(x){return str&&str.indexOf(x)>=0;});}
+ function yanMid(d){
+  var hits=[],seen={},i,j,zeros,a,b,pair,show;
+  if(!d)return hits;
+  for(i=0;i<d.length-2;i++){
+   a=d.charAt(i);
+   if(a==='0'||a==='5')continue;
+   j=i+1;zeros='';
+   while(j<d.length&&d.charAt(j)==='0'){zeros+=d.charAt(j);j++;}
+   if(!zeros||j>=d.length)continue;
+   b=d.charAt(j);
+   if(b==='0'||b==='5')continue;
+   pair=a+b;
+   if(!YAN[pair])continue;
+   show=a+zeros+b;
+   if(!seen[show]){seen[show]=1;hits.push(show);}
+  }
+  return hits;
+ }
+ function afterNote(hits){
+  return '<div class="hl-warn health-note hai0-after"><p><strong>筆記：禍害後面為 0</strong>（例如 980；命中 '+hits.join('、')+'）</p>'
+   +'<p>表達力不夠，說話底氣不足或找不到重點，說話沒辦法兌現，也代表說話出而反而。</p>'
+   +'<p>身體虛弱，容易有慢性病或生病時間長。</p>'
+   +'<p>有破財訊息。</p></div>';
+ }
+ function yanNote(hits){
+  return '<div class="hl-warn health-note yan0-note"><p><strong>筆記：延年中有 0</strong>（例如 304；命中 '+hits.join('、')+'）</p>'
+   +'<p>主能力發揮不出，發揮得不好或對自己不滿意，達不到自身預期，付出多回報少，達不到自己想要的，總是自我責怪、自我懷疑，有點懷才不遇、生不逢時的感覺，心有餘而力不足，做的真實際差距很大，付出很難得到相應回報或很難達到預期，一般不太自信。</p></div>';
+ }
  function keyOf(el){
   var t=(el.textContent||'').replace(/\s+/g,'');
   if(t.indexOf('絕命計分')>=0)return 'jue-score';
@@ -43,6 +73,8 @@
   if(t.indexOf('婦科')>=0&&(t.indexOf('六煞')>=0||t.indexOf('絕命')>=0))return 'liu-jue';
   if(t.indexOf('得理不')>=0)return 'jue-hai';
   if(t.indexOf('痛經')>=0)return 'yan-hai';
+  if(t.indexOf('禍害後面為')>=0)return 'hai-after';
+  if(t.indexOf('延年中有')>=0)return 'yan0';
   if(t.indexOf('禍害夾0')>=0||t.indexOf('隱藏的傷口')>=0)return 'hai0';
   if(t.indexOf('後五位')>=0&&t.indexOf('0')>=0&&t.indexOf('不能')>=0)return 'last5-0';
   if(t.indexOf('適合的行業')>=0)return 'industry';
@@ -80,21 +112,15 @@
   if(!keep)return;
   var last4=(digits||'').slice(-4);
   var lastHits=listHits(last4,HAI0_HEALTH);
-  var speechHits=listHits(digits,HAI0_SPEECH);
-  keep.className=(lastHits.length?'hl-crit':'hl-warn')+' health-note hai0-merged';
+  var afterHits=listHits(digits,HAI0_AFTER);
+  var speechHits=listHits(digits,HAI0_SPEECH).filter(function(x){return afterHits.indexOf(x)<0;});
   if(lastHits.length){
-   keep.innerHTML=
-    '<p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lastHits.join('、')+'</p>'+
-    '<p>筆記原文例：107、701、809、604、406、203、302。</p>'+
-    '<p>筆記原文：1，容易有隱藏的傷口或者隱藏的疾病</p>'+
-    '<p>筆記原文：2，嚴重的話，容易開刀，動手術</p>'+
-    '<p>筆記原文：3，女性容易流產，墮胎，剖腹產等情況</p>'+
-    '<p><strong>騙子號</strong>：禍害夾0（'+lastHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
+   keep.className='hl-crit health-note hai0-merged';
+   keep.innerHTML='<p><strong>筆記</strong>：手機號後四位出現禍害夾 0（夾在中間）：'+lastHits.join('、')+'</p><p>筆記原文例：107、701、809、604、406、203、302。</p><p>筆記原文：1，容易有隱藏的傷口或者隱藏的疾病</p><p>筆記原文：2，嚴重的話，容易開刀，動手術</p><p>筆記原文：3，女性容易流產，墜胎，剖腹產等情況</p>';
   }else if(speechHits.length){
-   keep.innerHTML=
-    '<p><strong>騙子號</strong>：禍害夾0（'+speechHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>'+
-    '<p class="muted">此組出現在末四位以外。筆記健康三條（隱藏傷口／開刀／流產）只適用於手機號後四位。</p>';
-  }
+   keep.className='hl-warn health-note hai0-merged';
+   keep.innerHTML='<p><strong>舊筆記：禍害夾 0（夾在中間）</strong>（'+speechHits.join('、')+'）</p><p>不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話。</p><p class="muted">此組係 0 夾在禍害兩位中間，不是「禍害後面為 0」。健康三條只適用於手機號後四位。</p>';
+  }else if(keep.parentNode) keep.parentNode.removeChild(keep);
  }
  function dedupeRoots(roots){
   var seen={};
@@ -113,13 +139,14 @@
   var tail=(digits||'').slice(-4);
   var lastHits=listHits(tail,HAI0_HEALTH);
   var midHealth=listHits(digits,HAI0_HEALTH).filter(function(x){return lastHits.indexOf(x)<0;});
-  var speechHits=listHits(digits,HAI0_SPEECH);
+  var afterHits=listHits(digits,HAI0_AFTER);
   var yeHits=listHits(digits,YE_WG);
+  var yanHits=yanMid(digits);
   var hits=[];
   if(kind==='phone'&&tail&&tail.indexOf('0')>=0)hits.push('後四位有0');
   if(kind==='phone'&&lastHits.length)hits.push('後四位禍害夾0（健康）');
-  if(kind==='phone'&&speechHits.length&&!lastHits.length)hits.push('號碼中禍害夾0（說話）');
-  else if(kind==='phone'&&speechHits.length&&lastHits.length)hits.push('禍害夾0（說話）');
+  if(kind==='phone'&&afterHits.length)hits.push('禍害後面為0');
+  if(kind==='phone'&&yanHits.length)hits.push('延年中有0');
   if(kind==='phone'&&yeHits.length)hits.push('疾病號（延年+五鬼）');
   try{
    var pairs=buildPairs(digits,kind);
@@ -138,8 +165,10 @@
   h+='<p><strong>重點</strong>：尾段為「'+last+'」'+(kind==='phone'?'，末四位 '+tail:'')+'。</p>';
   if(hits.length)h+='<p>本次觸發：'+hits.map(function(x){return '<span class="hit">'+x+'</span>';}).join('')+'</p>';
   else h+='<p class="muted">本次未見大凶、疾病號或後四位禍害夾0。</p>';
+  if(afterHits.length)h+='<p class="muted">禍害後面為 0：'+afterHits.join('、')+'（例如 980）。解讀見下方筆記，不是淨講「說話」。</p>';
+  if(yanHits.length)h+='<p class="muted">延年中有 0：'+yanHits.join('、')+'（例如 304；0 要夾在兩位中間，340 唔算）。</p>';
   if(yeHits.length)h+='<p class="muted">疾病號命中：'+yeHits.join('、')+'（筆記例：197／918、781／879、342／436、263／624）</p>';
-  if(kind==='phone'&&midHealth.length)h+='<p class="muted">禍害夾0出現在末四位以外（'+midHealth.join('、')+'），健康三條不套用。</p>';
+  if(kind==='phone'&&midHealth.length)h+='<p class="muted">禍害夾 0（夾在中間）出現在末四位以外（'+midHealth.join('、')+'），健康三條不套用。</p>';
   if(miss.length)h+='<p class="muted">缺少吉星：'+miss.join('、')+'</p>';
   if(kind==='phone'&&!profNow())h+='<p class="muted">尚未選擇身份。女性禁號、滑胎、男性腎結石、學生學業、老年人腦梗等條文，須先選擇身份後才會顯示。</p>';
   h+='</div>';
@@ -149,19 +178,23 @@
   if(kind!=='phone'||!digits)return '';
   var last4=digits.slice(-4);
   var lastHits=listHits(last4,HAI0_HEALTH);
-  var speechHits=listHits(digits,HAI0_SPEECH);
+  var afterHits=listHits(digits,HAI0_AFTER);
+  var speechHits=listHits(digits,HAI0_SPEECH).filter(function(x){return afterHits.indexOf(x)<0&&lastHits.indexOf(x)<0;});
   var yeHits=listHits(digits,YE_WG);
+  var yanHits=yanMid(digits);
   var html='';
+  if(afterHits.length) html+=afterNote(afterHits);
+  if(yanHits.length) html+=yanNote(yanHits);
   if(lastHits.length){
-   html+='<div class="hl-crit health-note hai0-merged"><p><strong>筆記</strong>：手機號後四位出現禍害夾0：'+lastHits.join('、')+'</p>';
+   html+='<div class="hl-crit health-note hai0-merged"><p><strong>筆記</strong>：手機號後四位出現禍害夾 0（夾在中間）：'+lastHits.join('、')+'</p>';
    html+='<p>筆記原文例：107、701、809、604、406、203、302。</p>';
    html+='<p>筆記原文：1，容易有隱藏的傷口或者隱藏的疾病</p>';
    html+='<p>筆記原文：2，嚴重的話，容易開刀，動手術</p>';
-   html+='<p>筆記原文：3，女性容易流產，墮胎，剖腹產等情況</p>';
-   html+='<p><strong>騙子號</strong>：禍害夾0（'+lastHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p></div>';
+   html+='<p>筆記原文：3，女性容易流產，墜胎，剖腹產等情況</p></div>';
   }else if(speechHits.length){
-   html+='<div class="hl-warn health-note hai0-merged"><p><strong>騙子號</strong>：禍害夾0（'+speechHits.join('、')+'） — 不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話</p>';
-   html+='<p class="muted">此組出現在末四位以外。筆記健康三條（隱藏傷口／開刀／流產）只適用於手機號後四位。</p></div>';
+   html+='<div class="hl-warn health-note hai0-merged"><p><strong>舊筆記：禍害夾 0（夾在中間）</strong>（'+speechHits.join('、')+'）</p>';
+   html+='<p>不一定存心騙人，說話表裏不一，比較有城府，不一定會說出真實的話。</p>';
+   html+='<p class="muted">此組係 0 夾在禍害兩位中間，不是「禍害後面為 0」。健康三條只適用於手機號後四位。</p></div>';
   }
   if(yeHits.length){
    html+='<div class="hl-warn health-note"><p><strong>筆記</strong>：疾病號：熬夜傷身：延年+五鬼（'+yeHits.join('、')+'）</p>';
