@@ -62,13 +62,19 @@
   if(digits.indexOf('0')>=0){
    html+='<div class="hl-warn"><strong>'+label+'</strong>：號入面見0 — 隱藏地下情／隱藏婚姻，婚姻易有第三者；男易婚外情，女易被小三；亦易被朋友捅刀子。</div>';
   }
+  if(kind==='plate'){
+   var hit16=['16','61'].filter(function(x){return digits.indexOf(x)>=0;});
+   if(hit16.length){
+    html+='<div class="hl-warn"><strong>'+label+'</strong>：'+hit16.join('、')+'六煞磁場 — 這個司機開車喜歡超車，不喜歡前面有車，只想做第一；加上這個人開車的時候想法比較多，決定有時不夠果斷，所以車禍也就是一霽那的事。</div>';
+   }
+  }
   if(pairs&&pairs.length){
    var has={};
    pairs.forEach(function(p){has[p.field]=1;});
    if(has.shengqi&&has.tianyi&&has.yannian){
     html+='<div class="hl-resolve"><strong>'+label+'</strong>：有齊生氣、天醫、延年三吉。';
     var yn=pairs.filter(function(p){return p.field==='yannian';}).map(function(p){return p.pair;});
-    if(yn.indexOf('19')>=0||yn.indexOf('91')>=0) html+='延年收到19／91，能量轃43／34強。';
+    if(yn.indexOf('19')>=0||yn.indexOf('91')>=0) html+='延年收到19／91，能量轟43／34強。';
     html+='</div>';
    }
    var allTian=true;
