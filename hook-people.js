@@ -31,16 +31,42 @@
   });
   grid.setAttribute('data-people','1');
  }
+ function digitsNow(){
+  var kind=window.currentKind|| (typeof currentKind!=='undefined'?currentKind:'phone');
+  try{
+   if(kind==='birth'){
+    var iso=document.getElementById('birthInput').value;
+    var m=typeof birthCode==='function'?birthCode(iso):null;
+    return m?m.code:'';
+   }
+   if(kind==='plate'&&typeof plateToDigits==='function'){
+    return plateToDigits(document.getElementById('numInput').value.trim());
+   }
+   var raw=document.getElementById('numInput').value.trim();
+   if(kind==='id'||kind==='address'||kind==='other'){
+    raw=typeof expandLetters==='function'?expandLetters(raw):raw;
+   }
+   return typeof extractDigits==='function'?extractDigits(raw):raw.replace(/\D/g,'');
+  }catch(e){return '';}
+ }
+ function presentFields(){
+  var has={};
+  var kind=window.currentKind|| (typeof currentKind!=='undefined'?currentKind:'phone');
+  var digits=digitsNow();
+  if(typeof buildPairs==='function'&&digits){
+   var pairs=buildPairs(digits,kind)||[];
+   pairs.forEach(function(p){if(p&&p.field)has[p.field]=1;});
+  }
+  return has;
+ }
  function injectRead(){
   var box=document.getElementById('kindReadBox');
   if(!box||box.querySelector('[data-people-read]'))return;
+  var has=presentFields();
   var html='';
   Object.keys(P).forEach(function(k){
-   var name=FIELDS[k]&&FIELDS[k].name;
-   if(!name)return;
-   if(box.textContent.indexOf(name)>=0){
-    html+=block(k).replace('class="hl-warn"','class="hl-warn" data-people-read="1"');
-   }
+   if(!has[k])return;
+   html+=block(k).replace('class="hl-warn"','class="hl-warn" data-people-read="1"');
   });
   if(html)box.insertAdjacentHTML('beforeend',html);
  }
