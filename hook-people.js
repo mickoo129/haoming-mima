@@ -12,7 +12,7 @@
  function block(k){
   var p=P[k],f=FIELDS[k];
   if(!p||!f)return '';
-  return '<div class="hl-warn"><span class="src src-n">筆記</span><strong>模擬代表人物</strong>：'+p.names+'<br>特質：'+p.trait+'<br>'+p.text+'</div>';
+  return '<div class="hl-warn"><span class="src src-n">筆記</span><strong>'+f.name+' · 模擬代表人物</strong>：'+p.names+'<br>特質：'+p.trait+'<br>'+p.text+'</div>';
  }
  function injectWiki(){
   var grid=document.getElementById('wikiGrid');
