@@ -80,7 +80,7 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(attach,0);});
  else setTimeout(attach,0);
- var v='?v=20261118c';
+ var v='?v=20261124a';
  var s=document.createElement('script');s.src='./hook-plate.js'+v;document.body.appendChild(s);
  var s2=document.createElement('script');s2.src='./hook-hl.js'+v;document.body.appendChild(s2);
  var s3=document.createElement('script');s3.src='./hook-layout.js'+v;document.body.appendChild(s3);
@@ -95,4 +95,5 @@
  var s12=document.createElement('script');s12.src='./hook-zero-note.js'+v;document.body.appendChild(s12);
  var s13=document.createElement('script');s13.src='./hook-read-order.js'+v;document.body.appendChild(s13);
  var s14=document.createElement('script');s14.src='./hook-people.js'+v;document.body.appendChild(s14);
+ var s15=document.createElement('script');s15.src='./hook-coop.js'+v;document.body.appendChild(s15);
 })();
