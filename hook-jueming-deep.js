@@ -3,7 +3,7 @@
   var f=FIELDS.jueming;
   if(!f)return '';
   return '<div class="hl-warn"><span class="src src-n">筆記</span><strong>絕命</strong>：分析要點<br>'
-   +'數字易經初級課程，能夠看到手機號碼，了解對方情況，準確率可達到80分。高級親傳班可達到95%以上精準率。<br>'
+   +'數字易經初級課程，能夠看到手機號碼，了解對方情況，準確率可以達到80分。高級親傳班可以達到95%以上精準率。<br>'
    +'舉例：12、69為一、二級高能量；47、38為三、四級低能量。分析絕命數字時，必須結合年齡、職業、城市三項資訊綜合判斷。<br>'
    +'1，年齡：不同年齡段承受風險與投資的能力不同。<br>'
    +'2，職業：區分上班族與做生意者，體制內與體制外差異明顯。<br>'
@@ -68,6 +68,8 @@
   return false;
  }
  function injectRead(){
+  var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'');
+  if(kind!=='phone')return;
   var box=document.getElementById('kindReadBox');
   if(!box||box.querySelector('[data-jueming-deep]'))return;
   if(!hasJueming())return;
