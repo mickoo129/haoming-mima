@@ -82,6 +82,8 @@
   return has;
  }
  function injectRead(){
+  var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'');
+  if(kind!=='phone')return;
   var box=document.getElementById('kindReadBox');
   if(!box||box.querySelector('[data-coop-read]'))return;
   var has=presentFields();
