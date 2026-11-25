@@ -65,7 +65,7 @@
   if(kind==='plate'){
    var hit16=['16','61'].filter(function(x){return digits.indexOf(x)>=0;});
    if(hit16.length){
-    html+='<div class="hl-warn"><strong>'+label+'</strong>：'+hit16.join('、')+'六煞磁場 — 這個司機開車喜歡超車，不喜歡前面有車，只想做第一；加上這個人開車的時候想法比較多，決定有時不夠果斷，所以車禍也就是一霽那的事。</div>';
+    html+='<div class="hl-warn"><strong>'+label+'</strong>：'+hit16.join('、')+'六煞磁場 — 這個司機開車喜歡超車，不喜歡前面有車，只想做第一；加上這個人開車的時候想法比較多，決定有時不夠果斷，所以車禍也就是一霎那的事。</div>';
    }
   }
   if(pairs&&pairs.length){
@@ -80,7 +80,7 @@
    var allTian=true;
    pairs.forEach(function(p){if(p.field!=='tianyi')allTian=false;});
    if(allTian){
-    html+='<div class="nature"><strong>'+label+'</strong>：全程天醫（5夾中當伏跟前，未講增強），冇生氣同延年磁場。</div>';
+    html+='<div class="nature"><strong>'+label+'</strong>：全程天醫（5夾中當伏跟前，未講增強），唔生氣同延年磁場。</div>';
    }
   }
   return html;
