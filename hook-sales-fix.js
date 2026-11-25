@@ -5,7 +5,7 @@
   yannian:'延年：專業致勝，用專業成交。在他的領域要比他更加全面細致。有主見，用二選一讓他自己選，同時要懂得順從，不要起爭執。',
   wugui:'五鬼：疑心病重，不能急躁。用案例見證、事實見證、熟人見證建立信任，欲擒故縱成交法。',
   liusha:'六煞：喜歡被讚美，不喜歡評論指責，喜歡編織夢想。需要給他確切保證。',
-  huohai:'禍害：要面子，喜歡發表評論、見解，自認為很專業或表現得很專業。當他越挑剚代表他越重視。只需認同並且按照他提出的需求做調整，做最好的聆聽者，服從他、認同他，讓他找到被人重視、給他老大的感覺，就會被成交。喜歡被承諾、被保證的感覺。',
+  huohai:'禍害：要面子，喜歡發表評論、見解，自認為很專業或表現得很專業。當他越挑剳代表他越重視。只需認同並且按照他提出的需求做調整，做最好的聆聽者，服從他、認同他，讓他找到被人重視、給他老大的感覺，就會被成交。喜歡被承諾、被保證的感覺。',
   jueming:'絕命：感情用事，感覺對了就買單，感覺不對就要翻臉。喜歡講義氣，適合情感聯絡成交。做決定快，喜歡自己作主。'
  };
  function starFromTitle(t){
@@ -17,7 +17,7 @@
  }
  function fill(){
   var kind=window.currentKind||(typeof currentKind!=='undefined'?currentKind:'');
-  if(kind!=='birth'&&kind!=='phone')return;
+  if(kind!=='phone')return;
   var box=document.getElementById('kindReadBox');
   if(!box)return;
   [].slice.call(box.querySelectorAll('.sales-note,.hl-sales')).forEach(function(el){
